@@ -51,7 +51,7 @@ exports.getQuiz = exports.createQuiz = void 0;
 var quiz_1 = require("../models/quiz");
 var user_1 = require("../models/user");
 exports.createQuiz = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, quiz, createdBy, newQuiz, quizCreator, err_1;
+    var _a, quiz, createdBy, newQuiz, quizCreator, response, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -69,7 +69,12 @@ exports.createQuiz = function (req, res, next) { return __awaiter(void 0, void 0
                 }
                 quizCreator.quizzes.push(newQuiz);
                 quizCreator.save();
-                res.status(200).json({ message: "Quiz created", quiz: newQuiz });
+                response = {
+                    message: "Quiz created",
+                    payload: newQuiz,
+                    error: null
+                };
+                res.status(200).json(response);
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _b.sent();

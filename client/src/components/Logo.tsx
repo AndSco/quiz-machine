@@ -13,7 +13,7 @@ const StyledLogo = styled.h1`
   }
 `;
 
-export const Logo: React.FC<{ reset: () => void }> = ({ reset }) => (
+export const Logo: React.FC<{ reset?: () => void }> = ({ reset }) => (
   <StyledLogo onClick={reset}>
     Quiz<span>Machine</span>
   </StyledLogo>

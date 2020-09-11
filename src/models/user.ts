@@ -1,5 +1,6 @@
 import { Schema, Document, model } from "mongoose";
 import { iQuiz } from "./quiz";
+import passportLocalMongoose from "passport-local-mongoose";
 
 export interface iUser extends Document {
   username: string;
@@ -23,5 +24,7 @@ const userSchema: Schema = new Schema({
     }
   ]
 });
+
+// userSchema.plugin(passportLocalMongoose);
 
 export const User = model<iUser>("User", userSchema);

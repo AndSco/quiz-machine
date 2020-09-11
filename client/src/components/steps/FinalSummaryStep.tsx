@@ -6,7 +6,7 @@ import { Colors } from "../../constants/colors";
 import { Question } from "../../models/Question";
 import { getQuestions } from "../../utils/functions";
 import { StepTemplate } from "./StepTemplate";
-import { StyledButton } from "../QuizChoiceButton";
+import { MediumButton, SecondaryButton } from "../UI/Buttons";
 
 const StyledFeature = styled.p`
   color: white;
@@ -35,30 +35,8 @@ const FeaturesContainer = styled.div`
   align-items: center;
 `;
 
-const StartButton = styled(StyledButton)`
-  background-color: ${Colors.DARK_BLUE};
-  margin: 0.5rem 0;
-  width: 250px;
-
-  :hover {
-    background-color: ${Colors.ORANGE};
-  }
-`;
-
-const StyledResetButton = styled(StartButton)`
-  background-color: white;
-  border: 1px solid ${Colors.LIGHTER_GREY};
-  color: ${Colors.LIGHTER_GREY};
-
-  :hover {
-    background-color: ${Colors.ORANGE};
-    color: white;
-    border: 1px solid ${Colors.YELLOW};
-  }
-`;
-
 const ResetButton: React.FC<{ reset: () => void }> = ({ reset }) => (
-  <StyledResetButton onClick={reset}>RESET</StyledResetButton>
+  <SecondaryButton onClick={reset}>RESET</SecondaryButton>
 );
 
 interface Props {
@@ -100,7 +78,7 @@ export const FinalSummaryStep: React.FC<Props> = ({
             marginTop: "1rem"
           }}
         >
-          <StartButton
+          <MediumButton
             onClick={async () => {
               const questionsToUpload = await getQuestions({
                 quizType,
@@ -113,7 +91,7 @@ export const FinalSummaryStep: React.FC<Props> = ({
             }}
           >
             START QUIZ
-          </StartButton>
+          </MediumButton>
           <ResetButton reset={reset} />
         </div>
       </FeaturesContainer>

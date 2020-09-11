@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledButton } from "./QuizChoiceButton";
+import { BaseButton } from "./UI/Buttons";
 import { StyledCard } from "./replies/QuestionCard";
 
 const EndingContainer = styled(StyledCard)``;
@@ -21,7 +21,7 @@ export const Ending: React.FC<EndingProps> = ({
       <h2>
         Your score: {score}/{totalQuestions}
       </h2>
-      <StyledButton onClick={playAgain}>Play again</StyledButton>
+      <BaseButton onClick={playAgain}>Play again</BaseButton>
     </EndingContainer>
   );
 };

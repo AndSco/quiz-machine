@@ -1,0 +1,64 @@
+import styled from "styled-components";
+import { Colors } from "../../constants/colors";
+
+export const BaseButton = styled.button`
+  padding: 0.5rem;
+  background-color: ${Colors.ORANGE};
+  color: white;
+  border-radius: 40px;
+  border: none;
+  width: 250px;
+  font-weight: bolder;
+  font-size: 1.2rem;
+  font-family: "Roboto Slab", serif;
+
+  :hover {
+    background-color: ${Colors.DARK_BLUE};
+  }
+`;
+
+export const MediumButton = styled(BaseButton)`
+  background-color: ${Colors.DARK_BLUE};
+  margin: 0.5rem 0;
+  width: 250px;
+
+  :hover {
+    background-color: ${Colors.ORANGE};
+  }
+`;
+
+export const SecondaryButton = styled(MediumButton)`
+  background-color: white;
+  border: 1px solid ${Colors.LIGHTER_GREY};
+  color: ${Colors.LIGHTER_GREY};
+
+  :hover {
+    background-color: ${Colors.ORANGE};
+    color: white;
+    border: 1px solid ${Colors.YELLOW};
+  }
+`;
+
+export const LoginButton = styled(BaseButton)`
+  width: 100px;
+  font-size: 0.8rem;
+  padding: 0.5rem 0.5rem;
+  background-color: white;
+  border: 2px solid ${Colors.YELLOW};
+  color: ${Colors.YELLOW};
+  margin: 0 20px;
+
+  :hover {
+    background-color: ${Colors.YELLOW};
+    color: white;
+  }
+`;
+
+export const RegisterButton = styled(LoginButton)`
+  border: 2px solid ${Colors.ORANGE};
+  color: ${Colors.ORANGE};
+
+  :hover {
+    background-color: ${Colors.ORANGE};
+  }
+`;

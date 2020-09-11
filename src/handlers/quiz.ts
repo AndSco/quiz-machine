@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { Quiz } from "../models/quiz";
 import { User, iUser } from "../models/user";
+import { ApiResponse } from "../models/apiResponses";
 
 export const createQuiz: RequestHandler = async (req, res, next) => {
   try {
@@ -13,7 +14,12 @@ export const createQuiz: RequestHandler = async (req, res, next) => {
     }
     (quizCreator as iUser).quizzes!.push(newQuiz);
     quizCreator!.save();
-    res.status(200).json({ message: "Quiz created", quiz: newQuiz });
+    const response: ApiResponse = {
+      message: "Quiz created",
+      payload: newQuiz,
+      error: null
+    };
+    res.status(200).json(response);
   } catch (err) {
     return next(err);
   }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Question } from "../../models/Question";
-import { StyledButton } from "../QuizChoiceButton";
+import { BaseButton } from "../UI/Buttons";
 import { Colors } from "../../constants/colors";
 import { Reply } from "./Reply";
 import { Icon } from "../UI/Icon";
@@ -17,7 +17,7 @@ export const StyledCard = styled.div`
   border: 3px solid;
 `;
 
-const NextButton = styled(StyledButton)`
+const NextButton = styled(BaseButton)`
   background-color: ${Colors.VIOLET};
   background-color: ${(props: { hasReplied: boolean }) =>
     props.hasReplied ? Colors.VIOLET : Colors.LIGHTER_GREY};
@@ -26,7 +26,7 @@ const NextButton = styled(StyledButton)`
 
   :hover {
     background-color: ${(props: { hasReplied: boolean }) =>
-      props.hasReplied ? Colors.VIOLET : Colors.LIGHTER_GREY};
+      props.hasReplied ? Colors.STEEL_PINK : Colors.LIGHTER_GREY};
   }
 `;
 

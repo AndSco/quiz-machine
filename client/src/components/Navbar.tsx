@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { Logo } from "./Logo";
 import { Colors } from "../constants/colors";
 import { QuizType } from "../models/Question";
-import { StyledButton } from "./QuizChoiceButton";
+import { Link } from "react-router-dom";
+import { LoginButton, RegisterButton } from "./UI/Buttons";
 
-const NavbarContainer = styled.div`
+export const NavbarContainer = styled.div`
   max-width: 100vw;
   display: flex;
   height: 70px;
@@ -22,10 +23,17 @@ const MenuItems = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 500px;
+  width: 80%;
   font-family: "Fredoka One", cursive;
   cursor: pointer;
   font-size: 0.9rem;
+`;
+
+const MenuItemsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: ${(props: { flex: number }) => props.flex};
 `;
 
 const MenuItem = styled.li`
@@ -36,28 +44,14 @@ const MenuItem = styled.li`
       ? "4px solid #ffcf10"
       : "4px solid white"};
 
-  padding-bottom: 4px;
+  padding: 0 1.5rem 4px 1.5rem;
+  margin: 0 1rem;
 
   :hover {
     border-bottom: ${(props: { value: QuizType; selectedNow: QuizType }) =>
       props.selectedNow === props.value
         ? "4px solid #ffcf10"
         : "4px solid #b9b5b5"};
-  }
-`;
-
-const LoginButton = styled(StyledButton)`
-  width: 100px;
-  font-size: 0.8rem;
-  padding: 0.5rem 0.5rem;
-  background-color: white;
-  border: 2px solid ${Colors.YELLOW};
-  color: ${Colors.YELLOW};
-  margin-left: -40px;
-
-  :hover {
-    background-color: ${Colors.YELLOW};
-    color: white;
   }
 `;
 
@@ -76,22 +70,32 @@ export const Navbar: React.FC<NavbarProps> = ({
     <NavbarContainer>
       <Logo reset={reset} />
       <MenuItems>
-        <MenuItem
-          value={QuizType.TRIVIA}
-          selectedNow={selectedQuiz}
-          onClick={() => chooseQuiz(QuizType.TRIVIA)}
-        >
-          TRIVIA QUIZ
-        </MenuItem>
-        <MenuItem
-          value={QuizType.PROGRAMMING}
-          selectedNow={selectedQuiz}
-          onClick={() => chooseQuiz(QuizType.PROGRAMMING)}
-        >
-          PROGRAMMING QUIZ
-        </MenuItem>
-        <LoginButton>Login</LoginButton>
+        <MenuItemsContainer flex={2}>
+          <MenuItem
+            value={QuizType.TRIVIA}
+            selectedNow={selectedQuiz}
+            onClick={() => chooseQuiz(QuizType.TRIVIA)}
+          >
+            TRIVIA QUIZ
+          </MenuItem>
+          <MenuItem
+            value={QuizType.PROGRAMMING}
+            selectedNow={selectedQuiz}
+            onClick={() => chooseQuiz(QuizType.PROGRAMMING)}
+          >
+            PROGRAMMING QUIZ
+          </MenuItem>
+        </MenuItemsContainer>
       </MenuItems>
+
+      <MenuItemsContainer flex={1}>
+        <Link to="/login">
+          <LoginButton>Login</LoginButton>
+        </Link>
+        <Link to="/register">
+          <RegisterButton>Register</RegisterButton>
+        </Link>
+      </MenuItemsContainer>
     </NavbarContainer>
   );
 };

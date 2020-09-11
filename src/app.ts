@@ -1,15 +1,51 @@
 import express, { Request, Response, NextFunction } from "express";
-const app = express();
-import { json } from "body-parser";
+import bodyParser, { json } from "body-parser";
 import path from "path";
 import { connectToDatabase } from "./handlers/dbConnection";
 import userRoutes from "./routes/user";
 import quizRoutes from "./routes/quiz";
+import authRoutes from "./routes/auth";
+import passport from "passport";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import session from "express-session";
+import { sessionSecret } from "./config";
+import { initialisePassport } from "./passport-config";
+const app = express();
 
+//Body-parser
 app.use(json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Cors
+app.use(
+  cors({
+    origin: "http://localhost/300",
+    credentials: true
+  })
+);
+
+// Session
+app.use(
+  session({
+    secret: sessionSecret as string,
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+// Cookie-parser
+app.use(cookieParser(sessionSecret));
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+initialisePassport(passport);
+
+// Routes
 app.use("/api/user", userRoutes);
 app.use("/api/quiz", quizRoutes);
+app.use("/api/auth", authRoutes);
 
 // connect to DB
 connectToDatabase();
