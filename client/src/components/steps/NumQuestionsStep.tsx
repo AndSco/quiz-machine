@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { MainTitle } from "../UI/MainTitle";
-import { Step } from "../../models/Step";
+import { MainTitle } from "../UI/Titles";
 import { StepTemplate } from "./StepTemplate";
 import { NextButton } from "../UI/NextButton";
+import { QuizzesContext } from "../../contexts/quizzes/Quizzes";
 
 const InputContainer = styled.div``;
 const Input = styled.input`
@@ -15,15 +15,11 @@ const Input = styled.input`
 `;
 
 interface Props {
-  chooseAmountOfQuestions: (num: number) => void;
   currentAmount: number;
 }
 
-export const NumQuestionsStep: React.FC<Props & Step> = ({
-  chooseAmountOfQuestions,
-  currentAmount,
-  goForward
-}) => {
+export const NumQuestionsStep: React.FC<Props> = ({ currentAmount }) => {
+  const { configQuiz, goToNextQuizConfiguration } = useContext(QuizzesContext);
   return (
     <StepTemplate>
       <MainTitle>How many questions?</MainTitle>
@@ -35,10 +31,10 @@ export const NumQuestionsStep: React.FC<Props & Step> = ({
           max={7}
           value={currentAmount}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            chooseAmountOfQuestions(+e.target.value);
+            configQuiz("numberOfQuestions", +e.target.value);
           }}
         />
-        <NextButton onClickFunction={goForward} />
+        <NextButton onClickFunction={goToNextQuizConfiguration} />
       </InputContainer>
     </StepTemplate>
   );

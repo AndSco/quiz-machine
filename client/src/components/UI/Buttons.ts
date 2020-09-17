@@ -46,7 +46,7 @@ export const LoginButton = styled(BaseButton)`
   background-color: white;
   border: 2px solid ${Colors.YELLOW};
   color: ${Colors.YELLOW};
-  margin: 0 20px;
+  margin: 0 6px;
 
   :hover {
     background-color: ${Colors.YELLOW};
@@ -60,5 +60,18 @@ export const RegisterButton = styled(LoginButton)`
 
   :hover {
     background-color: ${Colors.ORANGE};
+  }
+`;
+
+export const SmallButton = styled(MediumButton as "div")`
+  width: 100px;
+  font-size: 0.8rem;
+  height: 30px;
+  color: ${Colors.ORANGE};
+  background-color: white;
+  margin-top: 0;
+
+  :hover {
+    color: white;
   }
 `;

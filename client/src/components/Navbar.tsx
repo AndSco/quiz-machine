@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Logo } from "./Logo";
 import { Colors } from "../constants/colors";
 import { QuizType } from "../models/Question";
 import { Link } from "react-router-dom";
 import { LoginButton, RegisterButton } from "./UI/Buttons";
+import { AuthContext } from "../contexts/auth/Auth";
+import { QuizzesContext } from "../contexts/quizzes/Quizzes";
 
 export const NavbarContainer = styled.div`
   max-width: 100vw;
@@ -31,7 +33,7 @@ const MenuItems = styled.ul`
 
 const MenuItemsContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   flex: ${(props: { flex: number }) => props.flex};
 `;
@@ -55,47 +57,64 @@ const MenuItem = styled.li`
   }
 `;
 
-interface NavbarProps {
-  selectedQuiz: QuizType;
-  chooseQuiz: (quizType: QuizType) => void;
-  reset: () => void;
-}
+const BackButton = styled(LoginButton)`
+  width: 160px;
+`;
 
-export const Navbar: React.FC<NavbarProps> = ({
-  selectedQuiz,
-  chooseQuiz,
-  reset
-}) => {
+const AuthButtons: React.FC = () => {
+  return (
+    <MenuItemsContainer flex={1}>
+      <Link to="/login">
+        <LoginButton>Login</LoginButton>
+      </Link>
+      <Link to="/register">
+        <RegisterButton>Register</RegisterButton>
+      </Link>
+    </MenuItemsContainer>
+  );
+};
+
+export const Navbar: React.FC = () => {
+  const { quizType, configQuiz, reset } = useContext(QuizzesContext);
+  const { currentUser, isInPrivateSection } = useContext(AuthContext);
+
   return (
     <NavbarContainer>
-      <Logo reset={reset} />
-      <MenuItems>
-        <MenuItemsContainer flex={2}>
-          <MenuItem
-            value={QuizType.TRIVIA}
-            selectedNow={selectedQuiz}
-            onClick={() => chooseQuiz(QuizType.TRIVIA)}
-          >
-            TRIVIA QUIZ
-          </MenuItem>
-          <MenuItem
-            value={QuizType.PROGRAMMING}
-            selectedNow={selectedQuiz}
-            onClick={() => chooseQuiz(QuizType.PROGRAMMING)}
-          >
-            PROGRAMMING QUIZ
-          </MenuItem>
-        </MenuItemsContainer>
-      </MenuItems>
+      <Link to="">
+        <Logo reset={reset} />
+      </Link>
+      {!isInPrivateSection && (
+        <MenuItems>
+          <MenuItemsContainer flex={2}>
+            <MenuItem
+              value={QuizType.TRIVIA}
+              selectedNow={quizType}
+              onClick={() => configQuiz("quizType", QuizType.TRIVIA)}
+            >
+              TRIVIA QUIZ
+            </MenuItem>
+            <MenuItem
+              value={QuizType.PROGRAMMING}
+              selectedNow={quizType}
+              onClick={() => configQuiz("quizType", QuizType.PROGRAMMING)}
+            >
+              PROGRAMMING QUIZ
+            </MenuItem>
+          </MenuItemsContainer>
+        </MenuItems>
+      )}
 
-      <MenuItemsContainer flex={1}>
-        <Link to="/login">
-          <LoginButton>Login</LoginButton>
+      {!isInPrivateSection && !currentUser ? (
+        <AuthButtons />
+      ) : isInPrivateSection ? (
+        <Link to="/">
+          <BackButton>Back to quizzes</BackButton>
         </Link>
-        <Link to="/register">
-          <RegisterButton>Register</RegisterButton>
+      ) : (
+        <Link to="/myDashboard">
+          <BackButton>My dashboard</BackButton>
         </Link>
-      </MenuItemsContainer>
+      )}
     </NavbarContainer>
   );
 };

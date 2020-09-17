@@ -1,35 +1,55 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { PublicQuizzes } from "./components/sections/PublicQuizzes";
+import { PublicQuizzes } from "./components/sections/public/PublicQuizzes";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBookOpen,
   faTachometerAlt,
-  faChevronRight
+  faChevronRight,
+  faQuestionCircle,
+  faPlusCircle,
+  faEye
 } from "@fortawesome/free-solid-svg-icons";
-import { PrivateSection } from "./components/sections/PrivateSection";
+import { PrivateSection } from "./components/sections/private/PrivateSection";
+import { AuthContextProvider } from "./contexts/auth/Auth";
+import { QuizzesContextProvider } from "./contexts/quizzes/Quizzes";
+import { Navbar } from "./components/Navbar";
+import { UserDashboard } from "./components/sections/private/UserDashboard";
 
-library.add(faBookOpen, faTachometerAlt, faChevronRight);
+library.add(
+  faBookOpen,
+  faTachometerAlt,
+  faChevronRight,
+  faQuestionCircle,
+  faPlusCircle,
+  faEye
+);
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/" component={PublicQuizzes} />
-          <Route
-            exact
-            path="/login"
-            render={() => <PrivateSection activity="login" />}
-          />
-          <Route
-            exact
-            path="/register"
-            render={() => <PrivateSection activity="registration" />}
-          />
-        </Switch>
-      </Router>
+      <QuizzesContextProvider>
+        <AuthContextProvider>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={PublicQuizzes} />
+              <Route
+                exact
+                path="/login"
+                render={() => <PrivateSection activity="login" />}
+              />
+              <Route
+                exact
+                path="/register"
+                render={() => <PrivateSection activity="register" />}
+              />
+              <Route exact path="/myDashboard" component={UserDashboard} />
+            </Switch>
+          </Router>
+        </AuthContextProvider>
+      </QuizzesContextProvider>
     </div>
   );
 };

@@ -69,8 +69,6 @@ export const registerUser: RequestHandler = async (req, res, next) => {
       };
       return res.status(200).json(response);
     }
-
-    // res.status(200).json(response);
   } catch (err) {
     return next(err);
   }

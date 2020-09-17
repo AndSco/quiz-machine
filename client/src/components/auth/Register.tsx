@@ -1,11 +1,18 @@
-import React from "react";
-import { Form } from "../UI/Form";
-import { RegistrationStartingValues } from "../../constants/formInputsValues";
+import React, { useContext, useEffect } from "react";
+import { Form } from "./AuthForm";
+import { RegistrationFormInputsValues } from "../../constants/formInputsValues";
 import { SectionTitle } from "./Styled";
 import { Colors } from "../../constants/colors";
 import { AccessSwitch } from "./AccessSwitch";
+import { AuthContext } from "../../contexts/auth/Auth";
 
 export const Register: React.FC = () => {
+  const { goToPrivateSection } = useContext(AuthContext);
+
+  useEffect(() => {
+    goToPrivateSection();
+  }, [goToPrivateSection]);
+
   return (
     <>
       <div>
@@ -17,7 +24,7 @@ export const Register: React.FC = () => {
       <Form
         scope="register"
         title="register"
-        inputs={RegistrationStartingValues}
+        inputs={RegistrationFormInputsValues}
       />
       <AccessSwitch scope="register" />
     </>

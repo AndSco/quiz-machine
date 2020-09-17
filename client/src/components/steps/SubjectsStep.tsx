@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { MainTitle } from "../UI/MainTitle";
-import { Step } from "../../models/Step";
+import { BigTitle, Title, SubTitle } from "../UI/Titles";
 import { QuizType, Subject } from "../../models/Question";
 import {
   shortenLengthySubjects,
@@ -12,6 +11,7 @@ import {
   TriviaCategories
 } from "../../constants/questionCategories";
 import { Colors } from "../../constants/colors";
+import { QuizzesContext } from "../../contexts/quizzes/Quizzes";
 
 const SubjectsContainer = styled.div`
   flex: 1;
@@ -53,30 +53,16 @@ const StyledSubject = styled.div`
   }
 `;
 
-const Title = styled.h3`
-  background-color: white;
-  color: ${Colors.BLACK};
-  padding: 0 0.5rem;
-  font-size: 1.2rem;
-`;
-
-const BigTitle = styled(MainTitle)`
-  margin-bottom: 0.6rem;
-`;
-
-const SubTitle = styled.p`
-  color: ${Colors.LIGHTER_GREY};
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-`;
-
-const SubjectElement: React.FC<{ title: string; value: Subject } & Updatable &
-  Step> = ({ title, value, updateSubject, goForward }) => {
+const SubjectElement: React.FC<{ title: string; value: Subject }> = ({
+  title,
+  value
+}) => {
+  const { configQuiz, goToNextQuizConfiguration } = useContext(QuizzesContext);
   return (
     <StyledSubject
       onClick={() => {
-        updateSubject(value);
-        goForward();
+        configQuiz("subject", value);
+        goToNextQuizConfiguration();
       }}
       style={{ backgroundImage: `url("${getSubjectBackgroundPic(value)})"` }}
     >
@@ -89,15 +75,7 @@ interface Props {
   quizType: QuizType;
 }
 
-interface Updatable {
-  updateSubject: (subject: Subject) => void;
-}
-
-export const SubjectsStep: React.FC<Props & Step & Updatable> = ({
-  quizType,
-  updateSubject,
-  goForward
-}) => {
+export const SubjectsStep: React.FC<Props> = ({ quizType }) => {
   const availableSubjects =
     quizType === QuizType.TRIVIA ? TriviaCategories : ProgrammingCategories;
   return (
@@ -125,16 +103,9 @@ export const SubjectsStep: React.FC<Props & Step & Updatable> = ({
               key={subject}
               value={subject as Subject}
               title={shortenLengthySubjects(subject as string)!}
-              updateSubject={updateSubject}
-              goForward={goForward}
             />
           ))}
-        <SubjectElement
-          value=""
-          title="Random"
-          updateSubject={updateSubject}
-          goForward={goForward}
-        />
+        <SubjectElement value="" title="Random" />
       </SubjectsContainer>
     </>
   );

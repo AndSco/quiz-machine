@@ -18,5 +18,4 @@ var userSchema = new mongoose_1.Schema({
         }
     ]
 });
-// userSchema.plugin(passportLocalMongoose);
 exports.User = mongoose_1.model("User", userSchema);

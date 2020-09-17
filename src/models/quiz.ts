@@ -6,6 +6,7 @@ export interface iQuiz extends Document {
   backgroundImageUrl?: string;
   questions: iQuestion[];
   createdBy: string;
+  isPrivate: boolean;
 }
 
 const quizSchema: Schema = new Schema(
@@ -19,9 +20,28 @@ const quizSchema: Schema = new Schema(
       default:
         "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
     },
-    questions: [],
+    questions: [
+      {
+        question: {
+          type: String,
+          required: true
+        },
+        allReplies: [],
+        rightReply: {
+          type: String,
+          required: true
+        },
+        explanation: {
+          type: String
+        }
+      }
+    ],
     createdBy: {
       type: String
+    },
+    isPrivate: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }

@@ -47,15 +47,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getQuiz = exports.createQuiz = void 0;
+exports.getSingleQuiz = exports.getAllPublicQuizzes = exports.createQuiz = void 0;
 var quiz_1 = require("../models/quiz");
 var user_1 = require("../models/user");
 exports.createQuiz = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, quiz, createdBy, newQuiz, quizCreator, response, err_1;
+    var response, _a, quiz, createdBy, newQuiz, quizCreator, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 3, , 4]);
+                response = void 0;
                 _a = req.body, quiz = _a.quiz, createdBy = _a.createdBy;
                 return [4 /*yield*/, quiz_1.Quiz.create(__assign(__assign({}, quiz), { createdBy: createdBy }))];
             case 1:
@@ -63,17 +64,22 @@ exports.createQuiz = function (req, res, next) { return __awaiter(void 0, void 0
                 return [4 /*yield*/, user_1.User.findById(createdBy)];
             case 2:
                 quizCreator = _b.sent();
-                if (!quizCreator) {
-                    console.log("USER NOT FOUND");
-                    return [2 /*return*/];
+                if (!quizCreator || !newQuiz) {
+                    response = {
+                        message: "Something went wrong",
+                        payload: null,
+                        error: "Something went wrong"
+                    };
                 }
-                quizCreator.quizzes.push(newQuiz);
-                quizCreator.save();
-                response = {
-                    message: "Quiz created",
-                    payload: newQuiz,
-                    error: null
-                };
+                else {
+                    quizCreator.quizzes.push(newQuiz);
+                    quizCreator.save();
+                    response = {
+                        message: "Quiz created",
+                        payload: newQuiz,
+                        error: null
+                    };
+                }
                 res.status(200).json(response);
                 return [3 /*break*/, 4];
             case 3:
@@ -83,8 +89,30 @@ exports.createQuiz = function (req, res, next) { return __awaiter(void 0, void 0
         }
     });
 }); };
-exports.getQuiz = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var quizId, quiz, err_2;
+exports.getAllPublicQuizzes = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var allQuizzes, response, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, quiz_1.Quiz.find({})];
+            case 1:
+                allQuizzes = _a.sent();
+                response = {
+                    message: "All quizzes",
+                    error: null,
+                    payload: allQuizzes
+                };
+                return [2 /*return*/, res.status(200).json(response)];
+            case 2:
+                err_2 = _a.sent();
+                return [2 /*return*/, next(err_2)];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getSingleQuiz = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var quizId, quiz, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -95,8 +123,8 @@ exports.getQuiz = function (req, res, next) { return __awaiter(void 0, void 0, v
                 quiz = _a.sent();
                 return [2 /*return*/, res.status(200).json(quiz)];
             case 2:
-                err_2 = _a.sent();
-                return [2 /*return*/, next(err_2)];
+                err_3 = _a.sent();
+                return [2 /*return*/, next(err_3)];
             case 3: return [2 /*return*/];
         }
     });

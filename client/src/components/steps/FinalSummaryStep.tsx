@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { QuizType, Subject } from "../../models/Question";
-import { Difficulty } from "../../models/TriviaApi";
 import { Colors } from "../../constants/colors";
-import { Question } from "../../models/Question";
 import { getQuestions } from "../../utils/functions";
 import { StepTemplate } from "./StepTemplate";
 import { MediumButton, SecondaryButton } from "../UI/Buttons";
+import { QuizzesContext } from "../../contexts/quizzes/Quizzes";
 
 const StyledFeature = styled.p`
   color: white;
@@ -39,23 +37,15 @@ const ResetButton: React.FC<{ reset: () => void }> = ({ reset }) => (
   <SecondaryButton onClick={reset}>RESET</SecondaryButton>
 );
 
-interface Props {
-  quizType: QuizType;
-  numberOfQuestions: number;
-  difficulty: Difficulty;
-  subject: Subject;
-  uploadQuestions: (questions: Question[]) => void;
-  reset: () => void;
-}
-
-export const FinalSummaryStep: React.FC<Props> = ({
-  quizType,
-  numberOfQuestions,
-  difficulty,
-  subject,
-  uploadQuestions,
-  reset
-}) => {
+export const FinalSummaryStep: React.FC = () => {
+  const {
+    quizType,
+    numberOfQuestions,
+    difficultyLevel,
+    currentSubject,
+    uploadQuestions,
+    reset
+  } = useContext(QuizzesContext);
   return (
     <StepTemplate>
       <FeaturesContainer>
@@ -66,10 +56,10 @@ export const FinalSummaryStep: React.FC<Props> = ({
           No. of questions: <span>{numberOfQuestions}</span>
         </StyledFeature>
         <StyledFeature>
-          Difficulty: <span>{difficulty || "Any"}</span>
+          Difficulty: <span>{difficultyLevel || "Any"}</span>
         </StyledFeature>
         <StyledFeature>
-          Subject: <span>{subject || "Random"}</span>
+          Subject: <span>{currentSubject || "Random"}</span>
         </StyledFeature>
         <div
           style={{
@@ -82,9 +72,9 @@ export const FinalSummaryStep: React.FC<Props> = ({
             onClick={async () => {
               const questionsToUpload = await getQuestions({
                 quizType,
-                difficulty,
+                difficulty: difficultyLevel,
                 numOfQuestions: numberOfQuestions,
-                subject
+                subject: currentSubject
               });
 
               uploadQuestions(questionsToUpload);
