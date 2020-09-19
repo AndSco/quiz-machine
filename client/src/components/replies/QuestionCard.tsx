@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Question } from "../../models/Question";
+import { Question as PublicQuizQuestion } from "../../models/PublicQuizQuestion";
+import { PrivateQuizQuestion } from "../../models/PrivateQuiz";
 import { BaseButton } from "../UI/Buttons";
 import { Colors } from "../../constants/colors";
 import { Reply } from "./Reply";
@@ -68,11 +69,12 @@ const StyledQuestion = styled.h4`
 `;
 
 interface QuestionCardProps {
-  question: Question;
+  question: PublicQuizQuestion | PrivateQuizQuestion;
   numberOfQuestions: number;
   currentNumberOfQuestion: number;
   next: () => void;
   givePoint: () => void;
+  quizType: "private" | "public";
 }
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -80,9 +82,11 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   next,
   numberOfQuestions,
   currentNumberOfQuestion,
-  givePoint
+  givePoint,
+  quizType
 }) => {
   console.log("QUESTION", question);
+
   const [hasReplied, setHasReplied] = useState(false);
 
   const replyQuestion = () => setHasReplied(true);
@@ -119,14 +123,19 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         NEXT
       </NextButton>
       <CardBottom>
-        <CardBottomItem>
-          <Icon icon={"book-open"} />
-          {question.subject}
-        </CardBottomItem>
-        <CardBottomItem>
-          <Icon icon={"tachometer-alt"} />
-          {question.difficulty.toUpperCase()}
-        </CardBottomItem>
+        {quizType === "public" && (
+          <>
+            <CardBottomItem>
+              <Icon icon={"book-open"} />
+              {(question as PublicQuizQuestion).subject}
+            </CardBottomItem>
+            <CardBottomItem>
+              <Icon icon={"tachometer-alt"} />
+              {(question as PublicQuizQuestion).difficulty.toUpperCase()}
+            </CardBottomItem>
+          </>
+        )}
+
         <QuestionNumber>{`${currentNumberOfQuestion}/${numberOfQuestions}`}</QuestionNumber>
       </CardBottom>
     </StyledCard>

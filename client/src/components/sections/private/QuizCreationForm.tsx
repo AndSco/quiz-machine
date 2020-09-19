@@ -23,6 +23,7 @@ import { AuthContext } from "../../../contexts/auth/Auth";
 import { ApiResponse } from "../../../models/ApiResponse";
 import { SavedQuestionCard } from "./SavedQuestionCard";
 import { Icon } from "../../UI/Icon";
+import { capitaliseInput } from "../../../utils/functions";
 
 const RadioButtonsContainer = styled.div`
   display: flex;
@@ -85,6 +86,7 @@ export const QuizCreationForm: React.FC = () => {
 
   const handleSubmit = async () => {
     const quizCreated = { ...inputValues };
+    quizCreated.title = capitaliseInput(quizCreated.title);
     console.log("QUIZ CREATED", quizCreated);
     const response = await createQuiz(quizCreated, currentUser!._id);
     setUploadMessage((response as ApiResponse).message as string);

@@ -1,4 +1,9 @@
-import { QuizType, Question, Subject, APISendable } from "../models/Question";
+import {
+  QuizType,
+  Question,
+  Subject,
+  APISendable
+} from "../models/PublicQuizQuestion";
 import {
   TriviaResultType,
   Difficulty,
@@ -81,8 +86,12 @@ const formatProgrammingQuestion = (q: ProgrammingQuizResultType) => {
   );
 };
 
-const shuffleArray = (array: any[]) =>
-  array.sort((a, b) => 0.5 - Math.random());
+// export const shuffleArray = (array: any[]) =>
+//   array.sort((a, b) => 0.5 - Math.random());
+
+export function shuffleArray<T>(array: Array<T>): Array<T> {
+  return array.sort((a, b) => 0.5 - Math.random());
+}
 
 const getReplyLabel = (label: string) => label.split("_correct")[0];
 
@@ -98,3 +107,8 @@ export const getPropertyName = <T, U extends keyof T>(
 
 export const getSubjectBackgroundPic = (subject: any) =>
   getPropertyName(picsUrls, subject);
+
+export const capitaliseInput = (input: string) => {
+  const initial = input[0];
+  return initial.toUpperCase() + input.slice(1);
+};

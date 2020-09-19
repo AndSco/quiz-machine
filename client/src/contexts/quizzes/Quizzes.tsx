@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { Question, QuizType, Subject } from "../../models/Question";
+import { Question, QuizType, Subject } from "../../models/PublicQuizQuestion";
 import { Difficulty } from "../../models/TriviaApi";
 
 type ConfigOption = "quizType" | "difficulty" | "numberOfQuestions" | "subject";

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { Subject } from "../../../models/Question";
-import { NumQuestionsStep } from "../../steps/NumQuestionsStep";
-import { DifficultyStep } from "../../steps/DifficultyStep";
-import { SubjectsStep } from "../../steps/SubjectsStep";
-import { FinalSummaryStep } from "../../steps/FinalSummaryStep";
-import { ActualQuiz } from "../../ActualQuiz";
+import { Subject } from "../../../models/PublicQuizQuestion";
+import { NumQuestionsStep } from "./optionSteps/NumQuestionsStep";
+import { DifficultyStep } from "./optionSteps/DifficultyStep";
+import { SubjectsStep } from "./optionSteps/SubjectsStep";
+import { FinalSummaryStep } from "./optionSteps/FinalSummaryStep";
+import { ActualQuiz } from "./ActualPublicQuiz";
 import { QuizzesContext } from "../../../contexts/quizzes/Quizzes";
 import { AuthContext } from "../../../contexts/auth/Auth";
 import { Wrapper } from "../../UI/Wrapper";

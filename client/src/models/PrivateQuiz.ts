@@ -7,9 +7,9 @@ export interface iQuestion {
 export interface PrivateQuiz {
   title: string;
   backgroundImageUrl?: string;
-  // questions: iQuestion[];
   questions: PrivateQuizQuestion[];
   isPrivate: boolean;
+  _id?: string;
 }
 
 export class PrivateQuizQuestion implements iQuestion {

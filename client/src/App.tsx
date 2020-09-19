@@ -9,13 +9,19 @@ import {
   faChevronRight,
   faQuestionCircle,
   faPlusCircle,
-  faEye
+  faEye,
+  faArrowCircleLeft,
+  faCheckCircle,
+  faTimesCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { PrivateSection } from "./components/sections/private/PrivateSection";
 import { AuthContextProvider } from "./contexts/auth/Auth";
 import { QuizzesContextProvider } from "./contexts/quizzes/Quizzes";
 import { Navbar } from "./components/Navbar";
 import { UserDashboard } from "./components/sections/private/UserDashboard";
+import { ActualPrivateQuiz } from "./components/sections/private/ActualPrivateQuiz";
+
+import { RouteComponentProps } from "react-router";
 
 library.add(
   faBookOpen,
@@ -23,8 +29,17 @@ library.add(
   faChevronRight,
   faQuestionCircle,
   faPlusCircle,
-  faEye
+  faEye,
+  faArrowCircleLeft,
+  faCheckCircle,
+  faTimesCircle
 );
+
+interface MatchParams {
+  quizId: string;
+}
+
+interface MatchProps extends RouteComponentProps<MatchParams> {}
 
 const App: React.FC = () => {
   return (
@@ -46,6 +61,12 @@ const App: React.FC = () => {
                 render={() => <PrivateSection activity="register" />}
               />
               <Route exact path="/myDashboard" component={UserDashboard} />
+              <Route
+                path="/quiz/:quizId"
+                render={({ match }: MatchProps) => (
+                  <ActualPrivateQuiz quizId={match.params.quizId} />
+                )}
+              />
             </Switch>
           </Router>
         </AuthContextProvider>

@@ -9,12 +9,16 @@ import {
 } from "../../UI/Input";
 import { SmallButton } from "../../UI/Buttons";
 import { Modal } from "../../UI/Modal";
+import { shuffleArray, capitaliseInput } from "../../../utils/functions";
+import { Colors } from "../../../constants/colors";
+import { Icon } from "../../UI/Icon";
 
 const ComplexInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 1.5rem;
+  margin-top: 1rem;
 `;
 
 const StyledUploadedReplies = styled.ul`
@@ -23,6 +27,42 @@ const StyledUploadedReplies = styled.ul`
   padding: 0.5rem;
   text-align: left;
 `;
+
+const PinkSubmitButton = styled(SubmitButton)`
+  background-color: ${Colors.STEEL_PINK};
+`;
+
+const StyledAnswer = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 0 1rem;
+  border-radius: 40px;
+  font-size: 0.8rem;
+  text-align: left;
+  margin: 0.6rem 0;
+`;
+
+const Answer: React.FC<{ label: string; value: string; isRight: boolean }> = ({
+  label,
+  value,
+  isRight
+}) => {
+  return (
+    <StyledAnswer>
+      <Icon
+        icon={isRight ? "check-circle" : "times-circle"}
+        color={isRight ? Colors.GREEN : Colors.RED}
+      />{" "}
+      <h5>
+        <span style={{ color: Colors.LIGHTEST_GREY, marginRight: 5 }}>
+          {label}
+        </span>
+        {value}
+      </h5>
+    </StyledAnswer>
+  );
+};
 
 const QuestionInput: React.FC<{
   label: string;
@@ -41,7 +81,9 @@ const UploadedReplies: React.FC<{ replies: string[] }> = ({ replies }) => {
   return (
     <StyledUploadedReplies>
       {replies.map((reply, index) => (
-        <li key={index}>R: {reply}</li>
+        <li key={index}>
+          <Answer label="A: " isRight={false} value={reply} />
+        </li>
       ))}
     </StyledUploadedReplies>
   );
@@ -60,13 +102,17 @@ export const QuestionSubForm: React.FC<Props> = ({
   const [hasEnteredQuestion, setHasEnteredQuestion] = useState(false);
   const [hasEnteredRightReply, setHasEnteredRightReply] = useState(false);
   const [currentReply, setCurrentReply] = useState("");
-  const [allReplies, setAllReplies] = useState<string[]>([]);
   const [rightReply, setRightReply] = useState("");
+  const [allReplies, setAllReplies] = useState<string[]>([]);
 
   const handleSubmit = () => {
+    const wrongAndRightReplies = shuffleArray<string>([
+      ...allReplies,
+      rightReply
+    ]);
     const questionToSave = new PrivateQuizQuestion(
       question,
-      allReplies,
+      wrongAndRightReplies,
       rightReply
     );
     console.log("Now saving", questionToSave);
@@ -75,7 +121,7 @@ export const QuestionSubForm: React.FC<Props> = ({
   };
 
   return (
-    <Modal>
+    <Modal handleClose={closeItself}>
       <FormContainer>
         <FormTitle>Add a question to your quiz</FormTitle>
         <form
@@ -94,13 +140,18 @@ export const QuestionSubForm: React.FC<Props> = ({
                   setQuestion(e.target.value)
                 }
               />
-              <SmallButton onClick={() => setHasEnteredQuestion(true)}>
+              <SmallButton
+                onClick={() => {
+                  setQuestion(prev => capitaliseInput(prev));
+                  setHasEnteredQuestion(true);
+                }}
+              >
                 Load
               </SmallButton>
             </ComplexInputContainer>
           )}
 
-          {!hasEnteredRightReply && (
+          {!hasEnteredRightReply && hasEnteredQuestion && (
             <ComplexInputContainer>
               <QuestionInput
                 value={rightReply}
@@ -112,6 +163,7 @@ export const QuestionSubForm: React.FC<Props> = ({
 
               <SmallButton
                 onClick={() => {
+                  setRightReply(prev => capitaliseInput(prev));
                   setHasEnteredRightReply(true);
                 }}
               >
@@ -120,30 +172,42 @@ export const QuestionSubForm: React.FC<Props> = ({
             </ComplexInputContainer>
           )}
 
-          {allReplies.length > 0 && <UploadedReplies replies={allReplies} />}
-          {hasEnteredRightReply && <h5>Right reply: {rightReply}</h5>}
-
-          <ComplexInputContainer>
-            <QuestionInput
-              value={currentReply}
-              label="Add a (wrong) reply"
-              handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
-                setCurrentReply(e.target.value)
-              }
+          {hasEnteredRightReply && (
+            <Answer
+              label="Correct answer: "
+              value={rightReply}
+              isRight={true}
             />
+          )}
+          {allReplies.length > 0 && <UploadedReplies replies={allReplies} />}
 
-            <SmallButton
-              onClick={() => {
-                setAllReplies(prevReplies => [...prevReplies, currentReply]);
-                setCurrentReply("");
-              }}
-            >
-              Add
-            </SmallButton>
-          </ComplexInputContainer>
-          <SubmitButton type="submit" onClick={handleSubmit}>
+          {hasEnteredQuestion && hasEnteredRightReply && (
+            <ComplexInputContainer>
+              <QuestionInput
+                value={currentReply}
+                label="Add a (wrong) answer"
+                handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
+                  setCurrentReply(e.target.value)
+                }
+              />
+
+              <SmallButton
+                onClick={() => {
+                  setAllReplies(prevReplies => [
+                    ...prevReplies,
+                    capitaliseInput(currentReply)
+                  ]);
+                  setCurrentReply("");
+                }}
+              >
+                Add
+              </SmallButton>
+            </ComplexInputContainer>
+          )}
+
+          <PinkSubmitButton type="submit" onClick={handleSubmit}>
             SAVE QUESTION
-          </SubmitButton>
+          </PinkSubmitButton>
         </form>
       </FormContainer>
     </Modal>

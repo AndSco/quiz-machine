@@ -46,3 +46,21 @@ export const createQuiz = async (quiz: PrivateQuiz, userId: string) => {
     console.error(err);
   }
 };
+
+export const getSingleQuiz = async (quizId: string) => {
+  try {
+    const response = await axios.get(`${apiEndPoints.QUIZ}/${quizId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getMembersQuizzes = async () => {
+  try {
+    const response = await axios.get(`${apiEndPoints.QUIZ}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

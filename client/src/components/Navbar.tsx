@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Logo } from "./Logo";
 import { Colors } from "../constants/colors";
-import { QuizType } from "../models/Question";
+import { QuizType } from "../models/PublicQuizQuestion";
 import { Link } from "react-router-dom";
 import { LoginButton, RegisterButton } from "./UI/Buttons";
 import { AuthContext } from "../contexts/auth/Auth";
@@ -55,6 +55,15 @@ const MenuItem = styled.li`
         ? "4px solid #ffcf10"
         : "4px solid #b9b5b5"};
   }
+
+  /* ::after {
+        content: "";
+    display: block;
+    margin: 0px auto;
+    width: 65%;
+    padding-top: 0.1875rem;
+    border-bottom: 3px solid black;
+  } */
 `;
 
 const BackButton = styled(LoginButton)`
@@ -112,7 +121,7 @@ export const Navbar: React.FC = () => {
         </Link>
       ) : (
         <Link to="/myDashboard">
-          <BackButton>My dashboard</BackButton>
+          <BackButton>Your dashboard</BackButton>
         </Link>
       )}
     </NavbarContainer>
