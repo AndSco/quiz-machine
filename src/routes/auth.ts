@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { registerUser, loginUser } from "../handlers/auth";
-import passport from "passport";
 
 const router = Router();
 

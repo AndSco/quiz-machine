@@ -7,9 +7,9 @@ export const initialisePassport = (passport: PassportStatic) => {
   passport.use(
     new LocalStrategy(async (username, password, done) => {
       try {
-        const user = await User.findOne({ username: username })
-          .populate("quizzes")
-          .exec();
+        const user = await User.findOne({ username: username });
+        // .populate("quizzes")
+        // .exec();
 
         if (!user) return done(null, false);
 
@@ -24,21 +24,6 @@ export const initialisePassport = (passport: PassportStatic) => {
       }
     })
   );
-
-  // passport.use(
-  //   new LocalStrategy((username, password, done) => {
-  //     User.findOne({ username: username }, (err, user) => {
-  //       if (err) throw err;
-  //       if (!user) return done(null, false);
-  //       bcrypt.compare(password, user.password, (err, result) => {
-  //         if (err) throw err;
-  //         if (result === true) {
-  //           return done(null, user);
-  //         } else return done(null, false);
-  //       });
-  //     });
-  //   })
-  // );
 
   passport.serializeUser((user: { id: string }, done) => {
     done(null, user.id);

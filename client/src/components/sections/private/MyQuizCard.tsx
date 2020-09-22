@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { PrivateQuiz } from "../../../models/PrivateQuiz";
 import { Colors } from "../../../constants/colors";
 import { GridCard } from "../../UI/GridCard";
+import { Link } from "react-router-dom";
+import { copyQuizUrlToCipboard } from "../../../utils/functions";
+import { deleteQuiz } from "../../../utils/dbFunctions";
 
 const MyStyledQuizCard = styled(GridCard)`
   width: 500px;
@@ -12,6 +15,7 @@ const MyStyledQuizCard = styled(GridCard)`
   margin: 2rem 0;
   background-image: ${(props: { imageUrl: string }) =>
     `url("${props.imageUrl}")`};
+  cursor: inherit;
 
   h3 {
     background-color: ${Colors.YELLOW};
@@ -28,27 +32,45 @@ const ActionButtonsContainer = styled.div`
 `;
 
 const ActionButton = styled.h5`
-  background-color: white;
   border-radius: 30px;
+  background-color: ${Colors.BLACK};
+  color: white;
   font-size: 0.7rem;
   padding: 0.4rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${Colors.BLACK};
+
   opacity: 0.9;
+  cursor: pointer;
+
+  :hover {
+    background-color: white;
+    color: ${Colors.BLACK};
+  }
 `;
 
-export const MyQuizCard: React.FC<{ quiz: PrivateQuiz }> = ({ quiz }) => {
-  console.log("QUIZ is ", quiz);
+interface Props {
+  quiz: PrivateQuiz;
+  editQuiz: (quiz: PrivateQuiz) => void;
+}
+
+export const MyQuizCard: React.FC<Props> = ({ quiz, editQuiz }) => {
+  const quizUrl = `quiz/${quiz._id}`;
   return (
     <MyStyledQuizCard imageUrl={quiz.backgroundImageUrl as string}>
       <h3>{quiz.title}</h3>
       <ActionButtonsContainer>
-        <ActionButton>Play</ActionButton>
-        <ActionButton>Copy url</ActionButton>
-        <ActionButton>Edit</ActionButton>
-        <ActionButton>Delete</ActionButton>
+        <Link to={quizUrl}>
+          <ActionButton>Take quiz</ActionButton>
+        </Link>
+        <ActionButton onClick={() => copyQuizUrlToCipboard(quizUrl)}>
+          Copy url
+        </ActionButton>
+        <ActionButton onClick={() => editQuiz(quiz)}>Edit</ActionButton>
+        <ActionButton onClick={() => deleteQuiz(quiz._id as string)}>
+          Delete
+        </ActionButton>
       </ActionButtonsContainer>
     </MyStyledQuizCard>
   );

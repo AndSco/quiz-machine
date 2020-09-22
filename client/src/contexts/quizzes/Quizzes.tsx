@@ -1,6 +1,8 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { Question, QuizType, Subject } from "../../models/PublicQuizQuestion";
 import { Difficulty } from "../../models/TriviaApi";
+import { PrivateQuiz } from "../../models/PrivateQuiz";
+import { getCustomUsersQuizzes } from "../../utils/dbFunctions";
 
 type ConfigOption = "quizType" | "difficulty" | "numberOfQuestions" | "subject";
 
@@ -16,6 +18,8 @@ interface iQuizzesContext {
   goToNextQuizConfiguration: () => void;
   uploadQuestions: (questions: Question[]) => void;
   reset: () => void;
+  usersCustomQuizzes: PrivateQuiz[];
+  getCustomQuizzes: () => void;
 }
 
 const startingValue: iQuizzesContext = {
@@ -29,7 +33,9 @@ const startingValue: iQuizzesContext = {
   startedQuiz: false,
   goToNextQuizConfiguration: () => {},
   uploadQuestions: ([]) => {},
-  reset: () => {}
+  reset: () => {},
+  usersCustomQuizzes: [],
+  getCustomQuizzes: () => {}
 };
 
 export const QuizzesContext = createContext(startingValue);
@@ -42,6 +48,20 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
   const [currentSubject, setCurrentSubject] = useState<Subject | "">("");
   const [quizConfigurationStep, setQuizConfigurationStep] = useState(1);
   const [startedQuiz, setStartedQuiz] = useState(false);
+  const [usersCustomQuizzes, setUsersCustomQuizzes] = useState<PrivateQuiz[]>(
+    []
+  );
+
+  const getCustomQuizzes = async () => {
+    const dbResponse = await getCustomUsersQuizzes();
+    const customQuizzes = dbResponse.payload;
+    console.log("Getting quizzes", customQuizzes);
+    setUsersCustomQuizzes(customQuizzes);
+  };
+
+  useEffect(() => {
+    getCustomQuizzes();
+  }, []);
 
   const reset = () => {
     setStartedQuiz(false);
@@ -85,7 +105,9 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     goToNextQuizConfiguration,
     startedQuiz,
     uploadQuestions,
-    reset
+    reset,
+    usersCustomQuizzes,
+    getCustomQuizzes
   };
 
   return (

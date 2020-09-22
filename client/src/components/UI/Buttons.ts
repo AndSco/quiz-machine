@@ -43,23 +43,26 @@ export const LoginButton = styled(BaseButton)`
   width: 100px;
   font-size: 0.8rem;
   padding: 0.5rem 0.5rem;
-  background-color: white;
-  border: 2px solid ${Colors.YELLOW};
-  color: ${Colors.YELLOW};
+  background-color: ${Colors.YELLOW};
+  color: white;
   margin: 0 6px;
 
   :hover {
-    background-color: ${Colors.YELLOW};
-    color: white;
+    background-color: white;
+    color: ${Colors.YELLOW};
+    border: 2px solid ${Colors.YELLOW};
   }
 `;
 
 export const RegisterButton = styled(LoginButton)`
   border: 2px solid ${Colors.ORANGE};
   color: ${Colors.ORANGE};
+  background-color: white;
 
   :hover {
     background-color: ${Colors.ORANGE};
+    color: white;
+    border: none;
   }
 `;
 

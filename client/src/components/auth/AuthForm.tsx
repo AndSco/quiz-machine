@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Input } from "../UI/Input";
 import { AuthReducers, InputName } from "../../reducers/AuthReducers";
 import { loginUser, registerUser } from "../../utils/dbFunctions";
+import { getPropertyName } from "../../utils/functions";
 import { AuthScope } from "../../models/AuthScope";
 import { ApiResponse } from "../../models/ApiResponse";
 import { AuthContext } from "../../contexts/auth/Auth";
@@ -81,6 +82,10 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
             inputName={input.name}
             onChangeFunction={handleChange}
             resetError={resetError}
+            value={getPropertyName(
+              inputValues,
+              input.name as "password" | "username"
+            )}
           />
         ))}
         {error && <ErrorMessage>{error}</ErrorMessage>}

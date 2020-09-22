@@ -18,7 +18,7 @@ export const Register: React.FC = () => {
       <div>
         <SectionTitle>Join the community!</SectionTitle>
         <p style={{ color: Colors.LIGHTER_GREY, marginBottom: "2rem" }}>
-          Register to create & share custom private quizzes
+          Register to create & share custom quizzes
         </p>
       </div>
       <Form

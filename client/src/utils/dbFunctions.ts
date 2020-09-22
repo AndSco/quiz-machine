@@ -56,10 +56,41 @@ export const getSingleQuiz = async (quizId: string) => {
   }
 };
 
-export const getMembersQuizzes = async () => {
+export const getCustomUsersQuizzes = async () => {
   try {
     const response = await axios.get(`${apiEndPoints.QUIZ}`);
     return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteQuiz = async (quizId: string) => {
+  try {
+    const response = await axios.delete(`${apiEndPoints.QUIZ}/${quizId}`);
+    console.log("DELETED?", response.data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const editQuiz = async (quizId: string, updatedQuiz: PrivateQuiz) => {
+  try {
+    const response = await axios.patch(`${apiEndPoints.QUIZ}/${quizId}`, {
+      updatedQuiz
+    });
+    console.log("EDITED?", response.data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getUserQuizzes = async (userId: string) => {
+  try {
+    const response = await axios.get(`${apiEndPoints.USER}/${userId}`);
+    const userQuizzes = response.data.payload;
+    console.log("USER QUIZZES", userQuizzes);
+    return userQuizzes;
   } catch (err) {
     console.error(err);
   }

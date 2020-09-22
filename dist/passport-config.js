@@ -50,11 +50,11 @@ exports.initialisePassport = function (passport) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, user_1.User.findOne({ username: username })
-                            .populate("quizzes")
-                            .exec()];
+                    return [4 /*yield*/, user_1.User.findOne({ username: username })];
                 case 1:
                     user_2 = _a.sent();
+                    // .populate("quizzes")
+                    // .exec();
                     if (!user_2)
                         return [2 /*return*/, done(null, false)];
                     bcryptjs_1.default.compare(password, user_2.password, function (err, result) {
@@ -74,20 +74,6 @@ exports.initialisePassport = function (passport) {
             }
         });
     }); }));
-    // passport.use(
-    //   new LocalStrategy((username, password, done) => {
-    //     User.findOne({ username: username }, (err, user) => {
-    //       if (err) throw err;
-    //       if (!user) return done(null, false);
-    //       bcrypt.compare(password, user.password, (err, result) => {
-    //         if (err) throw err;
-    //         if (result === true) {
-    //           return done(null, user);
-    //         } else return done(null, false);
-    //       });
-    //     });
-    //   })
-    // );
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });

@@ -33,7 +33,7 @@ export const createQuiz: RequestHandler = async (req, res, next) => {
 
 export const getAllPublicQuizzes: RequestHandler = async (req, res, next) => {
   try {
-    const allQuizzes = await Quiz.find({});
+    const allQuizzes = await Quiz.find({ isPrivate: false });
     const response: ApiResponse = {
       message: "All quizzes",
       error: null,
@@ -55,6 +55,36 @@ export const getSingleQuiz: RequestHandler<{ quizId: string }> = async (
     const { quizId } = req.params;
     const quiz = await Quiz.findById(quizId);
     return res.status(200).json(quiz);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+export const deleteQuiz: RequestHandler<{ quizId: string }> = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    const { quizId } = req.params;
+    await Quiz.findByIdAndDelete(quizId);
+    return res.status(200).json("QUIZ DELETED");
+  } catch (err) {
+    return next(err);
+  }
+};
+
+export const editQuiz: RequestHandler<{ quizId: string }> = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    const { quizId } = req.params;
+    const { updatedQuiz } = req.body;
+    console.log("UPDATED QUIZ IN REQ", updatedQuiz);
+    await Quiz.findOneAndUpdate({ _id: quizId }, { ...updatedQuiz });
+    return res.status(200).json("QUIZ UPDATED");
   } catch (err) {
     return next(err);
   }

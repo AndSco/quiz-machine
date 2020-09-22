@@ -7,13 +7,14 @@ const StyledModal = styled.div`
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: ${Colors.DARK_BLUE};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 3;
+  overflow: scroll;
 `;
 
 const BackIconContainer = styled.div`

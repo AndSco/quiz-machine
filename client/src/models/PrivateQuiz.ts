@@ -10,6 +10,7 @@ export interface PrivateQuiz {
   questions: PrivateQuizQuestion[];
   isPrivate: boolean;
   _id?: string;
+  createdBy?: string;
 }
 
 export class PrivateQuizQuestion implements iQuestion {

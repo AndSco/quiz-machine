@@ -7,68 +7,13 @@ import { Link } from "react-router-dom";
 import { LoginButton, RegisterButton } from "./UI/Buttons";
 import { AuthContext } from "../contexts/auth/Auth";
 import { QuizzesContext } from "../contexts/quizzes/Quizzes";
-
-export const NavbarContainer = styled.div`
-  max-width: 100vw;
-  display: flex;
-  height: 70px;
-  -webkit-box-shadow: 0px 0px 3px -1px rgba(87, 84, 87, 1);
-  -moz-box-shadow: 0px 0px 3px -1px rgba(87, 84, 87, 1);
-  box-shadow: 0px 0px 3px -1px rgba(87, 84, 87, 1);
-  padding: 0 2.5rem 0 1.5rem;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const MenuItems = styled.ul`
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  font-family: "Fredoka One", cursive;
-  cursor: pointer;
-  font-size: 0.9rem;
-`;
-
-const MenuItemsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex: ${(props: { flex: number }) => props.flex};
-`;
-
-const MenuItem = styled.li`
-  color: ${(props: { value: QuizType; selectedNow: QuizType }) =>
-    props.selectedNow === props.value ? Colors.BLACK : Colors.LIGHTER_GREY};
-  border-bottom: ${(props: { value: QuizType; selectedNow: QuizType }) =>
-    props.selectedNow === props.value
-      ? "4px solid #ffcf10"
-      : "4px solid white"};
-
-  padding: 0 1.5rem 4px 1.5rem;
-  margin: 0 1rem;
-
-  :hover {
-    border-bottom: ${(props: { value: QuizType; selectedNow: QuizType }) =>
-      props.selectedNow === props.value
-        ? "4px solid #ffcf10"
-        : "4px solid #b9b5b5"};
-  }
-
-  /* ::after {
-        content: "";
-    display: block;
-    margin: 0px auto;
-    width: 65%;
-    padding-top: 0.1875rem;
-    border-bottom: 3px solid black;
-  } */
-`;
-
-const BackButton = styled(LoginButton)`
-  width: 160px;
-`;
+import {
+  NavbarContainer,
+  MenuItemsContainer,
+  MenuItems,
+  NavbarMenuItem,
+  BackButton
+} from "./UI/NavbarComponents";
 
 const AuthButtons: React.FC = () => {
   return (
@@ -95,20 +40,29 @@ export const Navbar: React.FC = () => {
       {!isInPrivateSection && (
         <MenuItems>
           <MenuItemsContainer flex={2}>
-            <MenuItem
+            <NavbarMenuItem
               value={QuizType.TRIVIA}
               selectedNow={quizType}
               onClick={() => configQuiz("quizType", QuizType.TRIVIA)}
             >
               TRIVIA QUIZ
-            </MenuItem>
-            <MenuItem
+            </NavbarMenuItem>
+
+            <NavbarMenuItem
               value={QuizType.PROGRAMMING}
               selectedNow={quizType}
               onClick={() => configQuiz("quizType", QuizType.PROGRAMMING)}
             >
               PROGRAMMING QUIZ
-            </MenuItem>
+            </NavbarMenuItem>
+
+            <NavbarMenuItem
+              value={QuizType.USERS_QUIZZES}
+              selectedNow={quizType}
+              onClick={() => configQuiz("quizType", QuizType.USERS_QUIZZES)}
+            >
+              USERS' QUIZZES
+            </NavbarMenuItem>
           </MenuItemsContainer>
         </MenuItems>
       )}

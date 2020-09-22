@@ -86,12 +86,8 @@ const formatProgrammingQuestion = (q: ProgrammingQuizResultType) => {
   );
 };
 
-// export const shuffleArray = (array: any[]) =>
-//   array.sort((a, b) => 0.5 - Math.random());
-
-export function shuffleArray<T>(array: Array<T>): Array<T> {
-  return array.sort((a, b) => 0.5 - Math.random());
-}
+export const shuffleArray = <T>(array: Array<T>): Array<T> =>
+  array.sort((a, b) => 0.5 - Math.random());
 
 const getReplyLabel = (label: string) => label.split("_correct")[0];
 
@@ -111,4 +107,13 @@ export const getSubjectBackgroundPic = (subject: any) =>
 export const capitaliseInput = (input: string) => {
   const initial = input[0];
   return initial.toUpperCase() + input.slice(1);
+};
+
+export const copyQuizUrlToCipboard = (link: string) => {
+  const actualUrl = window.location.href.split("myDashboard")[0] + link;
+  console.log("URL PAGE", actualUrl);
+  if (!navigator || !navigator.clipboard) {
+    alert(`Cannot copy automatically. Please copy this: ${actualUrl}`);
+  }
+  navigator.clipboard.writeText(actualUrl);
 };

@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { AuthContext } from "../../../contexts/auth/Auth";
 import { useHistory } from "react-router-dom";
 import { SecondaryButton } from "../../UI/Buttons";
-import { QuizCreationForm } from "./QuizCreationForm";
+import { QuizCreationOrEditForm } from "./quizForm/QuizCreationOrEditForm";
 import { QuizOverview } from "./QuizOverview";
 import { PrivateQuiz } from "../../../models/PrivateQuiz";
-import { BigTitle } from "../../UI/Titles";
 import { Wrapper } from "../../UI/Wrapper";
 import { Icon } from "../../UI/Icon";
 import { Colors } from "../../../constants/colors";
+import { Modal } from "../../UI/Modal";
 
 const WelcomeMessage = styled.h1`
   color: ${Colors.BLACK};
@@ -52,7 +52,7 @@ const CreateButton: React.FC<{ openCreationForm: () => void }> = ({
 };
 
 export const UserDashboard: React.FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, userQuizzes } = useContext(AuthContext);
   const [isCreatingQuiz, setIsCreatingQuiz] = useState(false);
   const history = useHistory();
 
@@ -72,10 +72,19 @@ export const UserDashboard: React.FC = () => {
             Welcome {currentUser!.username.toUpperCase()}
           </WelcomeMessage>
           <CreateButton openCreationForm={startCreatingQuiz} />
-          <QuizOverview myQuizzes={currentUser.quizzes as PrivateQuiz[]} />
+          {userQuizzes.length > 0 ? (
+            <QuizOverview myQuizzes={userQuizzes as PrivateQuiz[]} />
+          ) : (
+            <h2 style={{ color: "black" }}>No quizzes yet. Create one now</h2>
+          )}
         </>
       ) : (
-        <QuizCreationForm />
+        <Modal handleClose={() => setIsCreatingQuiz(false)}>
+          <QuizCreationOrEditForm
+            usage="creation"
+            onFormClose={() => setIsCreatingQuiz(false)}
+          />
+        </Modal>
       )}
     </Wrapper>
   );

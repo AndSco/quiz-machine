@@ -25,7 +25,8 @@ export class Question implements iQuestion {
 
 export enum QuizType {
   TRIVIA = "trivia",
-  PROGRAMMING = "programming"
+  PROGRAMMING = "programming",
+  USERS_QUIZZES = "users"
 }
 
 export interface APISendable {

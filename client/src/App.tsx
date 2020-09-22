@@ -12,7 +12,8 @@ import {
   faEye,
   faArrowCircleLeft,
   faCheckCircle,
-  faTimesCircle
+  faTimesCircle,
+  faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { PrivateSection } from "./components/sections/private/PrivateSection";
 import { AuthContextProvider } from "./contexts/auth/Auth";
@@ -32,7 +33,8 @@ library.add(
   faEye,
   faArrowCircleLeft,
   faCheckCircle,
-  faTimesCircle
+  faTimesCircle,
+  faTrashAlt
 );
 
 interface MatchParams {

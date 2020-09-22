@@ -6,4 +6,6 @@ var router = express_1.Router();
 router.get("/", quiz_1.getAllPublicQuizzes);
 router.post("/", quiz_1.createQuiz);
 router.get("/:quizId", quiz_1.getSingleQuiz);
+router.delete("/:quizId", quiz_1.deleteQuiz);
+router.patch("/:quizId", quiz_1.editQuiz);
 exports.default = router;

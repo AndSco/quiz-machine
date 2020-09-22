@@ -23,6 +23,14 @@ export const QuizCreationReducer: React.Reducer<
   action: QuizCreationAction
 ): QuizCreationFormInputs => {
   if (action.type === "questions") {
+    // manage delete question
+    if (typeof action.payload === "string") {
+      const questionToRemove = action.payload;
+      const remainingQuestions = state.questions.filter(
+        question => question.question !== questionToRemove
+      );
+      return { ...state, questions: remainingQuestions };
+    }
     return {
       ...state,
       questions: [...state.questions, action.payload as PrivateQuizQuestion]

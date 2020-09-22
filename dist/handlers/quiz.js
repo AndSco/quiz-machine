@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSingleQuiz = exports.getAllPublicQuizzes = exports.createQuiz = void 0;
+exports.editQuiz = exports.deleteQuiz = exports.getSingleQuiz = exports.getAllPublicQuizzes = exports.createQuiz = void 0;
 var quiz_1 = require("../models/quiz");
 var user_1 = require("../models/user");
 exports.createQuiz = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
@@ -95,7 +95,7 @@ exports.getAllPublicQuizzes = function (req, res, next) { return __awaiter(void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, quiz_1.Quiz.find({})];
+                return [4 /*yield*/, quiz_1.Quiz.find({ isPrivate: false })];
             case 1:
                 allQuizzes = _a.sent();
                 response = {
@@ -125,6 +125,44 @@ exports.getSingleQuiz = function (req, res, next) { return __awaiter(void 0, voi
             case 2:
                 err_3 = _a.sent();
                 return [2 /*return*/, next(err_3)];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteQuiz = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var quizId, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                quizId = req.params.quizId;
+                return [4 /*yield*/, quiz_1.Quiz.findByIdAndDelete(quizId)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, res.status(200).json("QUIZ DELETED")];
+            case 2:
+                err_4 = _a.sent();
+                return [2 /*return*/, next(err_4)];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.editQuiz = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var quizId, updatedQuiz, err_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                quizId = req.params.quizId;
+                updatedQuiz = req.body.updatedQuiz;
+                console.log("UPDATED QUIZ IN REQ", updatedQuiz);
+                return [4 /*yield*/, quiz_1.Quiz.findOneAndUpdate({ _id: quizId }, __assign({}, updatedQuiz))];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, res.status(200).json("QUIZ UPDATED")];
+            case 2:
+                err_5 = _a.sent();
+                return [2 /*return*/, next(err_5)];
             case 3: return [2 /*return*/];
         }
     });

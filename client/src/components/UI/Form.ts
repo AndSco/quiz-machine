@@ -15,7 +15,7 @@ export const FormContainer = styled.div`
 `;
 
 export const FormTitle = styled.h4`
-  color: white;
+  color: ${Colors.ORANGE};
   text-transform: uppercase;
   margin-top: 0;
 `;

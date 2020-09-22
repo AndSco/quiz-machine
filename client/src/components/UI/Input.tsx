@@ -32,19 +32,22 @@ interface InputProps {
   onChangeFunction: (input: string, inputName: any) => void;
   resetError?: () => void;
   inputType?: "text" | "password";
+  value: string;
 }
 
 export const Input: React.FC<InputProps> = ({
   inputName,
   onChangeFunction,
   resetError,
-  inputType
+  inputType,
+  value
 }) => {
   return (
     <Container>
       <StyledLabel htmlFor={inputName}>{inputName.toUpperCase()}</StyledLabel>
       <StyledInput
         type={inputType}
+        value={value}
         required
         onClick={resetError}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
