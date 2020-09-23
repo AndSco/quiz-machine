@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 import { Logo } from "./Logo";
-import { Colors } from "../constants/colors";
 import { QuizType } from "../models/PublicQuizQuestion";
 import { Link } from "react-router-dom";
 import { LoginButton, RegisterButton } from "./UI/Buttons";
@@ -71,7 +69,7 @@ export const Navbar: React.FC = () => {
         <AuthButtons />
       ) : isInPrivateSection ? (
         <Link to="/">
-          <BackButton>Back to quizzes</BackButton>
+          <BackButton>Back to quiz section</BackButton>
         </Link>
       ) : (
         <Link to="/myDashboard">

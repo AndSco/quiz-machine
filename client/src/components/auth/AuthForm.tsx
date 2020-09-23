@@ -86,6 +86,7 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
               inputValues,
               input.name as "password" | "username"
             )}
+            isRequired={true}
           />
         ))}
         {error && <ErrorMessage>{error}</ErrorMessage>}

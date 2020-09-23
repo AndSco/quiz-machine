@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { PrivateQuiz } from "../../../models/PrivateQuiz";
 import { BigTitle } from "../../UI/Titles";
@@ -6,7 +6,6 @@ import { GridWrapper } from "../../UI/GridWrapper";
 import { MyQuizCard } from "./MyQuizCard";
 import { QuizCreationOrEditForm } from "./quizForm/QuizCreationOrEditForm";
 import { Modal } from "../../UI/Modal";
-import { AuthContext } from "../../../contexts/auth/Auth";
 
 interface Props {
   myQuizzes: PrivateQuiz[];
@@ -22,9 +21,6 @@ export const QuizOverview: React.FC<Props> = ({ myQuizzes }) => {
   const [quizNowEditing, setQuizNowEditing] = useState<PrivateQuiz | null>(
     null
   );
-  const { userQuizzes } = useContext(AuthContext);
-
-  console.log("OVERVIEW USER QUIZZES", userQuizzes);
 
   const startEditingQuiz = (quiz: PrivateQuiz) => {
     setQuizNowEditing(quiz);
@@ -42,6 +38,7 @@ export const QuizOverview: React.FC<Props> = ({ myQuizzes }) => {
           />
         </Modal>
       )}
+
       <BigTitle>Your quizzes</BigTitle>
       <Wrapper>
         {myQuizzes.map((quiz, index) => (

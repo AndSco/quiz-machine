@@ -42,7 +42,7 @@ export const Thumbnail: React.FC<Props> = ({
           }}
         >
           <Title>{title}</Title>
-          {/* <h6>by {customQuiz!.}</h6> */}
+          {/* <h6>by {customQuiz!.createdBy}</h6> */}
         </GridCard>
       </Link>
     );

@@ -33,6 +33,7 @@ interface InputProps {
   resetError?: () => void;
   inputType?: "text" | "password";
   value: string;
+  isRequired?: boolean;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -40,7 +41,8 @@ export const Input: React.FC<InputProps> = ({
   onChangeFunction,
   resetError,
   inputType,
-  value
+  value,
+  isRequired = false
 }) => {
   return (
     <Container>
@@ -48,7 +50,7 @@ export const Input: React.FC<InputProps> = ({
       <StyledInput
         type={inputType}
         value={value}
-        required
+        required={isRequired}
         onClick={resetError}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onChangeFunction(e.target.value, inputName)

@@ -4,7 +4,7 @@ import { Ending } from "../../Ending";
 import { QuizBackground } from "../../UI/QuizBackground";
 import { PrivateQuiz, PrivateQuizQuestion } from "../../../models/PrivateQuiz";
 import { getSingleQuiz } from "../../../utils/dbFunctions";
-import { shuffleArray } from "../../../utils/functions";
+import { useHistory } from "react-router-dom";
 
 interface ActualPrivateQuizProps {
   quizId: string;
@@ -17,8 +17,8 @@ export const ActualPrivateQuiz: React.FC<ActualPrivateQuizProps> = ({
   const [allQuestions, setAllQuestions] = useState<PrivateQuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const history = useHistory();
 
-  console.log("curr quiz", currentQuiz);
   useEffect(() => {
     const loadQuiz = async () => {
       const quiz = (await getSingleQuiz(quizId)) as unknown;
@@ -40,7 +40,10 @@ export const ActualPrivateQuiz: React.FC<ActualPrivateQuizProps> = ({
     allQuestions.length >= currentQuestionIndex + 1;
 
   return currentQuiz ? (
-    <QuizBackground imageUrl={currentQuiz.backgroundImageUrl as string}>
+    <QuizBackground
+      imageUrl={currentQuiz.backgroundImageUrl as string}
+      stopPlaying={() => history.push("/")}
+    >
       {thereAreStillQuestions() ? (
         <QuestionCard
           question={allQuestions[currentQuestionIndex]}

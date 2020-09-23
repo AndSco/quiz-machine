@@ -6,3 +6,8 @@ export const SectionTitle = styled.h2`
   color: ${Colors.BLACK};
   margin-bottom: 1rem;
 `;
+
+export const Paragraph = styled.p`
+  color: ${Colors.LIGHTER_GREY};
+  margin-bottom: 2rem;
+`;

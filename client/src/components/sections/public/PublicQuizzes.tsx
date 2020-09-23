@@ -4,7 +4,7 @@ import { NumQuestionsStep } from "./optionSteps/NumQuestionsStep";
 import { DifficultyStep } from "./optionSteps/DifficultyStep";
 import { SubjectsStep } from "./optionSteps/SubjectsStep";
 import { FinalSummaryStep } from "./optionSteps/FinalSummaryStep";
-import { ActualQuiz } from "./ActualPublicQuiz";
+import { ActualPublicQuiz } from "./ActualPublicQuiz";
 import { QuizzesContext } from "../../../contexts/quizzes/Quizzes";
 import { AuthContext } from "../../../contexts/auth/Auth";
 import { Wrapper } from "../../UI/Wrapper";
@@ -49,7 +49,7 @@ export const PublicQuizzes: React.FC = () => {
   return !startedQuiz ? (
     <Wrapper>{renderInstruction()}</Wrapper>
   ) : (
-    <ActualQuiz
+    <ActualPublicQuiz
       subject={currentSubject as Subject}
       allQuestions={questions}
       reset={reset}

@@ -32,6 +32,8 @@ const StyledCreateButton = styled(SecondaryButton)`
   width: 200px;
 
   :hover {
+    border: none;
+    background-color: ${Colors.INDIGO};
     svg {
       color: white;
     }
@@ -44,17 +46,21 @@ const CreateButton: React.FC<{ openCreationForm: () => void }> = ({
   return (
     <CreateButtonContainer>
       <StyledCreateButton onClick={() => openCreationForm()}>
-        Create new quiz
-        <Icon icon={"plus-circle"} color={Colors.LIGHTEST_GREY} />
+        Create quiz
+        <Icon icon={"plus-circle"} color={Colors.LIGHTEST_GREY} size="3x" />
       </StyledCreateButton>
     </CreateButtonContainer>
   );
 };
 
 export const UserDashboard: React.FC = () => {
-  const { currentUser, userQuizzes } = useContext(AuthContext);
+  const { currentUser, userQuizzes, goToPrivateSection } = useContext(
+    AuthContext
+  );
   const [isCreatingQuiz, setIsCreatingQuiz] = useState(false);
   const history = useHistory();
+
+  useEffect(() => goToPrivateSection(), []);
 
   useEffect(() => {
     history.push("/myDashboard");

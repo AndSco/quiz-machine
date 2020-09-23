@@ -1,21 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Question, Subject } from "../../../models/PublicQuizQuestion";
 import { QuestionCard } from "../../replies/QuestionCard";
 import { getSubjectBackgroundPic } from "../../../utils/functions";
 import { Ending } from "../../Ending";
-
-const Background = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-image: ${(props: { subject: Subject }) =>
-    `url("${getSubjectBackgroundPic(props.subject)}")`};
-  background-position: center;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import { QuizBackground } from "../../UI/QuizBackground";
 
 interface ActualQuizProps {
   allQuestions: Question[];
@@ -23,7 +11,7 @@ interface ActualQuizProps {
   reset: () => void;
 }
 
-export const ActualQuiz: React.FC<ActualQuizProps> = ({
+export const ActualPublicQuiz: React.FC<ActualQuizProps> = ({
   subject,
   allQuestions,
   reset
@@ -36,7 +24,10 @@ export const ActualQuiz: React.FC<ActualQuizProps> = ({
     allQuestions.length >= currentQuestionIndex + 1;
 
   return (
-    <Background subject={subject}>
+    <QuizBackground
+      imageUrl={getSubjectBackgroundPic(subject)}
+      stopPlaying={reset}
+    >
       {thereAreStillQuestions() ? (
         <QuestionCard
           question={allQuestions[currentQuestionIndex]}
@@ -53,6 +44,6 @@ export const ActualQuiz: React.FC<ActualQuizProps> = ({
           playAgain={reset}
         />
       )}
-    </Background>
+    </QuizBackground>
   );
 };
