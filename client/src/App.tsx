@@ -21,7 +21,7 @@ import {
 import { PrivateSection } from "./components/sections/private/PrivateSection";
 import { AuthContextProvider } from "./contexts/auth/Auth";
 import { QuizzesContextProvider } from "./contexts/quizzes/Quizzes";
-import { Navbar } from "./components/Navbar";
+import { Navbar } from "./components/Navbar/Navbar";
 import { UserDashboard } from "./components/sections/private/UserDashboard";
 import { ActualPrivateQuiz } from "./components/sections/private/ActualPrivateQuiz";
 

@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { User } from "../../models/User";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
-import { getUserQuizzes } from "../../utils/dbFunctions";
+import { getUserQuizzes, logoutUser } from "../../utils/dbFunctions";
 
 type PossibleUser = User | null;
 
@@ -13,6 +13,7 @@ interface iAuthContext {
   goToPublicSection: () => void;
   userQuizzes: PrivateQuiz[] | [];
   refreshUserQuizzes: () => void;
+  logout: () => void;
 }
 
 const startingValue: iAuthContext = {
@@ -22,7 +23,8 @@ const startingValue: iAuthContext = {
   goToPrivateSection: () => {},
   goToPublicSection: () => {},
   userQuizzes: [],
-  refreshUserQuizzes: () => {}
+  refreshUserQuizzes: () => {},
+  logout: () => {}
 };
 
 export const AuthContext = createContext(startingValue);
@@ -51,6 +53,11 @@ export const AuthContextProvider: React.FC = ({ children }) => {
   const goToPrivateSection = () => setIsInPrivateSection(true);
   const goToPublicSection = () => setIsInPrivateSection(false);
 
+  const logout = () => {
+    logoutUser();
+    setCurrentUser(null);
+  };
+
   const valuesToPass: iAuthContext = {
     currentUser,
     loadCurrentUser,
@@ -58,7 +65,8 @@ export const AuthContextProvider: React.FC = ({ children }) => {
     goToPrivateSection,
     goToPublicSection,
     userQuizzes,
-    refreshUserQuizzes
+    refreshUserQuizzes,
+    logout
   };
 
   return (

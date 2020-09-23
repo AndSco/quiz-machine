@@ -6,6 +6,7 @@ import {
 import { apiEndPoints } from "../constants/apiEndpoints";
 import { PrivateQuiz } from "../models/PrivateQuiz";
 
+// Auth
 export const loginUser = async (inputValues: LoginFormInputs) => {
   try {
     const { username, password } = inputValues;
@@ -34,6 +35,16 @@ export const registerUser = async (inputValues: RegistrationFormInputs) => {
   }
 };
 
+export const logoutUser = async () => {
+  try {
+    const response = await axios.post(apiEndPoints.LOGOUT);
+    console.log("RES", response);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Quizzes
 export const createQuiz = async (quiz: PrivateQuiz, userId: string) => {
   try {
     const response = await axios.post(apiEndPoints.QUIZ, {

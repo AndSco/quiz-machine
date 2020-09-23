@@ -66,6 +66,18 @@ export const RegisterButton = styled(LoginButton)`
   }
 `;
 
+export const LogoutButton = styled(LoginButton)`
+  border: 2px solid ${Colors.BLACK};
+  color: ${Colors.BLACK};
+  background-color: white;
+
+  :hover {
+    background-color: ${Colors.BLACK};
+    color: white;
+    border: 2px solid ${Colors.BLACK};
+  }
+`;
+
 export const SmallButton = styled(MediumButton as "div")`
   width: 100px;
   font-size: 0.8rem;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { QuestionCard } from "../../replies/QuestionCard";
-import { Ending } from "../../Ending";
+import { QuestionCard } from "../../ActualQuizComponents/QuestionCard";
+import { Ending } from "../../ActualQuizComponents/Ending";
 import { QuizBackground } from "../../UI/QuizBackground";
 import { PrivateQuiz, PrivateQuizQuestion } from "../../../models/PrivateQuiz";
 import { getSingleQuiz } from "../../../utils/dbFunctions";

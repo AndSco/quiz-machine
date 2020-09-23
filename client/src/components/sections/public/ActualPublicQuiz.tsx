@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Question, Subject } from "../../../models/PublicQuizQuestion";
-import { QuestionCard } from "../../replies/QuestionCard";
+import { QuestionCard } from "../../ActualQuizComponents/QuestionCard";
 import { getSubjectBackgroundPic } from "../../../utils/functions";
-import { Ending } from "../../Ending";
+import { Ending } from "../../ActualQuizComponents/Ending";
 import { QuizBackground } from "../../UI/QuizBackground";
 
 interface ActualQuizProps {

@@ -73,3 +73,12 @@ export const registerUser: RequestHandler = async (req, res, next) => {
     return next(err);
   }
 };
+
+export const logoutUser: RequestHandler = (req, res, next) => {
+  try {
+    req.logOut();
+    return res.status(200).json("Logged you out!");
+  } catch (err) {
+    return next(err);
+  }
+};

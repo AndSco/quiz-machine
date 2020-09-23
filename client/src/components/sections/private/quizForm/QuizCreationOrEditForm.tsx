@@ -16,7 +16,7 @@ import {
   PrivacyChoice,
   PrivateQuiz
 } from "../../../../models/PrivateQuiz";
-import { QuestionSubForm } from "../QuestionSubForm";
+import { QuestionSubForm } from "./QuestionSubForm";
 import { createQuiz, editQuiz } from "../../../../utils/dbFunctions";
 import { AuthContext } from "../../../../contexts/auth/Auth";
 import { ApiResponse } from "../../../../models/ApiResponse";

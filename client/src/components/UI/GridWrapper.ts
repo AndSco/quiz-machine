@@ -7,8 +7,8 @@ export const GridWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 
-  ::after {
+  /* ::after {
     content: "";
     flex: auto;
-  }
+  } */
 `;

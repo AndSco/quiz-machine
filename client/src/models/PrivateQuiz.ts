@@ -1,5 +1,6 @@
 export interface iQuestion {
   question: string;
+  code?: string;
   allReplies: string[];
   rightReply: string;
 }
@@ -17,7 +18,8 @@ export class PrivateQuizQuestion implements iQuestion {
   constructor(
     public question: string,
     public allReplies: string[],
-    public rightReply: string
+    public rightReply: string,
+    public code?: string
   ) {}
 }
 

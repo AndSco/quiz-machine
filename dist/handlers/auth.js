@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerUser = exports.loginUser = void 0;
+exports.logoutUser = exports.registerUser = exports.loginUser = void 0;
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
 var user_1 = require("../models/user");
 var passport_1 = __importDefault(require("passport"));
@@ -123,3 +123,12 @@ exports.registerUser = function (req, res, next) { return __awaiter(void 0, void
         }
     });
 }); };
+exports.logoutUser = function (req, res, next) {
+    try {
+        req.logOut();
+        return res.status(200).json("Logged you out!");
+    }
+    catch (err) {
+        return next(err);
+    }
+};
