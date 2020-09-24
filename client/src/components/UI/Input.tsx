@@ -9,7 +9,7 @@ export const StyledInput = styled.input`
   background-color: white;
   width: 300px;
   box-sizing: border-box;
-  margin: 0.6rem 0 1rem 0;
+  margin: 0.7rem 0 1.5rem 0;
   border: 0;
 `;
 
@@ -34,6 +34,7 @@ interface InputProps {
   inputType?: "text" | "password";
   value: string;
   isRequired?: boolean;
+  label: string;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -42,11 +43,12 @@ export const Input: React.FC<InputProps> = ({
   resetError,
   inputType,
   value,
+  label,
   isRequired = false
 }) => {
   return (
     <Container>
-      <StyledLabel htmlFor={inputName}>{inputName.toUpperCase()}</StyledLabel>
+      <StyledLabel htmlFor={inputName}>{label.toUpperCase()}</StyledLabel>
       <StyledInput
         type={inputType}
         value={value}

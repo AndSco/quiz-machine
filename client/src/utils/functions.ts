@@ -117,3 +117,11 @@ export const copyQuizUrlToCipboard = (link: string) => {
   }
   navigator.clipboard.writeText(actualUrl);
 };
+
+export const checkMinimumInputLength = (
+  input: string,
+  minimumLength: number = 1
+) => input.length >= minimumLength;
+
+export const cropInput = (input: string, length: number) =>
+  input.length <= length ? input : input.slice(0, length) + "...";

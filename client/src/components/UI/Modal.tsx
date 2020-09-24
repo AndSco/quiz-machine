@@ -4,7 +4,9 @@ import { Colors } from "../../constants/colors";
 import { Icon } from "./Icon";
 
 export const StyledModal = styled.div`
-  position: fixed;
+  /* position: fixed; */
+  position: absolute;
+  padding: 2rem 0 3rem 0;
   top: 0;
   width: 100vw;
   min-height: 100vh;

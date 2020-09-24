@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { QuestionCard } from "../../ActualQuizComponents/QuestionCard";
 import { Ending } from "../../ActualQuizComponents/Ending";
-import { QuizBackground } from "../../UI/QuizBackground";
+import { QuizBackground } from "../../ActualQuizComponents/QuizBackground";
 import { PrivateQuiz, PrivateQuizQuestion } from "../../../models/PrivateQuiz";
 import { getSingleQuiz } from "../../../utils/dbFunctions";
 import { useHistory } from "react-router-dom";
@@ -57,7 +57,7 @@ export const ActualPrivateQuiz: React.FC<ActualPrivateQuizProps> = ({
         <Ending
           score={score}
           totalQuestions={allQuestions.length}
-          playAgain={() => console.log("What to do?")}
+          playAgain={() => history.push("/")}
         />
       )}
     </QuizBackground>

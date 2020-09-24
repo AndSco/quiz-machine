@@ -77,6 +77,7 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
       >
         {inputs.map(input => (
           <Input
+            label={input.name}
             key={input.name}
             inputType={input.inputType ? input.inputType : "text"}
             inputName={input.name}

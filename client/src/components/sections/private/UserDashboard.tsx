@@ -10,6 +10,7 @@ import { Wrapper } from "../../UI/Wrapper";
 import { Icon } from "../../UI/Icon";
 import { Colors } from "../../../constants/colors";
 import { Modal } from "../../UI/Modal";
+import { Clickable } from "../../UI/Clickable";
 
 const WelcomeMessage = styled.h1`
   color: ${Colors.BLACK};
@@ -66,6 +67,12 @@ export const UserDashboard: React.FC = () => {
     history.push("/myDashboard");
   }, [history]);
 
+  useEffect(() => {
+    if (!currentUser) {
+      history.push("/login");
+    }
+  }, [history, currentUser]);
+
   const startCreatingQuiz = () => setIsCreatingQuiz(true);
 
   if (!currentUser) return null;
@@ -81,7 +88,11 @@ export const UserDashboard: React.FC = () => {
           {userQuizzes.length > 0 ? (
             <QuizOverview myQuizzes={userQuizzes as PrivateQuiz[]} />
           ) : (
-            <h2 style={{ color: "black" }}>No quizzes yet. Create one now</h2>
+            <Clickable onClick={() => setIsCreatingQuiz(true)}>
+              <h2 style={{ color: Colors.DARK_BLUE }}>
+                No quizzes yet. Create one now
+              </h2>
+            </Clickable>
           )}
         </>
       ) : (

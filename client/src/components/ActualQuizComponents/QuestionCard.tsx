@@ -48,7 +48,15 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       <StyledQuestion dangerouslySetInnerHTML={{ __html: question.question }} />
       {(question as PrivateQuizQuestion).code && (
         <CodeContainer>
-          <code>{(question as PrivateQuizQuestion).code}</code>
+          {/* <code style={{ whiteSpace: "pre-wrap" }}>
+            {(question as PrivateQuizQuestion).code as string}
+          </code> */}
+          <code
+            style={{ whiteSpace: "pre-wrap" }}
+            dangerouslySetInnerHTML={{
+              __html: (question as PrivateQuizQuestion).code as string
+            }}
+          />
         </CodeContainer>
       )}
       <RepliesContainer>

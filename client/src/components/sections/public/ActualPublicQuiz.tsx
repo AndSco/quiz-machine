@@ -3,7 +3,7 @@ import { Question, Subject } from "../../../models/PublicQuizQuestion";
 import { QuestionCard } from "../../ActualQuizComponents/QuestionCard";
 import { getSubjectBackgroundPic } from "../../../utils/functions";
 import { Ending } from "../../ActualQuizComponents/Ending";
-import { QuizBackground } from "../../UI/QuizBackground";
+import { QuizBackground } from "../../ActualQuizComponents/QuizBackground";
 
 interface ActualQuizProps {
   allQuestions: Question[];

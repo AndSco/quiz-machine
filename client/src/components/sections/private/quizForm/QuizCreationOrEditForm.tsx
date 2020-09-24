@@ -16,11 +16,11 @@ import {
   PrivacyChoice,
   PrivateQuiz
 } from "../../../../models/PrivateQuiz";
-import { QuestionSubForm } from "./QuestionSubForm";
+import { QuestionSubForm } from "./questions_subform/QuestionSubForm";
 import { createQuiz, editQuiz } from "../../../../utils/dbFunctions";
 import { AuthContext } from "../../../../contexts/auth/Auth";
 import { ApiResponse } from "../../../../models/ApiResponse";
-import { SavedQuestionCard } from "../SavedQuestionCard";
+import { SavedQuestionCard } from "./SavedQuestionCard";
 import { Icon } from "../../../UI/Icon";
 import { capitaliseInput, getPropertyName } from "../../../../utils/functions";
 import {
@@ -29,7 +29,7 @@ import {
   RadioContainer,
   ToggleQuestionVisibilityButton,
   FormButton
-} from "./QuizFormStyledComponents";
+} from "./Styled";
 
 export type PossibleUsage = "creation" | "editing";
 
@@ -117,11 +117,13 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
           >
             <Input
               inputName="title"
+              label="quiz title"
               onChangeFunction={handleChange}
               value={getPropertyName(inputValues, "title")}
             />
             <Input
               inputName="backgroundImageUrl"
+              label="image background url"
               onChangeFunction={handleChange}
               value={getPropertyName(inputValues, "backgroundImageUrl" as any)}
             />
