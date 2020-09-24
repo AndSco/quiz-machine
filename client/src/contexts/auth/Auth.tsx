@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import { User } from "../../models/User";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
 import { getUserQuizzes, logoutUser } from "../../utils/dbFunctions";
@@ -34,10 +34,10 @@ export const AuthContextProvider: React.FC = ({ children }) => {
   const [isInPrivateSection, setIsInPrivateSection] = useState(false);
   const [userQuizzes, setUserQuizzes] = useState<PrivateQuiz[]>([]);
 
-  const uploadUserQuizzes = async () => {
+  const uploadUserQuizzes = useCallback(async () => {
     const userQuizzesFromDB = await getUserQuizzes(currentUser!._id);
     setUserQuizzes(userQuizzesFromDB);
-  };
+  }, [currentUser]);
 
   const refreshUserQuizzes = () => uploadUserQuizzes();
 
@@ -45,7 +45,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
     if (currentUser) {
       uploadUserQuizzes();
     }
-  }, [currentUser]);
+  }, [currentUser, uploadUserQuizzes]);
 
   const loadCurrentUser = (user: User) => {
     setCurrentUser(user);

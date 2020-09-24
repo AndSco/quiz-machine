@@ -48,7 +48,7 @@ const CreateButton: React.FC<{ openCreationForm: () => void }> = ({
     <CreateButtonContainer>
       <StyledCreateButton onClick={() => openCreationForm()}>
         Create quiz
-        <Icon icon={"plus-circle"} color={Colors.LIGHTEST_GREY} size="3x" />
+        <Icon icon={"plus-circle"} color={Colors.LIGHTEST_GREY} size="2x" />
       </StyledCreateButton>
     </CreateButtonContainer>
   );
@@ -61,7 +61,7 @@ export const UserDashboard: React.FC = () => {
   const [isCreatingQuiz, setIsCreatingQuiz] = useState(false);
   const history = useHistory();
 
-  useEffect(() => goToPrivateSection(), []);
+  useEffect(() => goToPrivateSection(), [goToPrivateSection]);
 
   useEffect(() => {
     history.push("/myDashboard");

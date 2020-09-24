@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { SmallButton } from "../../UI/Buttons";
 import { deleteQuiz } from "../../../utils/dbFunctions";
 import { AuthContext } from "../../../contexts/auth/Auth";
+import { QuizzesContext } from "../../../contexts/quizzes/Quizzes";
 
 export const StyledWarningMessage = styled.div`
   width: 100%;
@@ -37,9 +38,13 @@ export const WarningMessage: React.FC<Props> = ({
   quizId
 }) => {
   const { refreshUserQuizzes } = useContext(AuthContext);
+  const { getCustomQuizzes } = useContext(QuizzesContext);
+
   const handleQuizDeletion = async () => {
     await deleteQuiz(quizId);
     refreshUserQuizzes();
+    getCustomQuizzes();
+    cancelDeletionProcess();
   };
 
   return (

@@ -32,7 +32,7 @@ const startingValue: iQuizzesContext = {
   configQuiz: (option: ConfigOption, inputValue: any) => {},
   startedQuiz: false,
   goToNextQuizConfiguration: () => {},
-  uploadQuestions: ([]) => {},
+  uploadQuestions: () => {},
   reset: () => {},
   usersCustomQuizzes: [],
   getCustomQuizzes: () => {}

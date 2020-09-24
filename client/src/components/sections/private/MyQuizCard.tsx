@@ -61,6 +61,7 @@ interface Props {
 export const MyQuizCard: React.FC<Props> = ({ quiz, editQuiz }) => {
   const quizUrl = `quiz/${quiz._id}`;
   const [wantsToDeleteQuiz, setWantsToDeleteQuiz] = useState(false);
+  const [hasCopiedUrl, setHasCopiedUrl] = useState(false);
 
   return (
     <MyStyledQuizCard imageUrl={quiz.backgroundImageUrl as string}>
@@ -74,9 +75,14 @@ export const MyQuizCard: React.FC<Props> = ({ quiz, editQuiz }) => {
                 Take quiz
               </ActionButton>
             </Link>
-            <ActionButton onClick={() => copyQuizUrlToCipboard(quizUrl)}>
+            <ActionButton
+              onClick={() => {
+                setHasCopiedUrl(true);
+                copyQuizUrlToCipboard(quizUrl);
+              }}
+            >
               <Icon icon="link" color="lightgrey" />
-              Copy url
+              {!hasCopiedUrl ? "Copy url" : "Url copied!"}
             </ActionButton>
             <ActionButton onClick={() => editQuiz(quiz)}>
               <Icon icon="edit" color="lightgrey" />
