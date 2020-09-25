@@ -90,3 +90,7 @@ export const SmallButton = styled(MediumButton as "div")`
     color: white;
   }
 `;
+
+export const ResetButton = styled(SecondaryButton)`
+  align-self: center;
+`;

@@ -10,12 +10,13 @@ export const GridCard = styled.div`
   text-transform: uppercase;
   background-color: ${Colors.DARK_BLUE};
   font-size: 1.6rem;
-  width: 200px;
+  width: calc(100% / 5);
+  min-width: 200px;
   height: 200px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  margin: 2px;
+  margin: 12px;
   background-position: center;
   background-size: cover;
   animation: ${fadeIn} 1.2s ease;

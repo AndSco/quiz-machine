@@ -102,14 +102,12 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
 
   return (
     <FormContainer>
-      {isAddingQuestions && (
+      {isAddingQuestions ? (
         <QuestionSubForm
           saveQuestionInState={saveQuestionInState}
           closeItself={closeQuestionForm}
         />
-      )}
-
-      {uploadMessage ? (
+      ) : uploadMessage ? (
         <h2>{uploadMessage}</h2>
       ) : (
         <>

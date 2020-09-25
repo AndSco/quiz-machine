@@ -6,9 +6,7 @@ export const GridWrapper = styled.div`
   padding: 0 3rem;
   flex-wrap: wrap;
   justify-content: space-between;
-
-  /* ::after {
-    content: "";
-    flex: auto;
-  } */
+  align-content: flex-start;
+  max-width: 1600px;
+  margin: 0 auto;
 `;

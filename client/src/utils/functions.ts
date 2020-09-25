@@ -125,3 +125,6 @@ export const checkMinimumInputLength = (
 
 export const cropInput = (input: string, length: number) =>
   input.length <= length ? input : input.slice(0, length) + "...";
+
+export const removeEntryFromArray = <T>(array: Array<T>, entry: T) =>
+  array.filter(element => element !== entry);

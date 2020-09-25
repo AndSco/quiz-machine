@@ -17,7 +17,9 @@ import {
   faPuzzlePiece,
   faLink,
   faEdit,
-  faBrain
+  faBrain,
+  faThumbsUp,
+  faThumbsDown
 } from "@fortawesome/free-solid-svg-icons";
 import { PrivateSection } from "./components/sections/private/PrivateSection";
 import { AuthContextProvider } from "./contexts/auth/Auth";
@@ -42,7 +44,9 @@ library.add(
   faPuzzlePiece,
   faLink,
   faEdit,
-  faBrain
+  faBrain,
+  faThumbsUp,
+  faThumbsDown
 );
 
 interface MatchParams {

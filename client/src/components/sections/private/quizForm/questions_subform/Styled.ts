@@ -34,6 +34,7 @@ export const PinkSubmitButton = styled(SubmitButton)`
 export const StyledAnswer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: whitesmoke;
   padding: 0 1rem;
   border-radius: 40px;
