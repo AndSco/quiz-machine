@@ -28,7 +28,7 @@ export const NumQuestionsStep: React.FC<Props> = ({ currentAmount }) => {
           type="number"
           min={5}
           step={1}
-          max={7}
+          max={20}
           value={currentAmount}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             configQuiz("numberOfQuestions", +e.target.value);

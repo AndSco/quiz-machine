@@ -61,7 +61,5 @@ export const ActualPrivateQuiz: React.FC<ActualPrivateQuizProps> = ({
         />
       )}
     </QuizBackground>
-  ) : (
-    <h1>Loading</h1>
-  );
+  ) : null;
 };

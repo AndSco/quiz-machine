@@ -11,20 +11,22 @@ interface Props {
   size?: FontAwesomeIconProps["size"];
   color?: string;
   marginTop?: string;
+  sideMargin?: string;
 }
 
 export const Icon: React.FC<Props> = ({
   icon,
   size = "1x",
   color = Colors.LIGHTER_GREY,
-  marginTop = 0
+  marginTop = 0,
+  sideMargin = "7px"
 }) => {
   return (
     <FontAwesomeIcon
       icon={icon}
       size={size}
       color={color}
-      style={{ margin: "0 7px", marginTop: marginTop }}
+      style={{ margin: `0 ${sideMargin}`, marginTop: marginTop }}
     />
   );
 };

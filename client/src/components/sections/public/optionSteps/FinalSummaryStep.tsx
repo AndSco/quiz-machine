@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../../../../constants/colors";
 import { getQuestions } from "../../../../utils/functions";
 import { StepTemplate } from "./StepTemplate";
 import { MediumButton, SecondaryButton } from "../../../UI/Buttons";
+import { ErrorMessage } from "../../../UI/ErrorMessage";
 import { QuizzesContext } from "../../../../contexts/quizzes/Quizzes";
 
 const StyledFeature = styled.p`
@@ -33,8 +34,12 @@ const FeaturesContainer = styled.div`
   align-items: center;
 `;
 
+const StyledResetButton = styled(SecondaryButton)`
+  align-self: center;
+`;
+
 const ResetButton: React.FC<{ reset: () => void }> = ({ reset }) => (
-  <SecondaryButton onClick={reset}>RESET</SecondaryButton>
+  <StyledResetButton onClick={reset}>RESET</StyledResetButton>
 );
 
 export const FinalSummaryStep: React.FC = () => {
@@ -46,6 +51,8 @@ export const FinalSummaryStep: React.FC = () => {
     uploadQuestions,
     reset
   } = useContext(QuizzesContext);
+
+  const [fetchError, setFetchError] = useState<string | null>(null);
   return (
     <StepTemplate>
       <FeaturesContainer>
@@ -68,20 +75,28 @@ export const FinalSummaryStep: React.FC = () => {
             marginTop: "1rem"
           }}
         >
-          <MediumButton
-            onClick={async () => {
-              const questionsToUpload = await getQuestions({
-                quizType,
-                difficulty: difficultyLevel,
-                numOfQuestions: numberOfQuestions,
-                subject: currentSubject
-              });
-
-              uploadQuestions(questionsToUpload);
-            }}
-          >
-            START QUIZ
-          </MediumButton>
+          {!fetchError ? (
+            <MediumButton
+              onClick={async () => {
+                const questionsToUpload = await getQuestions({
+                  quizType,
+                  difficulty: difficultyLevel,
+                  numOfQuestions: numberOfQuestions,
+                  subject: currentSubject
+                });
+                try {
+                  uploadQuestions(questionsToUpload);
+                } catch (err) {
+                  console.log("Error caught", err);
+                  setFetchError(err);
+                }
+              }}
+            >
+              START QUIZ
+            </MediumButton>
+          ) : (
+            <ErrorMessage>{fetchError}</ErrorMessage>
+          )}
           <ResetButton reset={reset} />
         </div>
       </FeaturesContainer>

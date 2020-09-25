@@ -11,9 +11,9 @@ export const RadioContainer = styled.div`
   display: flex;
   margin: 0 1rem;
   background-color: ${(props: { isSelected: boolean }) =>
-    props.isSelected ? Colors.DARK_BLUE : Colors.LIGHTEST_GREY};
+    props.isSelected ? Colors.DARK_BLUE : "white"};
   color: ${(props: { isSelected: boolean }) =>
-    props.isSelected ? "white" : "grey"};
+    props.isSelected ? "white" : Colors.DARK_BLUE};
   padding: 0.4rem 0.9rem 0.4rem 0.6rem;
   align-items: center;
   border-radius: 40px;

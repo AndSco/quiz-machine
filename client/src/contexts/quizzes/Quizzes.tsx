@@ -90,6 +90,9 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     setQuizConfigurationStep(prev => prev + 1);
 
   const uploadQuestions = (questions: Question[]) => {
+    if (questions.length === 0) {
+      throw "Not enough quizzes matching these parameters. Try again!";
+    }
     setQuestions(questions);
     setStartedQuiz(true);
   };

@@ -29,7 +29,7 @@ export const QuizOverview: React.FC<Props> = ({ myQuizzes }) => {
 
   return (
     <>
-      {isEditingQuiz && (
+      {isEditingQuiz ? (
         <Modal handleClose={() => setIsEditingQuiz(false)}>
           <QuizCreationOrEditForm
             usage="editing"
@@ -37,14 +37,16 @@ export const QuizOverview: React.FC<Props> = ({ myQuizzes }) => {
             onFormClose={() => setIsEditingQuiz(false)}
           />
         </Modal>
+      ) : (
+        <>
+          <BigTitle>Your quizzes</BigTitle>
+          <Wrapper>
+            {myQuizzes.map((quiz, index) => (
+              <MyQuizCard quiz={quiz} key={index} editQuiz={startEditingQuiz} />
+            ))}
+          </Wrapper>
+        </>
       )}
-
-      <BigTitle>Your quizzes</BigTitle>
-      <Wrapper>
-        {myQuizzes.map((quiz, index) => (
-          <MyQuizCard quiz={quiz} key={index} editQuiz={startEditingQuiz} />
-        ))}
-      </Wrapper>
     </>
   );
 };

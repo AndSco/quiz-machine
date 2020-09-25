@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
+import { fadeIn } from "../../constants/animations";
 
 export const GridCard = styled.div`
   padding: 1rem;
@@ -17,6 +18,7 @@ export const GridCard = styled.div`
   margin: 2px;
   background-position: center;
   background-size: cover;
+  animation: ${fadeIn} 1.2s ease;
 
   :hover {
     transform: scale(1.02);

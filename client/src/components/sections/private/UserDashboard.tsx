@@ -11,6 +11,11 @@ import { Icon } from "../../UI/Icon";
 import { Colors } from "../../../constants/colors";
 import { Modal } from "../../UI/Modal";
 import { Clickable } from "../../UI/Clickable";
+import { fadeIn } from "../../../constants/animations";
+
+const FadeInWrapper = styled(Wrapper)`
+  animation: ${fadeIn} 1.2s ease;
+`;
 
 const WelcomeMessage = styled.h1`
   color: ${Colors.BLACK};
@@ -20,6 +25,7 @@ const CreateButtonContainer = styled.div`
   position: fixed;
   top: 90px;
   left: 30px;
+  z-index: 20;
 `;
 
 const StyledCreateButton = styled(SecondaryButton)`
@@ -78,7 +84,7 @@ export const UserDashboard: React.FC = () => {
   if (!currentUser) return null;
 
   return (
-    <Wrapper>
+    <FadeInWrapper>
       {!isCreatingQuiz ? (
         <>
           <WelcomeMessage>
@@ -89,8 +95,10 @@ export const UserDashboard: React.FC = () => {
             <QuizOverview myQuizzes={userQuizzes as PrivateQuiz[]} />
           ) : (
             <Clickable onClick={() => setIsCreatingQuiz(true)}>
-              <h2 style={{ color: Colors.DARK_BLUE }}>
-                No quizzes yet. Create one now
+              <h2
+                style={{ backgroundColor: Colors.STEEL_PINK, padding: ".7rem" }}
+              >
+                No personal quizzes yet. Click here to start creating one!
               </h2>
             </Clickable>
           )}
@@ -103,6 +111,6 @@ export const UserDashboard: React.FC = () => {
           />
         </Modal>
       )}
-    </Wrapper>
+    </FadeInWrapper>
   );
 };

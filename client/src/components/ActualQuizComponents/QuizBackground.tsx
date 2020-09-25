@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Clickable } from "../UI/Clickable";
 import { Icon } from "../UI/Icon";
 import { Colors } from "../../constants/colors";
+import { fadeIn } from "../../constants/animations";
 
 export const StyledQuizBackground = styled.div`
   width: 100vw;
@@ -17,6 +18,7 @@ export const StyledQuizBackground = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: ${fadeIn} 1.2s ease;
 `;
 
 const StopQuizButton = styled(Clickable)`

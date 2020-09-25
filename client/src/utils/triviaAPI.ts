@@ -16,6 +16,7 @@ export const getTriviaApiQuestions = async (
   }${difficulty ? "&difficulty=" + difficulty : ""}&type=multiple`;
 
   const { results: questions } = await (await fetch(endpoint)).json();
+  // if it fails, returns results: []
 
   return questions;
 };

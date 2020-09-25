@@ -35,7 +35,6 @@ export const QuestionSubForm: React.FC<Props> = ({
   const [allReplies, setAllReplies] = useState<string[]>([]);
   const [needsToAddCode, setNeedsToAddCode] = useState(false);
   const [code, setCode] = useState("");
-  console.log("CODE", code);
 
   const handleSubmit = () => {
     const wrongAndRightReplies = shuffleArray<string>([
@@ -77,7 +76,8 @@ export const QuestionSubForm: React.FC<Props> = ({
               {!needsToAddCode ? (
                 <Clickable onClick={() => setNeedsToAddCode(true)}>
                   <AddCodeButton>
-                    Click here to add code to this question
+                    If your question involves code, click here to add a code
+                    snippet
                   </AddCodeButton>
                 </Clickable>
               ) : (
@@ -167,9 +167,11 @@ export const QuestionSubForm: React.FC<Props> = ({
             </ComplexInputContainer>
           )}
 
-          <PinkSubmitButton type="submit" onClick={handleSubmit}>
-            SAVE QUESTION
-          </PinkSubmitButton>
+          {hasEnteredQuestion && hasEnteredRightReply && allReplies.length > 0 && (
+            <PinkSubmitButton type="submit" onClick={handleSubmit}>
+              SAVE QUESTION
+            </PinkSubmitButton>
+          )}
         </form>
       </FormContainer>
     </Modal>

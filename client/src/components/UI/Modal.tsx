@@ -4,7 +4,6 @@ import { Colors } from "../../constants/colors";
 import { Icon } from "./Icon";
 
 export const StyledModal = styled.div`
-  /* position: fixed; */
   position: absolute;
   padding: 2rem 0 3rem 0;
   top: 0;
@@ -15,7 +14,7 @@ export const StyledModal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 3;
+  z-index: 30;
   overflow: scroll;
 `;
 
