@@ -4,6 +4,7 @@ import { Difficulty } from "../../models/TriviaApi";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
 import { getCustomUsersQuizzes } from "../../utils/dbFunctions";
 import { LoadingContext } from "../../contexts/loading/Loading";
+import { getQuestions } from "../../utils/functions";
 
 type ConfigOption = "quizType" | "difficulty" | "numberOfQuestions" | "subject";
 
@@ -21,6 +22,8 @@ interface iQuizzesContext {
   reset: () => void;
   usersCustomQuizzes: PrivateQuiz[];
   getCustomQuizzes: () => void;
+  getPublicQuizQuestions: () => void;
+  quizFetchError: null | Error;
 }
 
 const startingValue: iQuizzesContext = {
@@ -36,7 +39,9 @@ const startingValue: iQuizzesContext = {
   uploadQuestions: () => {},
   reset: () => {},
   usersCustomQuizzes: [],
-  getCustomQuizzes: () => {}
+  getCustomQuizzes: () => {},
+  getPublicQuizQuestions: () => {},
+  quizFetchError: null
 };
 
 export const QuizzesContext = createContext(startingValue);
@@ -53,6 +58,35 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     []
   );
   const { startLoading, stopLoading } = useContext(LoadingContext);
+  const [quizFetchError, setQuizFetchError] = useState(null);
+
+  const uploadQuestions = (questions: Question[]) => {
+    setQuestions(questions);
+    setStartedQuiz(true);
+  };
+
+  const getPublicQuizQuestions = async () => {
+    try {
+      startLoading();
+      const questionsToUpload = await getQuestions({
+        quizType,
+        difficulty: difficultyLevel,
+        numOfQuestions: numberOfQuestions,
+        subject: currentSubject
+      });
+      if (questionsToUpload.length === 0) {
+        throw new Error(
+          "Not enough quizzes matching these parameters. Try again!"
+        );
+      }
+      uploadQuestions(questionsToUpload);
+      stopLoading();
+    } catch (err) {
+      stopLoading();
+      // throw err;
+      setQuizFetchError(err);
+    }
+  };
 
   const getCustomQuizzes = async () => {
     startLoading();
@@ -92,18 +126,6 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
   const goToNextQuizConfiguration = () =>
     setQuizConfigurationStep(prev => prev + 1);
 
-  const uploadQuestions = (questions: Question[]) => {
-    startLoading();
-    if (questions.length === 0) {
-      throw new Error(
-        "Not enough quizzes matching these parameters. Try again!"
-      );
-    }
-    setQuestions(questions);
-    setStartedQuiz(true);
-    stopLoading();
-  };
-
   const valuesToPass: iQuizzesContext = {
     quizType,
     currentSubject,
@@ -117,7 +139,9 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     uploadQuestions,
     reset,
     usersCustomQuizzes,
-    getCustomQuizzes
+    getCustomQuizzes,
+    getPublicQuizQuestions,
+    quizFetchError
   };
 
   return (

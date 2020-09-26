@@ -19,6 +19,7 @@ export const LoadingContextProvider: React.FC = ({ children }) => {
   const startLoading = () => setIsLoading(true);
   const stopLoading = () => setIsLoading(false);
 
+  console.log("IS LOADING", isLoading);
   const valuesToPass: iLoadingContext = {
     isLoading,
     startLoading,

@@ -1,7 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { PublicQuizzes } from "./components/sections/public/PublicQuizzes";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBookOpen,
@@ -21,15 +19,10 @@ import {
   faThumbsUp,
   faThumbsDown
 } from "@fortawesome/free-solid-svg-icons";
-import { PrivateSection } from "./components/sections/private/PrivateSection";
 import { AuthContextProvider } from "./contexts/auth/Auth";
 import { QuizzesContextProvider } from "./contexts/quizzes/Quizzes";
 import { LoadingContextProvider } from "./contexts/loading/Loading";
-import { Navbar } from "./components/Navbar/Navbar";
-import { UserDashboard } from "./components/sections/private/UserDashboard";
-import { ActualPrivateQuiz } from "./components/sections/private/ActualPrivateQuiz";
-
-import { RouteComponentProps } from "react-router";
+import { Main } from "./Main";
 
 library.add(
   faBookOpen,
@@ -50,41 +43,13 @@ library.add(
   faThumbsDown
 );
 
-interface MatchParams {
-  quizId: string;
-}
-
-interface MatchProps extends RouteComponentProps<MatchParams> {}
-
 const App: React.FC = () => {
   return (
     <div className="App">
       <LoadingContextProvider>
         <QuizzesContextProvider>
           <AuthContextProvider>
-            <Router>
-              <Navbar />
-              <Switch>
-                <Route exact path="/" component={PublicQuizzes} />
-                <Route
-                  exact
-                  path="/login"
-                  render={() => <PrivateSection activity="login" />}
-                />
-                <Route
-                  exact
-                  path="/register"
-                  render={() => <PrivateSection activity="register" />}
-                />
-                <Route exact path="/myDashboard" component={UserDashboard} />
-                <Route
-                  path="/quiz/:quizId"
-                  render={({ match }: MatchProps) => (
-                    <ActualPrivateQuiz quizId={match.params.quizId} />
-                  )}
-                />
-              </Switch>
-            </Router>
+            <Main />
           </AuthContextProvider>
         </QuizzesContextProvider>
       </LoadingContextProvider>

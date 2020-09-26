@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Colors } from "../../../../constants/colors";
-import { getQuestions } from "../../../../utils/functions";
 import { StepTemplate } from "./StepTemplate";
 import { MediumButton, SecondaryButton } from "../../../UI/Buttons";
 import { ErrorMessage } from "../../../UI/ErrorMessage";
@@ -48,11 +47,11 @@ export const FinalSummaryStep: React.FC = () => {
     numberOfQuestions,
     difficultyLevel,
     currentSubject,
-    uploadQuestions,
-    reset
+    reset,
+    getPublicQuizQuestions,
+    quizFetchError
   } = useContext(QuizzesContext);
 
-  const [fetchError, setFetchError] = useState<string | null>(null);
   return (
     <StepTemplate>
       <FeaturesContainer>
@@ -75,27 +74,20 @@ export const FinalSummaryStep: React.FC = () => {
             marginTop: "1rem"
           }}
         >
-          {!fetchError ? (
+          {!quizFetchError ? (
             <MediumButton
               onClick={async () => {
-                const questionsToUpload = await getQuestions({
-                  quizType,
-                  difficulty: difficultyLevel,
-                  numOfQuestions: numberOfQuestions,
-                  subject: currentSubject
-                });
                 try {
-                  uploadQuestions(questionsToUpload);
+                  getPublicQuizQuestions();
                 } catch (err) {
-                  console.log("Error caught", err);
-                  setFetchError(err);
+                  console.error(err);
                 }
               }}
             >
               START QUIZ
             </MediumButton>
           ) : (
-            <ErrorMessage>{fetchError}</ErrorMessage>
+            <ErrorMessage>{quizFetchError.message}</ErrorMessage>
           )}
           <ResetButton reset={reset} />
         </div>

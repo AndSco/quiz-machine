@@ -140,7 +140,7 @@ export const createScoreComment = (
   } else if (percentage === 7) {
     return "😀 Quite good!";
   } else if (percentage < 10) {
-    return "🤩 Excellent!";
+    return "😍 Excellent!";
   } else {
     return "🥳 Perfect!!";
   }

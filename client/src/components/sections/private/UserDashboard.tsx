@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../../../contexts/auth/Auth";
-import { LoadingContext } from "../../../contexts/loading/Loading";
 import { useHistory } from "react-router-dom";
 import { SecondaryButton } from "../../UI/Buttons";
 import { QuizCreationOrEditForm } from "./quizForm/QuizCreationOrEditForm";
@@ -13,7 +12,6 @@ import { Colors } from "../../../constants/colors";
 import { Modal } from "../../UI/Modal";
 import { Clickable } from "../../UI/Clickable";
 import { fadeIn } from "../../../constants/animations";
-import { Spinner } from "../../UI/Spinner";
 
 const FadeInWrapper = styled(Wrapper)`
   animation: ${fadeIn} 1.2s ease;
@@ -66,7 +64,6 @@ export const UserDashboard: React.FC = () => {
   const { currentUser, userQuizzes, goToPrivateSection } = useContext(
     AuthContext
   );
-  const { isLoading } = useContext(LoadingContext);
   const [isCreatingQuiz, setIsCreatingQuiz] = useState(false);
   const history = useHistory();
 
@@ -84,8 +81,7 @@ export const UserDashboard: React.FC = () => {
 
   const startCreatingQuiz = () => setIsCreatingQuiz(true);
 
-  // if (!currentUser) return null;
-  if (isLoading) return <Spinner />;
+  if (!currentUser) return null;
 
   return (
     <FadeInWrapper>
