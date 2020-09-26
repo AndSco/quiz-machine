@@ -1,8 +1,9 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { Question, QuizType, Subject } from "../../models/PublicQuizQuestion";
 import { Difficulty } from "../../models/TriviaApi";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
 import { getCustomUsersQuizzes } from "../../utils/dbFunctions";
+import { LoadingContext } from "../../contexts/loading/Loading";
 
 type ConfigOption = "quizType" | "difficulty" | "numberOfQuestions" | "subject";
 
@@ -51,12 +52,14 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
   const [usersCustomQuizzes, setUsersCustomQuizzes] = useState<PrivateQuiz[]>(
     []
   );
+  const { startLoading, stopLoading } = useContext(LoadingContext);
 
   const getCustomQuizzes = async () => {
+    startLoading();
     const dbResponse = await getCustomUsersQuizzes();
     const customQuizzes = dbResponse.payload;
-    console.log("Getting quizzes", customQuizzes);
     setUsersCustomQuizzes(customQuizzes);
+    stopLoading();
   };
 
   useEffect(() => {
@@ -90,11 +93,15 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     setQuizConfigurationStep(prev => prev + 1);
 
   const uploadQuestions = (questions: Question[]) => {
+    startLoading();
     if (questions.length === 0) {
-      throw "Not enough quizzes matching these parameters. Try again!";
+      throw new Error(
+        "Not enough quizzes matching these parameters. Try again!"
+      );
     }
     setQuestions(questions);
     setStartedQuiz(true);
+    stopLoading();
   };
 
   const valuesToPass: iQuizzesContext = {

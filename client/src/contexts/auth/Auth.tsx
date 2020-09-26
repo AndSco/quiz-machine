@@ -1,7 +1,14 @@
-import React, { createContext, useState, useEffect, useCallback } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useContext
+} from "react";
 import { User } from "../../models/User";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
 import { getUserQuizzes, logoutUser } from "../../utils/dbFunctions";
+import { LoadingContext } from "../../contexts/loading/Loading";
 
 type PossibleUser = User | null;
 
@@ -33,10 +40,18 @@ export const AuthContextProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<PossibleUser>(null);
   const [isInPrivateSection, setIsInPrivateSection] = useState(false);
   const [userQuizzes, setUserQuizzes] = useState<PrivateQuiz[]>([]);
+  const { startLoading, stopLoading } = useContext(LoadingContext);
 
   const uploadUserQuizzes = useCallback(async () => {
-    const userQuizzesFromDB = await getUserQuizzes(currentUser!._id);
-    setUserQuizzes(userQuizzesFromDB);
+    try {
+      startLoading();
+      const userQuizzesFromDB = await getUserQuizzes(currentUser!._id);
+      setUserQuizzes(userQuizzesFromDB);
+      stopLoading();
+    } catch (err) {
+      console.error(err);
+      stopLoading();
+    }
   }, [currentUser]);
 
   const refreshUserQuizzes = () => uploadUserQuizzes();

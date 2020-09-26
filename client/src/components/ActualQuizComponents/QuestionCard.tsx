@@ -31,8 +31,6 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   givePoint,
   quizType
 }) => {
-  console.log("QUESTION", question);
-
   const [hasReplied, setHasReplied] = useState(false);
 
   const replyQuestion = () => setHasReplied(true);

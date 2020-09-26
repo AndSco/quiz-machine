@@ -20,7 +20,6 @@ import { picsUrls } from "../constants/picsUrls";
 type PossibleQuestionFormat = TriviaResultType | ProgrammingQuizResultType;
 
 export const getQuestions = async (configs: APISendable) => {
-  console.log("config obj", configs);
   let questions;
   if (configs.quizType === QuizType.TRIVIA) {
     questions = await getTriviaApiQuestions(
@@ -128,3 +127,21 @@ export const cropInput = (input: string, length: number) =>
 
 export const removeEntryFromArray = <T>(array: Array<T>, entry: T) =>
   array.filter(element => element !== entry);
+
+export const createScoreComment = (
+  score: number,
+  questionsNumber: number
+): string => {
+  const percentage = (score / questionsNumber) * 10;
+  if (percentage < 5) {
+    return "😭 You can do better!";
+  } else if (percentage === 6) {
+    return "🥺 Barely sufficient";
+  } else if (percentage === 7) {
+    return "😀 Quite good!";
+  } else if (percentage < 10) {
+    return "🤩 Excellent!";
+  } else {
+    return "🥳 Perfect!!";
+  }
+};

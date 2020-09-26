@@ -24,6 +24,7 @@ import {
 import { PrivateSection } from "./components/sections/private/PrivateSection";
 import { AuthContextProvider } from "./contexts/auth/Auth";
 import { QuizzesContextProvider } from "./contexts/quizzes/Quizzes";
+import { LoadingContextProvider } from "./contexts/loading/Loading";
 import { Navbar } from "./components/Navbar/Navbar";
 import { UserDashboard } from "./components/sections/private/UserDashboard";
 import { ActualPrivateQuiz } from "./components/sections/private/ActualPrivateQuiz";
@@ -58,33 +59,35 @@ interface MatchProps extends RouteComponentProps<MatchParams> {}
 const App: React.FC = () => {
   return (
     <div className="App">
-      <QuizzesContextProvider>
-        <AuthContextProvider>
-          <Router>
-            <Navbar />
-            <Switch>
-              <Route exact path="/" component={PublicQuizzes} />
-              <Route
-                exact
-                path="/login"
-                render={() => <PrivateSection activity="login" />}
-              />
-              <Route
-                exact
-                path="/register"
-                render={() => <PrivateSection activity="register" />}
-              />
-              <Route exact path="/myDashboard" component={UserDashboard} />
-              <Route
-                path="/quiz/:quizId"
-                render={({ match }: MatchProps) => (
-                  <ActualPrivateQuiz quizId={match.params.quizId} />
-                )}
-              />
-            </Switch>
-          </Router>
-        </AuthContextProvider>
-      </QuizzesContextProvider>
+      <LoadingContextProvider>
+        <QuizzesContextProvider>
+          <AuthContextProvider>
+            <Router>
+              <Navbar />
+              <Switch>
+                <Route exact path="/" component={PublicQuizzes} />
+                <Route
+                  exact
+                  path="/login"
+                  render={() => <PrivateSection activity="login" />}
+                />
+                <Route
+                  exact
+                  path="/register"
+                  render={() => <PrivateSection activity="register" />}
+                />
+                <Route exact path="/myDashboard" component={UserDashboard} />
+                <Route
+                  path="/quiz/:quizId"
+                  render={({ match }: MatchProps) => (
+                    <ActualPrivateQuiz quizId={match.params.quizId} />
+                  )}
+                />
+              </Switch>
+            </Router>
+          </AuthContextProvider>
+        </QuizzesContextProvider>
+      </LoadingContextProvider>
     </div>
   );
 };
