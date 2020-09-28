@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { copyQuizUrlToCipboard } from "../../../utils/functions";
 import { Icon } from "../../UI/Icon";
 import { WarningMessage } from "./WarningMessage";
+import { breakpoints } from "../../../constants/breakpoints";
 
 const MyStyledQuizCard = styled(GridCard)`
   width: 60vw;
@@ -25,6 +26,10 @@ const MyStyledQuizCard = styled(GridCard)`
     color: ${Colors.BLACK};
     font-size: 1.5rem;
   }
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    width: 90vw;
+  }
 `;
 
 const ActionButtonsContainer = styled.div`
@@ -32,6 +37,11 @@ const ActionButtonsContainer = styled.div`
   align-self: center;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    flex-wrap: wrap;
+  }
 `;
 
 const ActionButton = styled.h5`
@@ -43,7 +53,7 @@ const ActionButton = styled.h5`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin: 0.4rem;
   opacity: 0.9;
   cursor: pointer;
 

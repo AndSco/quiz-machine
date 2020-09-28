@@ -5,6 +5,7 @@ import { StepTemplate } from "./StepTemplate";
 import { MediumButton, SecondaryButton } from "../../../UI/Buttons";
 import { ErrorMessage } from "../../../UI/ErrorMessage";
 import { QuizzesContext } from "../../../../contexts/quizzes/Quizzes";
+import { breakpoints } from "../../../../constants/breakpoints";
 
 const StyledFeature = styled.p`
   color: white;
@@ -31,6 +32,10 @@ const FeaturesContainer = styled.div`
   background-color: ${Colors.YELLOW};
   justify-content: center;
   align-items: center;
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    width: 100vw;
+  }
 `;
 
 const StyledResetButton = styled(SecondaryButton)`

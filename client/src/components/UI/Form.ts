@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
 import { MediumButton } from "./Buttons";
+import { breakpoints } from "../../constants/breakpoints";
 
 export const FormContainer = styled.div`
   width: 600px;
@@ -12,6 +13,10 @@ export const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    width: 100vw;
+  }
 `;
 
 export const FormTitle = styled.h4`
@@ -24,4 +29,8 @@ export const SubmitButton = styled(MediumButton)`
   position: absolute;
   left: 200px;
   bottom: -25px;
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    left: 24vw;
+  }
 `;

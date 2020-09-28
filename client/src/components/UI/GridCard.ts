@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
 import { fadeIn } from "../../constants/animations";
+import { breakpoints } from "../../constants/breakpoints";
 
 export const GridCard = styled.div`
   padding: 1rem;
@@ -10,7 +11,7 @@ export const GridCard = styled.div`
   text-transform: uppercase;
   background-color: ${Colors.DARK_BLUE};
   font-size: 1.6rem;
-  width: calc(100% / 5);
+  width: 250px;
   min-width: 200px;
   height: 200px;
   display: flex;
@@ -28,5 +29,10 @@ export const GridCard = styled.div`
       background-color: ${Colors.YELLOW};
       color: white;
     }
+  }
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    width: 95%;
+    height: 250px;
   }
 `;

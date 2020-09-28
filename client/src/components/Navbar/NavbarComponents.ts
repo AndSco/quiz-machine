@@ -2,11 +2,29 @@ import styled from "styled-components";
 import { QuizType } from "../../models/PublicQuizQuestion";
 import { Colors } from "../../constants/colors";
 import { LoginButton } from "../UI/Buttons";
+import { breakpoints } from "../../constants/breakpoints";
 
 export const AllLinkWrapper = styled.div`
   display: flex;
   justify-content: flexend;
   align-items: center;
+
+  @media (max-width: ${breakpoints.mediumScreens}) {
+    flex-direction: column;
+    align-items: flex-end;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 90vh;
+    width: 85vw;
+    max-width: 400px;
+    padding: 3rem 0;
+    background-color: rgba(106, 0, 244, 0.96);
+    z-index: 50;
+    padding-top: 6rem;
+    box-sizing: border-box;
+    border-left: 12px solid ${Colors.STEEL_PINK_2};
+  }
 `;
 
 export const MenuItemsContainer = styled.div`
@@ -14,6 +32,13 @@ export const MenuItemsContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   flex: ${(props: { flex: number }) => props.flex};
+
+  @media (max-width: ${breakpoints.mediumScreens}) {
+    flex-direction: column;
+    align-items: flex-end;
+    height: 200px;
+    justify-content: space-around;
+  }
 `;
 
 export const NavbarMenuItem = styled.li`
@@ -32,6 +57,15 @@ export const NavbarMenuItem = styled.li`
       props.selectedNow === props.value
         ? "4px solid #ffcf10"
         : "4px solid #b9b5b5"};
+  }
+
+  @media (max-width: ${breakpoints.mediumScreens}) {
+    font-size: 1.4rem;
+    margin: 0;
+    padding: 0;
+    color: white;
+    color: ${(props: { value: QuizType; selectedNow: QuizType }) =>
+      props.selectedNow === props.value ? "white" : Colors.LIGHTER_GREY};
   }
 `;
 
