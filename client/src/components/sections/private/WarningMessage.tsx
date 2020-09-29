@@ -22,6 +22,7 @@ export const StyledWarningMessage = styled.div`
 
   .buttons-container {
     width: 50%;
+    min-width: 290px;
     display: flex;
     justify-content: space-around;
     margin-top: 1rem;

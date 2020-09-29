@@ -19,6 +19,7 @@ export const StyledQuizBackground = styled.div`
   align-items: center;
   justify-content: center;
   animation: ${fadeIn} 1.2s ease;
+  z-index: 150;
 `;
 
 const StopQuizButton = styled(Clickable)`
@@ -32,6 +33,7 @@ const StopQuizButton = styled(Clickable)`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 
   :hover {
     background-color: ${Colors.BLACK};

@@ -8,7 +8,6 @@ const Background = styled.div`
   top: 0;
   left: 0;
   background-color: #f7f5ec;
-  /* opacity: 0.6; */
 `;
 
 export const Spinner: React.FC = () => {

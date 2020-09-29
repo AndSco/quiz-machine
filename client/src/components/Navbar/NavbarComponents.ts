@@ -24,6 +24,36 @@ export const AllLinkWrapper = styled.div`
     padding-top: 6rem;
     box-sizing: border-box;
     border-left: 12px solid ${Colors.STEEL_PINK_2};
+    border-bottom: 12px solid ${Colors.STEEL_PINK_2};
+    border-bottom-left-radius: 40px;
+
+    .auth-buttons {
+      flex-direction: row;
+      margin-right: 2rem;
+
+      .buttons {
+        font-size: 1.3rem;
+        color: white;
+        background: none;
+        border: 2px solid;
+      }
+    }
+
+    .back-button,
+    .logout-button {
+      font-size: 1.3rem;
+      color: white;
+      background: none;
+      margin-right: 2rem;
+      width: 250px;
+      border-radius: 0;
+      padding-bottom: 10px;
+      border: 0;
+      border-bottom: 4px solid;
+      text-transform: uppercase;
+      margin-top: 1.5rem;
+      font-weight: 400;
+    }
   }
 `;
 
@@ -38,6 +68,7 @@ export const MenuItemsContainer = styled.div`
     align-items: flex-end;
     height: 200px;
     justify-content: space-around;
+    margin-bottom: 6rem;
   }
 `;
 

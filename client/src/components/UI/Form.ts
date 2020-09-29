@@ -27,10 +27,6 @@ export const FormTitle = styled.h4`
 
 export const SubmitButton = styled(MediumButton)`
   position: absolute;
-  left: 200px;
+  left: calc(50% - 125px);
   bottom: -25px;
-
-  @media (max-width: ${breakpoints.smallScreens}) {
-    left: 24vw;
-  }
 `;

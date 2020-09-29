@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
 import { Icon } from "./Icon";
+import { breakpoints } from "../../constants/breakpoints";
 
 export const StyledModal = styled.div`
   position: absolute;
@@ -14,19 +15,29 @@ export const StyledModal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 30;
+  z-index: 130;
   overflow: scroll;
 `;
 
 const BackIconContainer = styled.div`
   position: fixed;
-  /* top: 40px; */
   left: 30px;
   cursor: pointer;
+  z-index: 9;
+  background-color: white;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    top: 20px;
+  }
 `;
 
 interface Props {
-  // children: any;
   handleClose: () => void;
 }
 
@@ -34,7 +45,11 @@ export const Modal: React.FC<Props> = ({ children, handleClose }) => {
   return (
     <StyledModal>
       <BackIconContainer onClick={handleClose}>
-        <Icon icon={"arrow-circle-left"} color="white" size="3x" />
+        <Icon
+          icon={"arrow-circle-left"}
+          color={Colors.STEEL_PINK_2}
+          size="2x"
+        />
       </BackIconContainer>
       {children}
     </StyledModal>

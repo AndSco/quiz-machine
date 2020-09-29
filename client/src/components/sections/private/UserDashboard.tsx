@@ -12,6 +12,7 @@ import { Colors } from "../../../constants/colors";
 import { Modal } from "../../UI/Modal";
 import { Clickable } from "../../UI/Clickable";
 import { fadeIn } from "../../../constants/animations";
+import { breakpoints } from "../../../constants/breakpoints";
 
 const FadeInWrapper = styled(Wrapper)`
   animation: ${fadeIn} 1.2s ease;
@@ -19,6 +20,10 @@ const FadeInWrapper = styled(Wrapper)`
 
 const WelcomeMessage = styled.h1`
   color: ${Colors.BLACK};
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    margin-top: 4rem;
+  }
 `;
 
 const CreateButtonContainer = styled.div`
@@ -26,6 +31,13 @@ const CreateButtonContainer = styled.div`
   top: 90px;
   left: 30px;
   z-index: 20;
+
+  @media (max-width: ${breakpoints.mediumScreens}) {
+    left: 65%;
+  }
+  @media (max-width: ${breakpoints.smallestScreens}) {
+    left: 150px;
+  }
 `;
 
 const StyledCreateButton = styled(SecondaryButton)`
@@ -44,6 +56,12 @@ const StyledCreateButton = styled(SecondaryButton)`
     svg {
       color: white;
     }
+  }
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    background-color: ${Colors.DARK_BLUE};
+    color: white;
+    border: none;
   }
 `;
 

@@ -17,6 +17,7 @@ interface MatchProps extends RouteComponentProps<MatchParams> {}
 
 export const Main: React.FC = () => {
   const { isLoading } = useContext(LoadingContext);
+
   return isLoading ? (
     <Spinner />
   ) : (

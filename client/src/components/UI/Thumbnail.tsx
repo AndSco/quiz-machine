@@ -1,10 +1,21 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 import { GridCard } from "./GridCard";
 import { QuizzesContext } from "../../contexts/quizzes/Quizzes";
 import { getSubjectBackgroundPic } from "../../utils/functions";
 import { Title } from "../UI/Titles";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
 import { Link } from "react-router-dom";
+import { breakpoints } from "../../constants/breakpoints";
+
+const LinkContainer = styled(Link)`
+  display: flex;
+  margin: 0;
+
+  @media (max-width: ${breakpoints.smallScreens}) {
+    width: 100%;
+  }
+`;
 
 interface Props {
   purpose: "userQuizzes" | "apiQuizzes";
@@ -35,7 +46,7 @@ export const Thumbnail: React.FC<Props> = ({
         <Title>{title}</Title>
       </GridCard>
     ) : (
-      <Link to={`/quiz/${customQuiz!._id}`}>
+      <LinkContainer to={`/quiz/${customQuiz!._id}`}>
         <GridCard
           style={{
             backgroundImage: `url("${customQuiz!.backgroundImageUrl})"`
@@ -44,7 +55,7 @@ export const Thumbnail: React.FC<Props> = ({
           <Title>{title}</Title>
           {/* <h6>by {customQuiz!.createdBy}</h6> */}
         </GridCard>
-      </Link>
+      </LinkContainer>
     );
 
   return toRender;

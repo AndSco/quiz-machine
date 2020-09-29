@@ -16,12 +16,16 @@ export const AuthButtons: React.FC<{ closeMenu: () => void }> = ({
   closeMenu
 }) => {
   return (
-    <MenuItemsContainer flex={1}>
+    <MenuItemsContainer flex={1} className="auth-buttons">
       <Link to="/login">
-        <LoginButton onClick={closeMenu}>Login</LoginButton>
+        <LoginButton onClick={closeMenu} className="buttons">
+          Login
+        </LoginButton>
       </Link>
       <Link to="/register">
-        <RegisterButton onClick={closeMenu}>Register</RegisterButton>
+        <RegisterButton onClick={closeMenu} className="buttons">
+          Register
+        </RegisterButton>
       </Link>
     </MenuItemsContainer>
   );
@@ -79,16 +83,21 @@ export const NavbarLinks: React.FC<{ closeMenu: () => void }> = ({
         <AuthButtons closeMenu={closeMenu} />
       ) : isInPrivateSection ? (
         <Link to="/">
-          <BackButton onClick={closeMenu}>Back to quiz section</BackButton>
+          <BackButton className="back-button" onClick={closeMenu}>
+            Back to quiz section
+          </BackButton>
         </Link>
       ) : (
         <Link to="/myDashboard">
-          <BackButton onClick={closeMenu}>Your dashboard</BackButton>
+          <BackButton className="back-button" onClick={closeMenu}>
+            Your dashboard
+          </BackButton>
         </Link>
       )}
 
       {currentUser && (
         <LogoutButton
+          className="logout-button"
           onClick={() => {
             closeMenu();
             logout();

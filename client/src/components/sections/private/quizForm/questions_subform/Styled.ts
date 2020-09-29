@@ -6,7 +6,8 @@ export const AddCodeButton = styled.p`
   border-bottom: 2px solid ${Colors.DARK_BLUE};
   color: ${Colors.DARK_BLUE};
   font-size: 0.8rem;
-  margin-top: 0;
+  margin: 0 auto;
+  max-width: 80%;
   margin-bottom: 50px;
   padding: 0.5rem;
 `;
