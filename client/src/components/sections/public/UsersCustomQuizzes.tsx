@@ -11,7 +11,7 @@ export const UsersCustomQuizzes: React.FC = () => {
     <>
       <BigTitle>USERS' QUIZZES</BigTitle>
       <SubTitle>
-        Try a quiz created by a user <FingerDown />
+        Try a quiz created by a fellow user <FingerDown />
       </SubTitle>
       <GridWrapper>
         {usersCustomQuizzes

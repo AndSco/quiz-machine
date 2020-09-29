@@ -32,7 +32,9 @@ var quizSchema = new mongoose_1.Schema({
         }
     ],
     createdBy: {
-        type: String
+        // type: String
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "User"
     },
     isPrivate: {
         type: Boolean,

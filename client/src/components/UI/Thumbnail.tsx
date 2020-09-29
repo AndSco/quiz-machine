@@ -7,6 +7,7 @@ import { Title } from "../UI/Titles";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
 import { Link } from "react-router-dom";
 import { breakpoints } from "../../constants/breakpoints";
+import { Colors } from "../../constants/colors";
 
 const LinkContainer = styled(Link)`
   display: flex;
@@ -14,6 +15,18 @@ const LinkContainer = styled(Link)`
 
   @media (max-width: ${breakpoints.smallScreens}) {
     width: 100%;
+  }
+`;
+
+const AuthorName = styled.p`
+  background-color: ${Colors.LIGHTER_GREY};
+  color: white;
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 3px;
+
+  span {
+    text-transform: lowercase;
   }
 `;
 
@@ -52,8 +65,14 @@ export const Thumbnail: React.FC<Props> = ({
             backgroundImage: `url("${customQuiz!.backgroundImageUrl})"`
           }}
         >
-          <Title>{title}</Title>
-          {/* <h6>by {customQuiz!.createdBy}</h6> */}
+          <div>
+            <Title>{title}</Title>
+            <AuthorName>
+              <em>
+                <span>by</span> {customQuiz!.createdBy!.username!}
+              </em>
+            </AuthorName>
+          </div>
         </GridCard>
       </LinkContainer>
     );

@@ -4,7 +4,9 @@ import { BaseButton } from "../UI/Buttons";
 import { StyledCard } from "./StyledComponents";
 import { createScoreComment } from "../../utils/functions";
 
-const EndingContainer = styled(StyledCard)``;
+const EndingContainer = styled(StyledCard)`
+  max-width: 70vw;
+`;
 
 interface EndingProps {
   score: number;

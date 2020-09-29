@@ -53,8 +53,6 @@ exports.initialisePassport = function (passport) {
                     return [4 /*yield*/, user_1.User.findOne({ username: username })];
                 case 1:
                     user_2 = _a.sent();
-                    // .populate("quizzes")
-                    // .exec();
                     if (!user_2)
                         return [2 /*return*/, done(null, false)];
                     bcryptjs_1.default.compare(password, user_2.password, function (err, result) {

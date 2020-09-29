@@ -8,8 +8,6 @@ export const initialisePassport = (passport: PassportStatic) => {
     new LocalStrategy(async (username, password, done) => {
       try {
         const user = await User.findOne({ username: username });
-        // .populate("quizzes")
-        // .exec();
 
         if (!user) return done(null, false);
 

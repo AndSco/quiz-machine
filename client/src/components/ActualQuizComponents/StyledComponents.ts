@@ -4,6 +4,7 @@ import { BaseButton } from "../UI/Buttons";
 
 export const StyledCard = styled.div`
   width: 600px;
+  max-width: 80vw;
   padding: 2rem;
   background-color: white;
   background-color: rgba(255, 255, 255, 0.95);
@@ -47,8 +48,8 @@ export const CardBottomItem = styled.div`
 `;
 
 export const QuestionNumber = styled.h4`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: #cccccc;
   color: #696969;
@@ -64,7 +65,7 @@ export const StyledQuestion = styled.h4`
 `;
 
 export const CodeContainer = styled.div`
-  padding: 1rem;
+  padding: 1.3rem 1rem;
   background-color: black;
   color: ${Colors.TERMINAL_GREEN};
   font-size: 14px;

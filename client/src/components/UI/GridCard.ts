@@ -4,9 +4,9 @@ import { fadeIn } from "../../constants/animations";
 import { breakpoints } from "../../constants/breakpoints";
 
 export const GridCard = styled.div`
-  padding: 1rem;
   cursor: pointer;
   padding: 0.5rem 1rem;
+  padding-bottom: 1.5rem;
   border-radius: 10px;
   text-transform: uppercase;
   background-color: ${Colors.DARK_BLUE};
@@ -26,7 +26,7 @@ export const GridCard = styled.div`
     transform: scale(1.02);
 
     h3 {
-      background-color: ${Colors.YELLOW};
+      background-color: ${Colors.BLACK};
       color: white;
     }
   }

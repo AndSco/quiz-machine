@@ -40,7 +40,9 @@ const quizSchema: Schema = new Schema(
       }
     ],
     createdBy: {
-      type: String
+      // type: String
+      type: Schema.Types.ObjectId,
+      ref: "User"
     },
     isPrivate: {
       type: Boolean,

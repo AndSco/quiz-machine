@@ -5,13 +5,18 @@ export interface iQuestion {
   rightReply: string;
 }
 
+type CreatedBy = {
+  id: string;
+  username: string;
+};
+
 export interface PrivateQuiz {
   title: string;
   backgroundImageUrl?: string;
   questions: PrivateQuizQuestion[];
   isPrivate: boolean;
   _id?: string;
-  createdBy?: string;
+  createdBy?: CreatedBy;
 }
 
 export class PrivateQuizQuestion implements iQuestion {

@@ -33,7 +33,10 @@ export const createQuiz: RequestHandler = async (req, res, next) => {
 
 export const getAllPublicQuizzes: RequestHandler = async (req, res, next) => {
   try {
-    const allQuizzes = await Quiz.find({ isPrivate: false });
+    const allQuizzes = await Quiz.find({ isPrivate: false })
+      .populate("createdBy", "username")
+      .exec();
+
     const response: ApiResponse = {
       message: "All quizzes",
       error: null,

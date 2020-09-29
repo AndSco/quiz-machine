@@ -95,7 +95,9 @@ exports.getAllPublicQuizzes = function (req, res, next) { return __awaiter(void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, quiz_1.Quiz.find({ isPrivate: false })];
+                return [4 /*yield*/, quiz_1.Quiz.find({ isPrivate: false })
+                        .populate("createdBy", "username")
+                        .exec()];
             case 1:
                 allQuizzes = _a.sent();
                 response = {
