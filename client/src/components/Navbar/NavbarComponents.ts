@@ -15,9 +15,10 @@ export const AllLinkWrapper = styled.div`
     position: fixed;
     top: 0;
     right: 0;
-    height: 90vh;
-    max-width: 400px;
+    min-height: 550px;
+    width: 350px;
     padding: 3rem;
+    padding-bottom: 4rem;
     background-color: rgba(106, 0, 244, 0.96);
     z-index: 50;
     padding-top: 6rem;
@@ -39,22 +40,24 @@ export const AllLinkWrapper = styled.div`
 
     .back-button,
     .logout-button {
-      font-size: 1.3rem;
+      font-size: 18px;
       color: white;
       background: none;
       width: 250px;
       border-radius: 0;
       padding-bottom: 10px;
       border: 0;
-      border-bottom: 4px solid;
+      border-bottom: 2px solid;
       text-transform: uppercase;
       margin-top: 1.5rem;
-      font-weight: 400;
+      font-weight: 600;
     }
 
-    .back-button:hover {
+    .back-button:hover,
+    .logout-button:hover {
       background: none;
       border: none;
+      border-bottom: 2px solid ${Colors.YELLOW};
       color: white;
     }
   }
@@ -66,20 +69,22 @@ export const MobileAuthButtonsContainer = styled.div`
   align-self: flex-end;
 
   h4 {
-    border-bottom: 2px solid white;
+    border-top: 2px solid white;
     padding: 4px;
+    padding-top: 2rem;
     color: lightgray;
-    padding: 4px;
+    font-size: 1.1rem;
   }
 
   div {
     display: flex;
 
     .buttons {
-      font-size: 1rem;
+      font-size: 16px;
       color: white;
       background: none;
       border: 2px solid;
+      padding: 0.3rem 0.5rem;
     }
   }
 `;
@@ -93,9 +98,9 @@ export const MenuItemsContainer = styled.div`
   @media (max-width: ${breakpoints.mediumScreens}) {
     flex-direction: column;
     align-items: flex-end;
-    height: 200px;
+    height: 160px;
     justify-content: space-around;
-    margin-bottom: 6rem;
+    margin-bottom: 3rem;
   }
 `;
 
@@ -118,10 +123,9 @@ export const NavbarMenuItem = styled.li`
   }
 
   @media (max-width: ${breakpoints.mediumScreens}) {
-    font-size: 1.4rem;
+    font-size: 18px;
     margin: 0;
     padding: 0;
-    color: white;
     color: ${(props: { value: QuizType; selectedNow: QuizType }) =>
       props.selectedNow === props.value ? "white" : Colors.LIGHTER_GREY};
   }
@@ -145,9 +149,9 @@ export const MenuItems = styled.ul`
   justify-content: space-between;
   align-items: center;
   width: 80%;
-  font-family: "Fredoka One", cursive;
   cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 600;
   margin: 0 3rem;
 `;
 

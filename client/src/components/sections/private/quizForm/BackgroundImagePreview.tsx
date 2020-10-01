@@ -14,7 +14,7 @@ export const BackgroundImagePreview: React.FC<Props> = ({
   changeBackground
 }) => {
   return (
-    <FlexColumn>
+    <FlexColumn marginVertical="1.2rem">
       <StyledLabel>QUIZ BACKGROUND (click to change)</StyledLabel>
       <Clickable onClick={changeBackground}>
         <StyledBackgroundImagePreview src={imageUrl} />
