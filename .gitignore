@@ -1,12 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # Exclude js files
-dist/
-
-.env
+dist
 
 # dependencies
-node_modules
+node_modules/
 client/node_modules
 
 # testing
