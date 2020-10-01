@@ -17,5 +17,6 @@ export enum Colors {
   LAVENDER = "#8585ff",
   GREEN = "#36dc4a",
   RED = "#f14545",
-  TERMINAL_GREEN = "#83ff92"
+  TERMINAL_GREEN = "#83ff92",
+  DIRT_WHITE = "#f7f5ec"
 }

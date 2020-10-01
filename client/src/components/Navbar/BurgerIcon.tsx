@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
 import { breakpoints } from "../../constants/breakpoints";
@@ -15,7 +15,8 @@ const StyledBurgerIcon = styled.div`
   width: 2rem;
   height: 2rem;
   z-index: 100;
-  position: absolute;
+  position: ${(props: { isMenuOpen: boolean }) =>
+    props.isMenuOpen ? "fixed" : "absolute"};
   right: 40px;
   top: 20px;
 

@@ -2,17 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../../../contexts/auth/Auth";
 import { useHistory } from "react-router-dom";
-import { SecondaryButton } from "../../UI/Buttons";
 import { QuizCreationOrEditForm } from "./quizForm/QuizCreationOrEditForm";
 import { QuizOverview } from "./QuizOverview";
 import { PrivateQuiz } from "../../../models/PrivateQuiz";
 import { Wrapper } from "../../UI/Wrapper";
-import { Icon } from "../../UI/Icon";
 import { Colors } from "../../../constants/colors";
 import { Modal } from "../../UI/Modal";
 import { Clickable } from "../../UI/Clickable";
 import { fadeIn } from "../../../constants/animations";
-import { breakpoints } from "../../../constants/breakpoints";
 
 const FadeInWrapper = styled(Wrapper)`
   animation: ${fadeIn} 1.2s ease;
@@ -20,63 +17,7 @@ const FadeInWrapper = styled(Wrapper)`
 
 const WelcomeMessage = styled.h1`
   color: ${Colors.BLACK};
-
-  @media (max-width: ${breakpoints.smallScreens}) {
-    margin-top: 4rem;
-  }
 `;
-
-const CreateButtonContainer = styled.div`
-  position: fixed;
-  top: 90px;
-  left: 30px;
-  z-index: 20;
-
-  @media (max-width: ${breakpoints.mediumScreens}) {
-    left: 65%;
-  }
-  @media (max-width: ${breakpoints.smallestScreens}) {
-    left: 150px;
-  }
-`;
-
-const StyledCreateButton = styled(SecondaryButton)`
-  border-radius: 40px;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  width: 200px;
-
-  :hover {
-    border: none;
-    background-color: ${Colors.INDIGO};
-    svg {
-      color: white;
-    }
-  }
-
-  @media (max-width: ${breakpoints.smallScreens}) {
-    background-color: ${Colors.DARK_BLUE};
-    color: white;
-    border: none;
-  }
-`;
-
-const CreateButton: React.FC<{ openCreationForm: () => void }> = ({
-  openCreationForm
-}) => {
-  return (
-    <CreateButtonContainer>
-      <StyledCreateButton onClick={() => openCreationForm()}>
-        Create quiz
-        <Icon icon={"plus-circle"} color={Colors.LIGHTEST_GREY} size="2x" />
-      </StyledCreateButton>
-    </CreateButtonContainer>
-  );
-};
 
 export const UserDashboard: React.FC = () => {
   const { currentUser, userQuizzes, goToPrivateSection } = useContext(
@@ -97,8 +38,6 @@ export const UserDashboard: React.FC = () => {
     }
   }, [history, currentUser]);
 
-  const startCreatingQuiz = () => setIsCreatingQuiz(true);
-
   if (!currentUser) return null;
 
   return (
@@ -108,13 +47,17 @@ export const UserDashboard: React.FC = () => {
           <WelcomeMessage>
             Welcome {currentUser!.username.toUpperCase()}
           </WelcomeMessage>
-          <CreateButton openCreationForm={startCreatingQuiz} />
           {userQuizzes.length > 0 ? (
             <QuizOverview myQuizzes={userQuizzes as PrivateQuiz[]} />
           ) : (
             <Clickable onClick={() => setIsCreatingQuiz(true)}>
               <h2
-                style={{ backgroundColor: Colors.STEEL_PINK, padding: ".7rem" }}
+                style={{
+                  border: `2px solid ${Colors.STEEL_PINK}`,
+                  color: Colors.STEEL_PINK,
+                  padding: ".7rem 1.4rem",
+                  borderRadius: "40px"
+                }}
               >
                 No personal quizzes yet. Click here to start creating one!
               </h2>

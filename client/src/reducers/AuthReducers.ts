@@ -1,6 +1,6 @@
 import React from "react";
 
-export type InputName = "login" | "password";
+export type InputName = "login" | "password" | "confirm password";
 
 export interface AuthAction {
   type: InputName;
@@ -33,6 +33,7 @@ const LoginStartingValues: LoginFormInputs = {
 export interface RegistrationFormInputs {
   username: string;
   password: string;
+  passwordConfirmation: string;
 }
 
 const RegisterReducer: React.Reducer<RegistrationFormInputs, AuthAction> = (
@@ -48,7 +49,8 @@ const RegisterReducer: React.Reducer<RegistrationFormInputs, AuthAction> = (
 
 const RegisterStartingValues: RegistrationFormInputs = {
   username: "",
-  password: ""
+  password: "",
+  passwordConfirmation: ""
 };
 
 // ALL REDUCERS EXPORT

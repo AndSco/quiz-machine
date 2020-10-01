@@ -49,7 +49,7 @@ exports.loginUser = function (req, res, next) {
             throw err;
         if (!user) {
             var response = {
-                message: "No user found!",
+                message: "Wrong username or password. Try again!",
                 payload: null,
                 error: null
             };

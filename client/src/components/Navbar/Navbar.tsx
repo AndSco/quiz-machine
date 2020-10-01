@@ -8,12 +8,13 @@ import { BurgerIcon } from "./BurgerIcon";
 import { MobileMenu } from "./MobileMenu";
 import { useWindowWidth } from "../../utils/hooks/useWindowWidth";
 import { breakpoints } from "../../constants/breakpoints";
+import { extractNumberFromBreakpoint } from "../../utils/functions";
 
 export const Navbar: React.FC = () => {
   const { reset } = useContext(QuizzesContext);
 
   // Mobile menu
-  const width = useWindowWidth();
+  const windowWidth = useWindowWidth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const openMenu = () => setIsMobileMenuOpen(true);
   const closeMenu = () => setIsMobileMenuOpen(false);
@@ -28,7 +29,7 @@ export const Navbar: React.FC = () => {
         openMenu={openMenu}
         closeMenu={closeMenu}
       />
-      {width <= +breakpoints.mediumScreens.split("px")[0] ? (
+      {windowWidth <= extractNumberFromBreakpoint(breakpoints.mediumScreens) ? (
         isMobileMenuOpen && (
           <MobileMenu isVisible={isMobileMenuOpen} closeMenu={closeMenu} />
         )

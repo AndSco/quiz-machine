@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { InputName as AuthInputName } from "../../reducers/AuthReducers";
 import { InputName as QuizInputName } from "../../reducers/QuizCreation";
 import { Colors } from "../../constants/colors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Clickable } from "../UI/Clickable";
 
 export const StyledInput = styled.input`
   padding: 1rem;
@@ -11,6 +13,7 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
   margin: 0.7rem 0 1.5rem 0;
   border: 0;
+  position: relative;
 `;
 
 export const StyledLabel = styled.label`
@@ -23,6 +26,12 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const EyeContainer = styled(Clickable)`
+  position: absolute;
+  left: calc(50% + 158px);
+  padding-bottom: 0.7rem;
 `;
 
 type InputName = AuthInputName | QuizInputName;
@@ -46,72 +55,35 @@ export const Input: React.FC<InputProps> = ({
   label,
   isRequired = false
 }) => {
+  const [typeOfInput, setTypeOfInput] = useState(inputType);
+
+  const revealHidePassword = () =>
+    setTypeOfInput(prevType => (prevType === "password" ? "text" : "password"));
+
   return (
     <Container>
       <StyledLabel htmlFor={inputName}>{label.toUpperCase()}</StyledLabel>
-      <StyledInput
-        type={inputType}
-        value={value}
-        required={isRequired}
-        onClick={resetError}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          onChangeFunction(e.target.value, inputName)
-        }
-      />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <StyledInput
+          type={typeOfInput}
+          value={value}
+          required={isRequired}
+          onClick={resetError}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChangeFunction(e.target.value, inputName)
+          }
+        />
+
+        {inputType === "password" && value.length > 0 && (
+          <EyeContainer>
+            <FontAwesomeIcon
+              icon={typeOfInput === "password" ? "eye" : "eye-slash"}
+              onClick={revealHidePassword}
+              color={Colors.BLACK}
+            />
+          </EyeContainer>
+        )}
+      </div>
     </Container>
   );
 };
-
-// import React from "react";
-// import styled from "styled-components";
-// import { InputName } from "../../reducers/AuthReducers";
-// import { Colors } from "../../constants/colors";
-
-// const StyledInput = styled.input`
-//   padding: 1rem;
-//   background-color: white;
-//   width: 300px;
-//   box-sizing: border-box;
-//   margin: 0.6rem 0 1rem 0;
-//   border: 0;
-// `;
-
-// const StyledLabel = styled.label`
-//   font-size: 0.7rem;
-//   color: ${Colors.DARK_BLUE};
-// `;
-
-// const Container = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-// interface InputProps {
-//   inputName: InputName;
-//   onChangeFunction: (input: string, inputName: InputName) => void;
-//   resetError: () => void;
-//   inputType?: "text" | "password";
-// }
-
-// export const Input: React.FC<InputProps> = ({
-//   inputName,
-//   onChangeFunction,
-//   resetError,
-//   inputType
-// }) => {
-//   return (
-//     <Container>
-//       <StyledLabel htmlFor={inputName}>{inputName.toUpperCase()}</StyledLabel>
-//       <StyledInput
-//         type={inputType}
-//         required
-//         onClick={resetError}
-//         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-//           onChangeFunction(e.target.value, inputName)
-//         }
-//       />
-//     </Container>
-//   );
-// };

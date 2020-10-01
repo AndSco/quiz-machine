@@ -28,9 +28,9 @@ import {
   AddQuestionButton,
   RadioButtonsContainer,
   RadioContainer,
-  ToggleQuestionVisibilityButton,
   FormButton
 } from "./Styled";
+import { BackgroundImagePreview } from "./BackgroundImagePreview";
 
 export type PossibleUsage = "creation" | "editing";
 
@@ -55,7 +55,9 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
       : (currentQuiz as PrivateQuiz)
   );
   const [uploadMessage, setUploadMessage] = useState("");
-  const [showUploadedQuestions, setShowUploadedQuestions] = useState(false);
+  const [wantsToChangeBackground, setWantsToChangeBackground] = useState(false);
+
+  const startChangingBackground = () => setWantsToChangeBackground(true);
 
   const handleChange = (input: string, inputName: InputName) => {
     dispatch({ type: inputName, payload: input });
@@ -126,12 +128,22 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
               onChangeFunction={handleChange}
               value={getPropertyName(inputValues, "title")}
             />
-            <Input
-              inputName="backgroundImageUrl"
-              label="image background url"
-              onChangeFunction={handleChange}
-              value={getPropertyName(inputValues, "backgroundImageUrl" as any)}
-            />
+            {wantsToChangeBackground ? (
+              <Input
+                inputName="backgroundImageUrl"
+                label="image background url"
+                onChangeFunction={handleChange}
+                value={getPropertyName(
+                  inputValues,
+                  "backgroundImageUrl" as any
+                )}
+              />
+            ) : (
+              <BackgroundImagePreview
+                changeBackground={startChangingBackground}
+                imageUrl={inputValues.backgroundImageUrl as string}
+              />
+            )}
 
             <InputContainer>
               <StyledLabel>
@@ -148,7 +160,7 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
                       handleRadioButtonChange(e.target.value as PrivacyChoice)
                     }
                   />
-                  <label htmlFor="yes">Keep private</label>
+                  <label htmlFor="yes">Keep it private</label>
                 </RadioContainer>
                 <RadioContainer isSelected={!inputValues.isPrivate}>
                   <input
@@ -160,23 +172,12 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
                       handleRadioButtonChange(e.target.value as PrivacyChoice)
                     }
                   />
-                  <label htmlFor="no">Make public</label>
+                  <label htmlFor="no">Make it public</label>
                 </RadioContainer>
               </RadioButtonsContainer>
             </InputContainer>
-            <AddQuestionButton onClick={() => setIsAddingQuestions(true)}>
-              <Icon icon={"plus-circle"} />
-              Add a question
-            </AddQuestionButton>
 
-            {inputValues.questions.length > 0 && (
-              <ToggleQuestionVisibilityButton
-                onClick={() => setShowUploadedQuestions(prev => !prev)}
-              >
-                {showUploadedQuestions ? "Hide" : "Show"} uploaded questions
-              </ToggleQuestionVisibilityButton>
-            )}
-            {showUploadedQuestions &&
+            {inputValues.questions.length > 0 &&
               inputValues.questions.map((question, index) => (
                 <SavedQuestionCard
                   key={index}
@@ -185,7 +186,18 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
                 />
               ))}
 
-            <FormButton type="submit">SUBMIT</FormButton>
+            <AddQuestionButton onClick={() => setIsAddingQuestions(true)}>
+              <Icon icon={"plus-circle"} />
+              Add {inputValues.questions.length === 0 ? "a" : "another"}{" "}
+              question
+            </AddQuestionButton>
+
+            {inputValues.questions.length > 0 &&
+              inputValues.title.length > 0 && (
+                <FormButton type="submit">
+                  {usage === "creation" ? "SAVE QUIZ" : "EDIT QUIZ"}
+                </FormButton>
+              )}
           </form>
         </>
       )}

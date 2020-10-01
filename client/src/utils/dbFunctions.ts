@@ -14,7 +14,6 @@ export const loginUser = async (inputValues: LoginFormInputs) => {
       username,
       password
     });
-    console.log("RES", response.data);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -100,7 +99,6 @@ export const getUserQuizzes = async (userId: string) => {
   try {
     const response = await axios.get(`${apiEndPoints.USER}/${userId}`);
     const userQuizzes = response.data.payload;
-    console.log("USER QUIZZES", userQuizzes);
     return userQuizzes;
   } catch (err) {
     console.error(err);

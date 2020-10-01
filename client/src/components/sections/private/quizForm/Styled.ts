@@ -46,14 +46,12 @@ export const AddQuestionButton = styled.h4`
   }
 `;
 
-export const ToggleQuestionVisibilityButton = styled.h5`
-  font-size: 1rem;
-  border-bottom: 2px solid;
-  padding: 0.5rem 0;
-  cursor: pointer;
-  color: ${Colors.DARK_BLUE};
-`;
-
 export const FormButton = styled(SubmitButton)`
   background-color: ${Colors.STEEL_PINK};
+`;
+
+export const StyledBackgroundImagePreview = styled.img`
+  width: 200px;
+  height: 100px;
+  margin: 0.7rem 0 1.5rem 0;
 `;

@@ -5,6 +5,7 @@ import { QuizBackground } from "../../ActualQuizComponents/QuizBackground";
 import { PrivateQuiz, PrivateQuizQuestion } from "../../../models/PrivateQuiz";
 import { getSingleQuiz } from "../../../utils/dbFunctions";
 import { useHistory } from "react-router-dom";
+import { shuffleArray } from "../../../utils/functions";
 
 interface ActualPrivateQuizProps {
   quizId: string;
@@ -30,7 +31,9 @@ export const ActualPrivateQuiz: React.FC<ActualPrivateQuizProps> = ({
 
   useEffect(() => {
     if (currentQuiz) {
-      setAllQuestions(currentQuiz.questions);
+      const mixedQuestions = shuffleArray(currentQuiz.questions);
+      mixedQuestions.forEach(q => (q.allReplies = shuffleArray(q.allReplies)));
+      setAllQuestions(mixedQuestions);
     }
   }, [currentQuiz]);
 

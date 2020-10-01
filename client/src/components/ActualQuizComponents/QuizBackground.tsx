@@ -15,6 +15,7 @@ export const StyledQuizBackground = styled.div`
     `url("${props.imageUrl}")`};
   background-position: center;
   background-size: cover;
+  background-color: ${Colors.DARK_BLUE};
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Colors } from "../../constants/colors";
-import { AuthButtons, NavbarLinks } from "./NavbarLinks";
+import { NavbarLinks } from "./NavbarLinks";
 
 interface Props {
   isVisible: boolean;
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const StyledMobileMenu = styled.div`
-  display: ${(props: Omit<Props, "closeMenu">) =>
+  display: ${(props: Pick<Props, "isVisible">) =>
     props.isVisible ? "flex" : "none"};
 `;
 

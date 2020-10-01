@@ -16,10 +16,10 @@ export const UsersCustomQuizzes: React.FC = () => {
       <GridWrapper>
         {usersCustomQuizzes
           .sort((a, b) => {
-            if (a! < b!) {
+            if (a.title < b.title) {
               return -1;
             }
-            if (a! > b!) {
+            if (a.title > b.title) {
               return 1;
             }
             return 0;

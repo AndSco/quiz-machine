@@ -4,11 +4,12 @@ import { AuthScope } from "../../models/AuthScope";
 import { Colors } from "../../constants/colors";
 import { Link } from "react-router-dom";
 
-type Props = { scope: AuthScope };
+type Props = { scope: AuthScope; noMargin?: boolean };
 
 const Container = styled.div`
   color: ${Colors.LIGHTER_GREY};
-  margin-top: 2.5rem;
+  margin-top: ${(props: Pick<Props, "noMargin">) =>
+    props.noMargin ? 0 : "2.5rem"};
 `;
 
 const LinkTag = styled.h4`
@@ -20,9 +21,9 @@ const LinkTag = styled.h4`
   }
 `;
 
-export const AccessSwitch: React.FC<Props> = ({ scope }) => {
+export const AccessSwitch: React.FC<Props> = ({ scope, noMargin }) => {
   return (
-    <Container>
+    <Container noMargin={noMargin}>
       <p style={{ marginBottom: ".3rem" }}>
         {scope === "login" ? "Not a member yet?" : "Already registered?"}
       </p>

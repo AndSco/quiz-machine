@@ -1,9 +1,10 @@
 import { InputName as AuthInputName } from "../reducers/AuthReducers";
 import { InputName as QuizInputName } from "../reducers/QuizCreation";
 
-type AuthInputConfig = {
+export type AuthInputConfig = {
   name: AuthInputName;
   inputType?: "text" | "password";
+  label?: string;
 };
 
 export const LoginFormInputsValues: AuthInputConfig[] = [
@@ -13,7 +14,12 @@ export const LoginFormInputsValues: AuthInputConfig[] = [
 
 export const RegistrationFormInputsValues: AuthInputConfig[] = [
   { name: "username" as AuthInputName },
-  { name: "password" as AuthInputName, inputType: "password" }
+  { name: "password" as AuthInputName, inputType: "password" },
+  {
+    name: "passwordConfirmation" as AuthInputName,
+    inputType: "password",
+    label: "confirm your password"
+  }
 ];
 
 type QuizInputConfig = {

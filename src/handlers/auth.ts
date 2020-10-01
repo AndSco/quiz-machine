@@ -9,7 +9,7 @@ export const loginUser: RequestHandler = (req, res, next) => {
     if (err) throw err;
     if (!user) {
       const response: ApiResponse = {
-        message: "No user found!",
+        message: "Wrong username or password. Try again!",
         payload: null,
         error: null
       };

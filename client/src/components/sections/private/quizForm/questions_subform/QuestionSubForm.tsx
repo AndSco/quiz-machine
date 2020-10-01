@@ -109,7 +109,7 @@ export const QuestionSubForm: React.FC<Props> = ({
           <ComplexInputContainer>
             <CustomInput
               value={rightReply}
-              label="Add the right reply"
+              label="Add the correct answer"
               handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
                 setRightReply(e.target.value)
               }

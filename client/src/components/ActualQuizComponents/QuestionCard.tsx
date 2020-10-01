@@ -46,15 +46,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       <StyledQuestion dangerouslySetInnerHTML={{ __html: question.question }} />
       {(question as PrivateQuizQuestion).code && (
         <CodeContainer>
-          {/* <code style={{ whiteSpace: "pre-wrap" }}>
-            {(question as PrivateQuizQuestion).code as string}
-          </code> */}
-          <code
-            style={{ whiteSpace: "pre-wrap" }}
-            dangerouslySetInnerHTML={{
-              __html: (question as PrivateQuizQuestion).code as string
-            }}
-          />
+          <pre>
+            <code
+            // style={{ whiteSpace: "pre-wrap" }}
+            >
+              {(question as PrivateQuizQuestion).code}
+            </code>
+          </pre>
         </CodeContainer>
       )}
       <RepliesContainer>
@@ -69,6 +67,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               replyQuestion={replyQuestion}
               givePoint={givePoint}
               replyNumber={index}
+              usage="users"
             />
           ))}
       </RepliesContainer>

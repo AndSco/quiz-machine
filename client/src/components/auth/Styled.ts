@@ -4,8 +4,7 @@ import { Colors } from "../../constants/colors";
 
 export const SectionTitle = styled.h2`
   color: ${Colors.BLACK};
-  margin-bottom: 1rem;
-  margin-top: 0;
+  margin: 0;
 `;
 
 export const Paragraph = styled.p`

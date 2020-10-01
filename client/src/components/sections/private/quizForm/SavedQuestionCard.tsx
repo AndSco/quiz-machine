@@ -14,10 +14,11 @@ const StyledQuestionCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0.5rem 0;
+  max-width: 90%;
+  margin: 1rem auto;
 
   h4 {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 `;
 

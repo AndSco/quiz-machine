@@ -104,6 +104,7 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     setStartedQuiz(false);
     setQuizConfigurationStep(1);
     setNumberOfQuestions(5);
+    setQuizType(QuizType.TRIVIA);
     setDifficultyLevel("medium");
   };
 

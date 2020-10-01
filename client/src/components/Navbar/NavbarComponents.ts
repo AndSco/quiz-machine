@@ -6,19 +6,18 @@ import { breakpoints } from "../../constants/breakpoints";
 
 export const AllLinkWrapper = styled.div`
   display: flex;
-  justify-content: flexend;
+  justify-content: flex-end;
   align-items: center;
 
   @media (max-width: ${breakpoints.mediumScreens}) {
     flex-direction: column;
-    align-items: flex-end;
+    justify-content: flex-start;
     position: fixed;
     top: 0;
     right: 0;
     height: 90vh;
-    width: 85vw;
     max-width: 400px;
-    padding: 3rem 0;
+    padding: 3rem;
     background-color: rgba(106, 0, 244, 0.96);
     z-index: 50;
     padding-top: 6rem;
@@ -29,7 +28,6 @@ export const AllLinkWrapper = styled.div`
 
     .auth-buttons {
       flex-direction: row;
-      margin-right: 2rem;
 
       .buttons {
         font-size: 1.3rem;
@@ -44,7 +42,6 @@ export const AllLinkWrapper = styled.div`
       font-size: 1.3rem;
       color: white;
       background: none;
-      margin-right: 2rem;
       width: 250px;
       border-radius: 0;
       padding-bottom: 10px;
@@ -53,6 +50,36 @@ export const AllLinkWrapper = styled.div`
       text-transform: uppercase;
       margin-top: 1.5rem;
       font-weight: 400;
+    }
+
+    .back-button:hover {
+      background: none;
+      border: none;
+      color: white;
+    }
+  }
+`;
+
+export const MobileAuthButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+
+  h4 {
+    border-bottom: 2px solid white;
+    padding: 4px;
+    color: lightgray;
+    padding: 4px;
+  }
+
+  div {
+    display: flex;
+
+    .buttons {
+      font-size: 1rem;
+      color: white;
+      background: none;
+      border: 2px solid;
     }
   }
 `;

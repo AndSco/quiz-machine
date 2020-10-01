@@ -1,13 +1,18 @@
 import React, { useReducer, useState, useContext } from "react";
 import styled from "styled-components";
 import { Input } from "../UI/Input";
-import { AuthReducers, InputName } from "../../reducers/AuthReducers";
+import {
+  AuthReducers,
+  InputName,
+  RegistrationFormInputs
+} from "../../reducers/AuthReducers";
 import { loginUser, registerUser } from "../../utils/dbFunctions";
 import { getPropertyName } from "../../utils/functions";
 import { AuthScope } from "../../models/AuthScope";
 import { ApiResponse } from "../../models/ApiResponse";
 import { AuthContext } from "../../contexts/auth/Auth";
 import { FormContainer, FormTitle, SubmitButton } from "../UI/Form";
+import { AuthInputConfig } from "../../constants/formInputsValues";
 
 const ErrorMessage = styled.p`
   font-size: 0.8rem;
@@ -15,14 +20,9 @@ const ErrorMessage = styled.p`
   margin-top: 0;
 `;
 
-export type InputConfig = {
-  name: InputName;
-  inputType?: "text" | "password";
-};
-
 type Props = {
   title: string;
-  inputs: InputConfig[];
+  inputs: AuthInputConfig[];
   scope: AuthScope;
 };
 
@@ -52,10 +52,16 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
     let response: ApiResponse;
     if (scope === "login") {
       response = await loginUser(inputValues);
-      console.log("RESSSS", response);
       loadCurrentUser(response.payload);
     } else {
-      response = await registerUser(inputValues);
+      if (
+        inputValues.password !==
+        (inputValues as RegistrationFormInputs).passwordConfirmation
+      ) {
+        setError("Passwords don't match!");
+        return;
+      }
+      response = await registerUser(inputValues as RegistrationFormInputs);
       console.log("RESSSS", response);
       loadCurrentUser(response.payload);
     }
@@ -67,7 +73,7 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
   const resetError = () => setError("");
 
   return (
-    <FormContainer>
+    <FormContainer isRegistration={scope === "register"}>
       <FormTitle>{title}</FormTitle>
       <form
         onSubmit={e => {
@@ -77,7 +83,7 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
       >
         {inputs.map(input => (
           <Input
-            label={input.name}
+            label={input.label ? input.label : input.name}
             key={input.name}
             inputType={input.inputType ? input.inputType : "text"}
             inputName={input.name}

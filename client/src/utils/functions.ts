@@ -145,3 +145,6 @@ export const createScoreComment = (
     return "🥳 Perfect!!";
   }
 };
+
+export const extractNumberFromBreakpoint = (breakpoint: string) =>
+  +breakpoint.split("px")[0];

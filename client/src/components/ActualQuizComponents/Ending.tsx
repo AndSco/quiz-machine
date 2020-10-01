@@ -27,7 +27,7 @@ export const Ending: React.FC<EndingProps> = ({
         Your score: {score}/{totalQuestions}
       </h2>
       <p>{scoreComment}</p>
-      <BaseButton onClick={playAgain}>Play again</BaseButton>
+      <BaseButton onClick={playAgain}>Take another quiz</BaseButton>
     </EndingContainer>
   );
 };

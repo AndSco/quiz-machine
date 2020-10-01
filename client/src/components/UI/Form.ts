@@ -7,7 +7,8 @@ export const FormContainer = styled.div`
   width: 600px;
   padding: 2rem 1.5rem;
   padding-bottom: 3.5rem;
-  background-color: ${Colors.YELLOW};
+  background-color: ${(props: { isRegistration?: boolean }) =>
+    props.isRegistration ? Colors.LIGHTEST_GREY : Colors.YELLOW};
   color: ${Colors.BLACK};
   display: flex;
   flex-direction: column;

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Colors } from "../../constants/colors";
 
 const Background = styled.div`
   width: 100vw;
@@ -7,7 +8,7 @@ const Background = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #f7f5ec;
+  background-color: ${Colors.DIRT_WHITE};
 `;
 
 export const Spinner: React.FC = () => {

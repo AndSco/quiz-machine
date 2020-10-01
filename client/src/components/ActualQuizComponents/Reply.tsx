@@ -15,12 +15,10 @@ interface ReplyProps {
   replyQuestion: () => void;
   givePoint: () => void;
   replyNumber: number;
+  usage?: "API" | "users";
 }
 
-type PartialProps = Omit<
-  ReplyProps,
-  "replyText" | "replyQuestion" | "givePoint" | "replyNumber"
->;
+type PartialProps = Pick<ReplyProps, "isRight" | "hasReplied">;
 
 interface StyledReplyProps extends PartialProps {
   wasSelected: boolean;
@@ -67,7 +65,8 @@ export const Reply: React.FC<ReplyProps> = ({
   replyText,
   replyQuestion,
   givePoint,
-  replyNumber
+  replyNumber,
+  usage = "API"
 }) => {
   const [wasSelected, setWasSelected] = useState(false);
 
@@ -80,20 +79,38 @@ export const Reply: React.FC<ReplyProps> = ({
   return (
     <ReplyContainer>
       <ReplyNumber>{replyNumber + 1}</ReplyNumber>
-      <StyledReply
-        hasReplied={hasReplied}
-        isRight={isRight}
-        wasSelected={wasSelected}
-        onClick={() => {
-          if (hasReplied) return;
-          setWasSelected(true);
-          replyQuestion();
-          if (isRight) {
-            givePoint();
-          }
-        }}
-        dangerouslySetInnerHTML={{ __html: replyText }}
-      />
+      {usage === "API" ? (
+        <StyledReply
+          hasReplied={hasReplied}
+          isRight={isRight}
+          wasSelected={wasSelected}
+          onClick={() => {
+            if (hasReplied) return;
+            setWasSelected(true);
+            replyQuestion();
+            if (isRight) {
+              givePoint();
+            }
+          }}
+          dangerouslySetInnerHTML={{ __html: replyText }}
+        />
+      ) : (
+        <StyledReply
+          hasReplied={hasReplied}
+          isRight={isRight}
+          wasSelected={wasSelected}
+          onClick={() => {
+            if (hasReplied) return;
+            setWasSelected(true);
+            replyQuestion();
+            if (isRight) {
+              givePoint();
+            }
+          }}
+        >
+          {replyText}
+        </StyledReply>
+      )}
     </ReplyContainer>
   );
 };

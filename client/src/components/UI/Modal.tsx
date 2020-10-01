@@ -10,18 +10,24 @@ export const StyledModal = styled.div`
   top: 0;
   width: 100vw;
   min-height: 100vh;
-  background-color: ${Colors.DARK_BLUE};
+  /* background-color: ${Colors.DARK_BLUE}; */
+  background-color: ${Colors.DIRT_WHITE};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 130;
   overflow: scroll;
+
+  @media (max-width: ${breakpoints.smallestScreens}) {
+    background-color: ${Colors.YELLOW};
+  }
 `;
 
 const BackIconContainer = styled.div`
   position: fixed;
-  left: 30px;
+  right: 30px;
+  top: 30px;
   cursor: pointer;
   z-index: 9;
   background-color: white;
@@ -45,11 +51,7 @@ export const Modal: React.FC<Props> = ({ children, handleClose }) => {
   return (
     <StyledModal>
       <BackIconContainer onClick={handleClose}>
-        <Icon
-          icon={"arrow-circle-left"}
-          color={Colors.STEEL_PINK_2}
-          size="2x"
-        />
+        <Icon icon={"times-circle"} color={Colors.STEEL_PINK_2} size="2x" />
       </BackIconContainer>
       {children}
     </StyledModal>
