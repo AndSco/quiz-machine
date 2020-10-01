@@ -13,6 +13,7 @@
     "prod:serve": "node dist/app.js",
     "start": "npm run build && npm run prod:serve",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "postinstall": "tsc",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "",
