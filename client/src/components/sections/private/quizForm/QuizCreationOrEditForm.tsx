@@ -172,7 +172,7 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
                       handleRadioButtonChange(e.target.value as PrivacyChoice)
                     }
                   />
-                  <label htmlFor="no">Make it public</label>
+                  <label htmlFor="no">Share it with other users</label>
                 </RadioContainer>
               </RadioButtonsContainer>
             </InputContainer>
@@ -186,7 +186,10 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
                 />
               ))}
 
-            <AddQuestionButton onClick={() => setIsAddingQuestions(true)}>
+            <AddQuestionButton
+              canAddQuestions={inputValues.title.length > 0}
+              onClick={() => setIsAddingQuestions(true)}
+            >
               <Icon icon={"plus-circle"} />
               Add {inputValues.questions.length === 0 ? "a" : "another"}{" "}
               question

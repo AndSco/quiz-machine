@@ -49,7 +49,6 @@ export const UploadedAnswers: React.FC<{
   updateAnswersOnDelete: (answersLeft: string[]) => void;
 }> = ({ replies, updateAnswersOnDelete }) => {
   const onDelete = (answer: string) => {
-    console.log("REMOVE THIS");
     const answersLeft = removeEntryFromArray(replies, answer);
     updateAnswersOnDelete(answersLeft);
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useCallback } from "react";
 import styled from "styled-components";
 import { NavbarLinks } from "./NavbarLinks";
 
@@ -13,8 +13,32 @@ const StyledMobileMenu = styled.div`
 `;
 
 export const MobileMenu: React.FC<Props> = ({ isVisible, closeMenu }) => {
+  const componentRef = useRef<HTMLDivElement>(null);
+  const { current } = componentRef;
+
+  const handleTouch = useCallback(
+    e => {
+      if (current && current.contains(e.target)) {
+        return;
+      } else {
+        closeMenu();
+      }
+    },
+    [current, closeMenu]
+  );
+
+  React.useEffect(() => {
+    if (isVisible) {
+      document.addEventListener("click", handleTouch);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleTouch);
+    };
+  }, [isVisible, handleTouch]);
+
   return (
-    <StyledMobileMenu isVisible={isVisible}>
+    <StyledMobileMenu isVisible={isVisible} ref={componentRef}>
       <NavbarLinks closeMenu={closeMenu} />
     </StyledMobileMenu>
   );

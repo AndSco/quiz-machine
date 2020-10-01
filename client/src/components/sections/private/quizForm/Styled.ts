@@ -39,6 +39,8 @@ export const AddQuestionButton = styled.h4`
   margin: 2.5rem;
   cursor: pointer;
   font-size: 1rem;
+  visibility: ${(props: { canAddQuestions: boolean }) =>
+    props.canAddQuestions ? "" : "hidden"};
 
   :hover {
     color: white;
@@ -54,4 +56,6 @@ export const StyledBackgroundImagePreview = styled.img`
   width: 200px;
   height: 100px;
   margin: 0.7rem 0 1.5rem 0;
+  border-radius: 40px;
+  border: 3px solid white;
 `;

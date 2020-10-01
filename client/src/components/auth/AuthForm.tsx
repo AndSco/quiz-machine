@@ -62,7 +62,6 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
         return;
       }
       response = await registerUser(inputValues as RegistrationFormInputs);
-      console.log("RESSSS", response);
       loadCurrentUser(response.payload);
     }
     if (response.message) {

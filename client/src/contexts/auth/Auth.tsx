@@ -52,7 +52,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
       console.error(err);
       stopLoading();
     }
-  }, [currentUser]);
+  }, [currentUser, startLoading, stopLoading]);
 
   const refreshUserQuizzes = () => uploadUserQuizzes();
 

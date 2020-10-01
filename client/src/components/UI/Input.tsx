@@ -18,7 +18,9 @@ export const StyledInput = styled.input`
 
 export const StyledLabel = styled.label`
   font-size: 0.7rem;
+  font-weight: 500;
   color: ${Colors.DARK_BLUE};
+  text-transform: uppercase;
 `;
 
 export const Container = styled.div`

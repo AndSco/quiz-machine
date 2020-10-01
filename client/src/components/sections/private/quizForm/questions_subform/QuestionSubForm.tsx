@@ -16,6 +16,8 @@ import {
 } from "./Styled";
 import { UploadedAnswers, Answer } from "./UploadedAnswers";
 import { CustomInput } from "./CustomInput";
+import { Icon } from "../../../../UI/Icon";
+import { Colors } from "../../../../../constants/colors";
 
 interface Props {
   saveQuestionInState: (question: PrivateQuizQuestion) => void;
@@ -76,7 +78,8 @@ export const QuestionSubForm: React.FC<Props> = ({
             {!needsToAddCode ? (
               <Clickable onClick={() => setNeedsToAddCode(true)}>
                 <AddCodeButton>
-                  If your question involves code, click here to add a code
+                  <Icon icon="code" color={Colors.TERMINAL_GREEN} />
+                  Need to add code to this question? Click here to add a code
                   snippet
                 </AddCodeButton>
               </Clickable>
@@ -152,7 +155,9 @@ export const QuestionSubForm: React.FC<Props> = ({
           <ComplexInputContainer>
             <CustomInput
               value={currentReply}
-              label="Add a (wrong) answer"
+              label={`Add ${
+                allReplies.length > 0 ? "another" : "a"
+              } (wrong) answer`}
               handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
                 setCurrentReply(e.target.value)
               }

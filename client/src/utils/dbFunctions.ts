@@ -27,7 +27,6 @@ export const registerUser = async (inputValues: RegistrationFormInputs) => {
       username,
       password
     });
-    console.log("RES", response.data);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -36,8 +35,7 @@ export const registerUser = async (inputValues: RegistrationFormInputs) => {
 
 export const logoutUser = async () => {
   try {
-    const response = await axios.post(apiEndPoints.LOGOUT);
-    console.log("RES", response);
+    await axios.post(apiEndPoints.LOGOUT);
   } catch (err) {
     console.error(err);
   }
@@ -50,7 +48,6 @@ export const createQuiz = async (quiz: PrivateQuiz, userId: string) => {
       quiz,
       createdBy: userId
     });
-    console.log("QUIZ CREATION RESPONSE", response.data);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -77,8 +74,7 @@ export const getCustomUsersQuizzes = async () => {
 
 export const deleteQuiz = async (quizId: string) => {
   try {
-    const response = await axios.delete(`${apiEndPoints.QUIZ}/${quizId}`);
-    console.log("DELETED?", response.data);
+    await axios.delete(`${apiEndPoints.QUIZ}/${quizId}`);
   } catch (err) {
     console.error(err);
   }
@@ -86,10 +82,9 @@ export const deleteQuiz = async (quizId: string) => {
 
 export const editQuiz = async (quizId: string, updatedQuiz: PrivateQuiz) => {
   try {
-    const response = await axios.patch(`${apiEndPoints.QUIZ}/${quizId}`, {
+    await axios.patch(`${apiEndPoints.QUIZ}/${quizId}`, {
       updatedQuiz
     });
-    console.log("EDITED?", response.data);
   } catch (err) {
     console.error(err);
   }

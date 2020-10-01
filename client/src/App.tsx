@@ -18,7 +18,8 @@ import {
   faBrain,
   faThumbsUp,
   faThumbsDown,
-  faEyeSlash
+  faEyeSlash,
+  faCode
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContextProvider } from "./contexts/auth/Auth";
 import { QuizzesContextProvider } from "./contexts/quizzes/Quizzes";
@@ -42,7 +43,8 @@ library.add(
   faBrain,
   faThumbsUp,
   faThumbsDown,
-  faEyeSlash
+  faEyeSlash,
+  faCode
 );
 
 const App: React.FC = () => {

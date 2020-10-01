@@ -110,7 +110,6 @@ export const capitaliseInput = (input: string) => {
 
 export const copyQuizUrlToCipboard = (link: string) => {
   const actualUrl = window.location.href.split("myDashboard")[0] + link;
-  console.log("URL PAGE", actualUrl);
   if (!navigator || !navigator.clipboard) {
     alert(`Cannot copy automatically. Please copy this: ${actualUrl}`);
   }

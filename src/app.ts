@@ -59,8 +59,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  console.log("ERROR HANDLER", error.message);
-
   res.json({
     message: error.message || "Ooops, something went wrong!"
   });

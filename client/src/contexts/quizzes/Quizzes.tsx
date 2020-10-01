@@ -1,4 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useCallback
+} from "react";
 import { Question, QuizType, Subject } from "../../models/PublicQuizQuestion";
 import { Difficulty } from "../../models/TriviaApi";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
@@ -88,17 +94,17 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     }
   };
 
-  const getCustomQuizzes = async () => {
+  const getCustomQuizzes = useCallback(async () => {
     startLoading();
     const dbResponse = await getCustomUsersQuizzes();
     const customQuizzes = dbResponse.payload;
     setUsersCustomQuizzes(customQuizzes);
     stopLoading();
-  };
+  }, [startLoading, stopLoading]);
 
   useEffect(() => {
     getCustomQuizzes();
-  }, []);
+  }, [getCustomQuizzes]);
 
   const reset = () => {
     setStartedQuiz(false);

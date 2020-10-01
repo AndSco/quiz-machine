@@ -85,7 +85,6 @@ export const editQuiz: RequestHandler<{ quizId: string }> = async (
   try {
     const { quizId } = req.params;
     const { updatedQuiz } = req.body;
-    console.log("UPDATED QUIZ IN REQ", updatedQuiz);
     await Quiz.findOneAndUpdate({ _id: quizId }, { ...updatedQuiz });
     return res.status(200).json("QUIZ UPDATED");
   } catch (err) {

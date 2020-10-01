@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useCallback } from "react";
 
 interface iLoadingContext {
   isLoading: boolean;
@@ -16,8 +16,8 @@ export const LoadingContext = createContext(startingValue);
 
 export const LoadingContextProvider: React.FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const startLoading = () => setIsLoading(true);
-  const stopLoading = () => setIsLoading(false);
+  const startLoading = useCallback(() => setIsLoading(true), []);
+  const stopLoading = useCallback(() => setIsLoading(false), []);
 
   const valuesToPass: iLoadingContext = {
     isLoading,

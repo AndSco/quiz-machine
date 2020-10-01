@@ -3,13 +3,14 @@ import { Colors } from "../../../../../constants/colors";
 import { SubmitButton } from "../../../../UI/Form";
 
 export const AddCodeButton = styled.p`
-  border-bottom: 2px solid ${Colors.DARK_BLUE};
-  color: ${Colors.DARK_BLUE};
+  border-radius: 40px;
+  color: ${Colors.TERMINAL_GREEN};
+  background-color: ${Colors.BLACK};
   font-size: 0.8rem;
   margin: 0 auto;
   max-width: 80%;
   margin-bottom: 50px;
-  padding: 0.5rem;
+  padding: 0.5rem 0.8rem;
 `;
 
 export const ComplexInputContainer = styled.div`
