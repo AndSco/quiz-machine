@@ -29,8 +29,8 @@ app.use(
 app.use(
   session({
     secret: sessionSecret as string,
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
   })
 );
 

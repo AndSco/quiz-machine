@@ -43,7 +43,7 @@ export const registerUser: RequestHandler = async (req, res, next) => {
       return res.status(200).json(response);
     }
 
-    if (password.length < 8) {
+    if (password.length < 7) {
       response = {
         message: "Please use a password at least 7 characters long",
         error: null,

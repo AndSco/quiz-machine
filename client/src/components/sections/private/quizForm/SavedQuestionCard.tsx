@@ -9,7 +9,7 @@ const StyledQuestionCard = styled.div`
   border-radius: 10px;
   padding: 0.2rem 0.8rem;
   text-align: left;
-  background-color: ${Colors.DARK_BLUE};
+  background-color: ${Colors.LIGHTEST_GREY};
   color: white;
   display: flex;
   justify-content: space-between;
@@ -62,7 +62,7 @@ export const SavedQuestionCard: React.FC<Props> = ({
       {!wantsToRemoveQuestion ? (
         <>
           <h4>
-            <Icon icon={"question-circle"} />
+            <Icon icon={"question-circle"} color="white" />
             {question.question}
           </h4>
           <Clickable
@@ -76,7 +76,7 @@ export const SavedQuestionCard: React.FC<Props> = ({
         </>
       ) : (
         <DeleteConfirmation>
-          <h4>Delete this question?</h4>
+          <h4>Delete this question and all its anwers?</h4>
           <DeleteConfirmationBtn
             text="Yes"
             onClickFunction={() => removeQuestion(question.question)}

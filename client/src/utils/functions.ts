@@ -16,6 +16,7 @@ import {
 import { getTriviaApiQuestions } from "./triviaAPI";
 import { getProgrammingQuizApiQuestions } from "./programmingQuizAPI";
 import { picsUrls } from "../constants/picsUrls";
+import { User } from "../models/User";
 
 type PossibleQuestionFormat = TriviaResultType | ProgrammingQuizResultType;
 
@@ -147,3 +148,17 @@ export const createScoreComment = (
 
 export const extractNumberFromBreakpoint = (breakpoint: string) =>
   +breakpoint.split("px")[0];
+
+export const saveUserInSessionStorage = (user: User) => {
+  sessionStorage.setItem("currentUser", JSON.stringify(user));
+};
+
+export const getUserFromSessionStorage = () => {
+  const userInStorage = sessionStorage.getItem("currentUser");
+  if (userInStorage) return JSON.parse(userInStorage);
+  return null;
+};
+
+export const removeUserFromSessionStorage = () => {
+  sessionStorage.removeItem("currentUser");
+};

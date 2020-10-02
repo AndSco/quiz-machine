@@ -9,6 +9,11 @@ import { User } from "../../models/User";
 import { PrivateQuiz } from "../../models/PrivateQuiz";
 import { getUserQuizzes, logoutUser } from "../../utils/dbFunctions";
 import { LoadingContext } from "../../contexts/loading/Loading";
+import {
+  saveUserInSessionStorage,
+  getUserFromSessionStorage,
+  removeUserFromSessionStorage
+} from "../../utils/functions";
 
 type PossibleUser = User | null;
 
@@ -37,7 +42,9 @@ const startingValue: iAuthContext = {
 export const AuthContext = createContext(startingValue);
 
 export const AuthContextProvider: React.FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<PossibleUser>(null);
+  const [currentUser, setCurrentUser] = useState<PossibleUser>(
+    getUserFromSessionStorage()
+  );
   const [isInPrivateSection, setIsInPrivateSection] = useState(false);
   const [userQuizzes, setUserQuizzes] = useState<PrivateQuiz[]>([]);
   const { startLoading, stopLoading } = useContext(LoadingContext);
@@ -63,6 +70,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
   }, [currentUser, uploadUserQuizzes]);
 
   const loadCurrentUser = (user: User) => {
+    saveUserInSessionStorage(user);
     setCurrentUser(user);
   };
   const goToPrivateSection = () => setIsInPrivateSection(true);
@@ -70,6 +78,7 @@ export const AuthContextProvider: React.FC = ({ children }) => {
 
   const logout = () => {
     logoutUser();
+    removeUserFromSessionStorage();
     setCurrentUser(null);
   };
 

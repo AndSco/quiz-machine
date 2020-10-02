@@ -47,11 +47,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       {(question as PrivateQuizQuestion).code && (
         <CodeContainer>
           <pre>
-            <code
-            // style={{ whiteSpace: "pre-wrap" }}
-            >
-              {(question as PrivateQuizQuestion).code}
-            </code>
+            <code>{(question as PrivateQuizQuestion).code}</code>
           </pre>
         </CodeContainer>
       )}

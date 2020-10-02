@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
 import { Icon } from "../UI/Icon";
+import { breakpoints } from "../../constants/breakpoints";
 
 const StyledLogo = styled.h1`
   font-family: "Fredoka One", cursive;
@@ -12,6 +13,11 @@ const StyledLogo = styled.h1`
 
   span {
     color: lightgrey;
+  }
+
+  @media (max-width: ${breakpoints.smallestScreens}) {
+    margin-bottom: 0;
+    text-align: left;
   }
 `;
 
