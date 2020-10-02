@@ -10,7 +10,7 @@ const StyledQuestionCard = styled.div`
   padding: 0.2rem 0.8rem;
   text-align: left;
   background-color: ${Colors.LIGHTEST_GREY};
-  color: white;
+  color: ${Colors.BLACK};
   display: flex;
   justify-content: space-between;
   align-items: center;

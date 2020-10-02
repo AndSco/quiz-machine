@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { InputName as AuthInputName } from "../../reducers/AuthReducers";
 import { InputName as QuizInputName } from "../../reducers/QuizCreation";
 import { Colors } from "../../constants/colors";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Clickable } from "../UI/Clickable";
+import { IconForInput } from "./IconForInput";
 
 export const StyledInput = styled.input`
   padding: 1rem;
@@ -28,12 +27,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-const EyeContainer = styled(Clickable)`
-  position: absolute;
-  left: calc(50% + 158px);
-  padding-bottom: 0.7rem;
 `;
 
 type InputName = AuthInputName | QuizInputName;
@@ -77,13 +70,11 @@ export const Input: React.FC<InputProps> = ({
         />
 
         {inputType === "password" && value.length > 0 && (
-          <EyeContainer>
-            <FontAwesomeIcon
-              icon={typeOfInput === "password" ? "eye" : "eye-slash"}
-              onClick={revealHidePassword}
-              color={Colors.BLACK}
-            />
-          </EyeContainer>
+          <IconForInput
+            icon={typeOfInput === "password" ? "eye" : "eye-slash"}
+            onCLickFunction={revealHidePassword}
+            paddingBottom="0.7rem"
+          />
         )}
       </div>
     </Container>

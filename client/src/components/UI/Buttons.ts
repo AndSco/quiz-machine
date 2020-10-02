@@ -23,7 +23,7 @@ export const MediumButton = styled(BaseButton)`
   width: 250px;
 
   :hover {
-    background-color: ${Colors.ORANGE};
+    background-color: ${Colors.STEEL_PINK};
   }
 `;
 
@@ -91,6 +91,7 @@ export const SmallButton = styled(MediumButton as "div")`
   }
 `;
 
-export const ResetButton = styled(SecondaryButton)`
+export const ResetButton = styled(SmallButton)`
   align-self: center;
+  color: ${Colors.LIGHTEST_GREY};
 `;

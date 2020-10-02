@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PrivateQuizQuestion } from "../../../../../models/PrivateQuiz";
 import { FormContainer, FormTitle } from "../../../../UI/Form";
-import { SmallButton, ResetButton } from "../../../../UI/Buttons";
+import { ResetButton, MediumButton } from "../../../../UI/Buttons";
 import {
   shuffleArray,
   capitaliseInput,
@@ -18,6 +18,7 @@ import { UploadedAnswers, Answer } from "./UploadedAnswers";
 import { CustomInput } from "./CustomInput";
 import { Icon } from "../../../../UI/Icon";
 import { Colors } from "../../../../../constants/colors";
+import { AddQuestionButton } from "../Styled";
 
 interface Props {
   saveQuestionInState: (question: PrivateQuizQuestion) => void;
@@ -93,18 +94,21 @@ export const QuestionSubForm: React.FC<Props> = ({
                 isTextArea={true}
               />
             )}
-            <SmallButton
-              onClick={() => {
-                if (!checkMinimumInputLength(question, 4)) {
-                  alert("Enter a valid question");
-                  return;
-                }
-                setQuestion(prev => capitaliseInput(prev));
-                setHasEnteredQuestion(true);
-              }}
-            >
-              Continue
-            </SmallButton>
+            {question.length > 0 && (
+              <MediumButton
+                onClick={() => {
+                  if (!checkMinimumInputLength(question, 4)) {
+                    alert("Enter a valid question");
+                    return;
+                  }
+                  setQuestion(prev => capitaliseInput(prev));
+                  setHasEnteredQuestion(true);
+                }}
+              >
+                <Icon icon="plus-circle" color={Colors.LIGHTEST_GREY} />
+                Add answers
+              </MediumButton>
+            )}
           </ComplexInputContainer>
         )}
 
@@ -116,10 +120,8 @@ export const QuestionSubForm: React.FC<Props> = ({
               handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
                 setRightReply(e.target.value)
               }
-            />
-
-            <SmallButton
-              onClick={() => {
+              needsProgress={true}
+              onProgressHandler={() => {
                 if (!checkMinimumInputLength(rightReply)) {
                   alert("Enter a valid reply");
                   return;
@@ -127,9 +129,7 @@ export const QuestionSubForm: React.FC<Props> = ({
                 setRightReply(prev => capitaliseInput(prev));
                 setHasEnteredRightReply(true);
               }}
-            >
-              Continue
-            </SmallButton>
+            />
           </ComplexInputContainer>
         )}
 
@@ -161,10 +161,8 @@ export const QuestionSubForm: React.FC<Props> = ({
               handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
                 setCurrentReply(e.target.value)
               }
-            />
-
-            <SmallButton
-              onClick={() => {
+              needsProgress={true}
+              onProgressHandler={() => {
                 if (!checkMinimumInputLength(currentReply)) {
                   alert("Enter a valid reply");
                   return;
@@ -175,19 +173,16 @@ export const QuestionSubForm: React.FC<Props> = ({
                 ]);
                 setCurrentReply("");
               }}
-            >
-              Add
-            </SmallButton>
+            />
           </ComplexInputContainer>
         )}
-
-        <ResetButton onClick={closeItself}>Cancel</ResetButton>
 
         {hasEnteredQuestion && hasEnteredRightReply && allReplies.length > 0 && (
           <PinkSubmitButton type="submit" onClick={handleSubmit}>
             SAVE QUESTION
           </PinkSubmitButton>
         )}
+        <ResetButton onClick={closeItself}>Cancel</ResetButton>
       </form>
     </FormContainer>
   );
