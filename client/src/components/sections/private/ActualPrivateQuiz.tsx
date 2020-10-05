@@ -11,47 +11,83 @@ interface ActualPrivateQuizProps {
   quizId: string;
 }
 
+interface iInitialQuizState {
+  isLoading: boolean;
+  isError: boolean;
+  currentQuiz: null | PrivateQuiz;
+  allQuestions: PrivateQuizQuestion[];
+}
+
 export const ActualPrivateQuiz: React.FC<ActualPrivateQuizProps> = ({
   quizId
 }) => {
-  const [currentQuiz, setCurrentQuiz] = useState<PrivateQuiz | null>(null);
-  const [allQuestions, setAllQuestions] = useState<PrivateQuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const history = useHistory();
 
+  const initialState: iInitialQuizState = {
+    isLoading: false,
+    isError: false,
+    currentQuiz: null,
+    allQuestions: []
+  };
+
+  const [quizState, setQuizState] = useState(initialState);
+
   useEffect(() => {
+    let isMounted = true;
+
     const loadQuiz = async () => {
-      const quiz = (await getSingleQuiz(quizId)) as unknown;
-      setCurrentQuiz(quiz as PrivateQuiz);
+      try {
+        setQuizState(prevState => ({ ...prevState, isLoading: true }));
+        const quiz = (await getSingleQuiz(quizId)) as unknown;
+        const mixedQuestions = shuffleArray((quiz as PrivateQuiz).questions);
+        mixedQuestions.forEach(
+          q => (q.allReplies = shuffleArray(q.allReplies))
+        );
+
+        if (isMounted) {
+          setQuizState(prevState => {
+            return {
+              ...prevState,
+              isLoading: false,
+              currentQuiz: quiz as PrivateQuiz,
+              allQuestions: mixedQuestions
+            };
+          });
+        }
+      } catch (err) {
+        if (isMounted) {
+          setQuizState(prevState => {
+            return { ...prevState, isLoading: false, isError: true };
+          });
+        }
+        console.error(err);
+      }
     };
 
     loadQuiz();
-  }, [quizId]);
 
-  useEffect(() => {
-    if (currentQuiz) {
-      const mixedQuestions = shuffleArray(currentQuiz.questions);
-      mixedQuestions.forEach(q => (q.allReplies = shuffleArray(q.allReplies)));
-      setAllQuestions(mixedQuestions);
-    }
-  }, [currentQuiz]);
+    return () => {
+      isMounted = false;
+    };
+  }, [quizId]);
 
   const goToNextQuestion = () => setCurrentQuestionIndex(prev => prev + 1);
   const givePoint = () => setScore(prevScore => prevScore + 1);
   const thereAreStillQuestions = () =>
-    allQuestions.length >= currentQuestionIndex + 1;
+    quizState.allQuestions.length >= currentQuestionIndex + 1;
 
-  return currentQuiz ? (
+  return quizState.currentQuiz ? (
     <QuizBackground
-      imageUrl={currentQuiz.backgroundImageUrl as string}
+      imageUrl={quizState.currentQuiz.backgroundImageUrl as string}
       stopPlaying={() => history.push("/")}
     >
       {thereAreStillQuestions() ? (
         <QuestionCard
-          question={allQuestions[currentQuestionIndex]}
+          question={quizState.allQuestions[currentQuestionIndex]}
           next={goToNextQuestion}
-          numberOfQuestions={allQuestions.length}
+          numberOfQuestions={quizState.allQuestions.length}
           currentNumberOfQuestion={currentQuestionIndex + 1}
           givePoint={givePoint}
           quizType="private"
@@ -59,7 +95,7 @@ export const ActualPrivateQuiz: React.FC<ActualPrivateQuizProps> = ({
       ) : (
         <Ending
           score={score}
-          totalQuestions={allQuestions.length}
+          totalQuestions={quizState.allQuestions.length}
           playAgain={() => history.push("/")}
         />
       )}

@@ -18,7 +18,6 @@ import { UploadedAnswers, Answer } from "./UploadedAnswers";
 import { CustomInput } from "./CustomInput";
 import { Icon } from "../../../../UI/Icon";
 import { Colors } from "../../../../../constants/colors";
-import { AddQuestionButton } from "../Styled";
 
 interface Props {
   saveQuestionInState: (question: PrivateQuizQuestion) => void;
