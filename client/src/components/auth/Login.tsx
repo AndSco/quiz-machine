@@ -15,7 +15,6 @@ export const Login: React.FC = () => {
   return (
     <AuthContainer>
       <SectionTitle>Nice to see you back!</SectionTitle>
-      {/* <Paragraph>Enter your credentials to access</Paragraph> */}
       <AccessSwitch scope="login" noMargin={true} />
       <Form scope="login" title="Log in" inputs={LoginFormInputsValues} />
     </AuthContainer>

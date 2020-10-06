@@ -57,7 +57,11 @@ export const QuestionSubForm: React.FC<Props> = ({
 
   return (
     <FormContainer>
-      <FormTitle>Add a question to your quiz</FormTitle>
+      <FormTitle>
+        {!hasEnteredQuestion
+          ? "Add a question to your quiz"
+          : "enter the answers to the question"}
+      </FormTitle>
       <form
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
@@ -68,7 +72,7 @@ export const QuestionSubForm: React.FC<Props> = ({
         ) : (
           <ComplexInputContainer>
             <CustomInput
-              label="Question"
+              label="ENTER THE QUESTION"
               value={question}
               handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
                 setQuestion(e.target.value)
@@ -85,7 +89,7 @@ export const QuestionSubForm: React.FC<Props> = ({
               </Clickable>
             ) : (
               <CustomInput
-                label="Add code"
+                label="ADD CODE SNIPPET"
                 handleChangeFunction={(
                   e: React.ChangeEvent<HTMLTextAreaElement>
                 ) => setCode(e.target.value)}
@@ -115,14 +119,14 @@ export const QuestionSubForm: React.FC<Props> = ({
           <ComplexInputContainer>
             <CustomInput
               value={rightReply}
-              label="Add the correct answer"
+              label="ENTER THE CORRECT ANSWER"
               handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
                 setRightReply(e.target.value)
               }
               needsProgress={true}
               onProgressHandler={() => {
                 if (!checkMinimumInputLength(rightReply)) {
-                  alert("Enter a valid reply");
+                  alert("Enter a valid answer");
                   return;
                 }
                 setRightReply(prev => capitaliseInput(prev));
@@ -154,9 +158,9 @@ export const QuestionSubForm: React.FC<Props> = ({
           <ComplexInputContainer>
             <CustomInput
               value={currentReply}
-              label={`Add ${
-                allReplies.length > 0 ? "another" : "a"
-              } (wrong) answer`}
+              label={`ADD ${
+                allReplies.length > 0 ? "ANOTHER" : "A"
+              } (WRONG) ANSWER`}
               handleChangeFunction={(e: React.ChangeEvent<HTMLFormElement>) =>
                 setCurrentReply(e.target.value)
               }

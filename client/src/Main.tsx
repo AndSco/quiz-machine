@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PublicQuizzes } from "./components/sections/public/PublicQuizzes";
 import { PrivateSection } from "./components/sections/private/PrivateSection";
 import { Navbar } from "./components/Navbar/Navbar";
-import { UserDashboard } from "./components/sections/private/UserDashboard";
+import { Dashboard } from "./components/sections/private/userDashboard/Dashboard";
 import { ActualPrivateQuiz } from "./components/sections/private/ActualPrivateQuiz";
 import { RouteComponentProps } from "react-router";
 
@@ -35,7 +35,7 @@ export const Main: React.FC = () => {
           path="/register"
           render={() => <PrivateSection activity="register" />}
         />
-        <Route exact path="/myDashboard" component={UserDashboard} />
+        <Route exact path="/myDashboard" component={Dashboard} />
         <Route
           path="/quiz/:quizId"
           render={({ match }: MatchProps) => (

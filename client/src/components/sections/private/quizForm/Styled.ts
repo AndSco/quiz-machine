@@ -58,4 +58,5 @@ export const StyledBackgroundImagePreview = styled.img`
   margin: 0.7rem 0 1.5rem 0;
   border-radius: 40px;
   border: 3px solid white;
+  background-color: ${Colors.DARK_BLUE};
 `;

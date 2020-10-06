@@ -13,12 +13,19 @@ export const LoginFormInputsValues: AuthInputConfig[] = [
 ];
 
 export const RegistrationFormInputsValues: AuthInputConfig[] = [
-  { name: "username" as AuthInputName },
-  { name: "password" as AuthInputName, inputType: "password" },
+  {
+    name: "username" as AuthInputName,
+    label: "USERNAME (at least 4 characters)"
+  },
+  {
+    name: "password" as AuthInputName,
+    inputType: "password",
+    label: "PASSWORD (at least 7 characters)"
+  },
   {
     name: "passwordConfirmation" as AuthInputName,
     inputType: "password",
-    label: "confirm your password"
+    label: "CONFIRM YOUR PASSWORD"
   }
 ];
 

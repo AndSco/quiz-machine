@@ -96,7 +96,9 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
           />
         ))}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <SubmitButton type="submit">SUBMIT</SubmitButton>
+        <SubmitButton type="submit">
+          {scope === "register" ? "JOIN" : "ENTER"}
+        </SubmitButton>
       </form>
     </FormContainer>
   );

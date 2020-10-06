@@ -19,7 +19,6 @@ import {
 import { QuestionSubForm } from "./questions_subform/QuestionSubForm";
 import { createQuiz, editQuiz } from "../../../../utils/dbFunctions";
 import { AuthContext } from "../../../../contexts/auth/Auth";
-import { QuizzesContext } from "../../../../contexts/quizzes/Quizzes";
 import { ApiResponse } from "../../../../models/ApiResponse";
 import { SavedQuestionCard } from "./SavedQuestionCard";
 import { Icon } from "../../../UI/Icon";
@@ -46,7 +45,6 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
   onFormClose
 }) => {
   const { currentUser, refreshUserQuizzes } = useContext(AuthContext);
-  const { getCustomQuizzes } = useContext(QuizzesContext);
   const [isAddingQuestions, setIsAddingQuestions] = useState(false);
   const [inputValues, dispatch] = useReducer(
     QuizCreationReducer,
@@ -64,22 +62,25 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
   };
 
   const handleSubmit = async () => {
-    const quizGenerated = { ...inputValues };
-    quizGenerated.title = capitaliseInput(quizGenerated.title);
-    if (quizGenerated.questions.length < 1) {
-      alert("You cannot create a quiz without questions!");
-      return;
-    }
+    try {
+      const quizGenerated = { ...inputValues };
+      quizGenerated.title = capitaliseInput(quizGenerated.title);
+      if (quizGenerated.questions.length < 1) {
+        alert("You cannot create a quiz without questions!");
+        return;
+      }
 
-    if (usage === "editing") {
-      await editQuiz(currentQuiz!._id as string, quizGenerated);
-    } else {
-      const response = await createQuiz(quizGenerated, currentUser!._id);
-      setUploadMessage((response as ApiResponse).message as string);
+      if (usage === "editing") {
+        await editQuiz(currentQuiz!._id as string, quizGenerated);
+      } else {
+        const response = await createQuiz(quizGenerated, currentUser!._id);
+        setUploadMessage((response as ApiResponse).message as string);
+      }
+      refreshUserQuizzes();
+      onFormClose();
+    } catch (err) {
+      console.error(err);
     }
-    refreshUserQuizzes();
-    getCustomQuizzes();
-    onFormClose();
   };
 
   const handleRadioButtonChange = (choice: PrivacyChoice) => {
@@ -124,7 +125,7 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
           >
             <Input
               inputName="title"
-              label="quiz title"
+              label="QUIZ TITLE"
               onChangeFunction={handleChange}
               value={getPropertyName(inputValues, "title")}
             />
@@ -137,6 +138,7 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
                   inputValues,
                   "backgroundImageUrl" as any
                 )}
+                onBlurFunction={() => setWantsToChangeBackground(false)}
               />
             ) : (
               <BackgroundImagePreview

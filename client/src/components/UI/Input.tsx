@@ -19,7 +19,6 @@ export const StyledLabel = styled.label`
   font-size: 0.7rem;
   font-weight: 500;
   color: ${Colors.DARK_BLUE};
-  text-transform: uppercase;
 `;
 
 export const Container = styled.div`
@@ -39,6 +38,7 @@ interface InputProps {
   value: string;
   isRequired?: boolean;
   label: string;
+  onBlurFunction?: () => void;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -48,7 +48,8 @@ export const Input: React.FC<InputProps> = ({
   inputType,
   value,
   label,
-  isRequired = false
+  isRequired = false,
+  onBlurFunction
 }) => {
   const [typeOfInput, setTypeOfInput] = useState(inputType);
 
@@ -57,7 +58,7 @@ export const Input: React.FC<InputProps> = ({
 
   return (
     <Container>
-      <StyledLabel htmlFor={inputName}>{label.toUpperCase()}</StyledLabel>
+      <StyledLabel htmlFor={inputName}>{label}</StyledLabel>
       <div style={{ display: "flex", alignItems: "center" }}>
         <StyledInput
           type={typeOfInput}
@@ -67,6 +68,7 @@ export const Input: React.FC<InputProps> = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             onChangeFunction(e.target.value, inputName)
           }
+          onBlur={onBlurFunction}
         />
 
         {inputType === "password" && value.length > 0 && (

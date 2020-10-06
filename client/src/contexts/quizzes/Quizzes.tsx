@@ -1,14 +1,6 @@
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useContext,
-  useCallback
-} from "react";
+import React, { createContext, useState, useContext } from "react";
 import { Question, QuizType, Subject } from "../../models/PublicQuizQuestion";
 import { Difficulty } from "../../models/TriviaApi";
-import { PrivateQuiz } from "../../models/PrivateQuiz";
-import { getCustomUsersQuizzes } from "../../utils/dbFunctions";
 import { LoadingContext } from "../../contexts/loading/Loading";
 import { getQuestions } from "../../utils/functions";
 
@@ -26,8 +18,6 @@ interface iQuizzesContext {
   goToNextQuizConfiguration: () => void;
   uploadQuestions: (questions: Question[]) => void;
   reset: () => void;
-  usersCustomQuizzes: PrivateQuiz[];
-  getCustomQuizzes: () => void;
   getPublicQuizQuestions: () => void;
   quizFetchError: null | Error;
 }
@@ -39,13 +29,11 @@ const startingValue: iQuizzesContext = {
   difficultyLevel: "medium",
   quizConfigurationStep: 1,
   questions: [],
-  configQuiz: (option: ConfigOption, inputValue: any) => {},
+  configQuiz: () => {},
   startedQuiz: false,
   goToNextQuizConfiguration: () => {},
   uploadQuestions: () => {},
   reset: () => {},
-  usersCustomQuizzes: [],
-  getCustomQuizzes: () => {},
   getPublicQuizQuestions: () => {},
   quizFetchError: null
 };
@@ -60,9 +48,6 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
   const [currentSubject, setCurrentSubject] = useState<Subject | "">("");
   const [quizConfigurationStep, setQuizConfigurationStep] = useState(1);
   const [startedQuiz, setStartedQuiz] = useState(false);
-  const [usersCustomQuizzes, setUsersCustomQuizzes] = useState<PrivateQuiz[]>(
-    []
-  );
   const { startLoading, stopLoading } = useContext(LoadingContext);
   const [quizFetchError, setQuizFetchError] = useState(null);
 
@@ -89,22 +74,9 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
       stopLoading();
     } catch (err) {
       stopLoading();
-      // throw err;
       setQuizFetchError(err);
     }
   };
-
-  const getCustomQuizzes = useCallback(async () => {
-    startLoading();
-    const dbResponse = await getCustomUsersQuizzes();
-    const customQuizzes = dbResponse.payload;
-    setUsersCustomQuizzes(customQuizzes);
-    stopLoading();
-  }, [startLoading, stopLoading]);
-
-  useEffect(() => {
-    getCustomQuizzes();
-  }, [getCustomQuizzes]);
 
   const reset = () => {
     setStartedQuiz(false);
@@ -145,8 +117,6 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
     startedQuiz,
     uploadQuestions,
     reset,
-    usersCustomQuizzes,
-    getCustomQuizzes,
     getPublicQuizQuestions,
     quizFetchError
   };
