@@ -13,6 +13,7 @@ export const StyledInput = styled.input`
   margin: 0.7rem 0 1.5rem 0;
   border: 0;
   position: relative;
+  border-radius: 40px;
 `;
 
 export const StyledLabel = styled.label`

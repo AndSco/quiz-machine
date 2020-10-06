@@ -46,6 +46,9 @@ export const StyledAnswer = styled.div`
 `;
 
 export const UploadedQuestionPreview = styled.h3`
-  font-size: 0.9rem;
+  font-size: 1rem;
+  border-bottom: 2px solid ${Colors.ORANGE};
+  padding-bottom: 0.5rem;
+  margin-bottom: 3rem;
   color: ${Colors.BLACK};
 `;

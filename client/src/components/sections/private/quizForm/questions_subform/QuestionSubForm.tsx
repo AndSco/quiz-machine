@@ -68,7 +68,9 @@ export const QuestionSubForm: React.FC<Props> = ({
         }}
       >
         {hasEnteredQuestion ? (
-          <UploadedQuestionPreview>Q: {question}</UploadedQuestionPreview>
+          <UploadedQuestionPreview>
+            <Icon icon="question-circle" color={Colors.ORANGE} /> {question}
+          </UploadedQuestionPreview>
         ) : (
           <ComplexInputContainer>
             <CustomInput

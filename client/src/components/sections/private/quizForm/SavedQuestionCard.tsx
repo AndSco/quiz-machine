@@ -9,7 +9,7 @@ const StyledQuestionCard = styled.div`
   border-radius: 10px;
   padding: 0.2rem 0.8rem;
   text-align: left;
-  background-color: ${Colors.LIGHTEST_GREY};
+  background-color: #e4e4e4;
   color: ${Colors.BLACK};
   display: flex;
   justify-content: space-between;
@@ -31,7 +31,7 @@ const DeleteConfirmation = styled.div`
 
 const StyledDeleteConfirmationBtn = styled.h5`
   font-size: 0.8rem;
-  color: white;
+  color: ${Colors.BLACK};
   border-bottom: 1px solid;
 `;
 
@@ -62,16 +62,15 @@ export const SavedQuestionCard: React.FC<Props> = ({
       {!wantsToRemoveQuestion ? (
         <>
           <h4>
-            <Icon icon={"question-circle"} color="white" />
+            <Icon icon={"question-circle"} color={Colors.LIGHTER_GREY} />
             {question.question}
           </h4>
           <Clickable
             onClick={() => {
               setWantsToRemoveQuestion(true);
-              // removeQuestion(question.question);
             }}
           >
-            <Icon icon={"trash-alt"} color="white" />
+            <Icon icon={"trash-alt"} color={Colors.BLACK} />
           </Clickable>
         </>
       ) : (

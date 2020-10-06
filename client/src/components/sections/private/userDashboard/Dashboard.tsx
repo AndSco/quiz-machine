@@ -23,7 +23,6 @@ export const Dashboard: React.FC = () => {
     null
   );
 
-  console.log("MOUNTING");
   const history = useHistory();
 
   const stopQuizCreation = () => setIsCreatingQuiz(false);
