@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { InputName as AuthInputName } from "../../reducers/AuthReducers";
 import { InputName as QuizInputName } from "../../reducers/QuizCreation";
-import { Colors } from "../../constants/colors";
 import { IconForInput } from "./IconForInput";
 
 export const StyledInput = styled.input`
@@ -19,7 +18,6 @@ export const StyledInput = styled.input`
 export const StyledLabel = styled.label`
   font-size: 0.7rem;
   font-weight: 500;
-  color: ${Colors.DARK_BLUE};
 `;
 
 export const Container = styled.div`

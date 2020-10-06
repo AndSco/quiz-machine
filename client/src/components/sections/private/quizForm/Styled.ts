@@ -31,32 +31,15 @@ export const RadioContainer = styled.div`
   }
 `;
 
-export const AddQuestionButton = styled.h4`
-  color: ${Colors.STEEL_PINK_2};
-  background-color: white;
-  padding: 0.5rem;
-  border-radius: 40px;
-  margin: 2.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  visibility: ${(props: { canAddQuestions: boolean }) =>
-    props.canAddQuestions ? "" : "hidden"};
-
-  :hover {
-    color: white;
-    background-color: ${Colors.STEEL_PINK_2};
-  }
-`;
-
 export const FormButton = styled(SubmitButton)`
   background-color: ${Colors.STEEL_PINK};
 `;
 
 export const StyledBackgroundImagePreview = styled.img`
-  width: 200px;
+  width: 300px;
   height: 100px;
   margin: 0.7rem 0 1.5rem 0;
-  border-radius: 40px;
+  border-radius: 10px;
   border: 3px solid white;
   background-color: ${Colors.DARK_BLUE};
 `;

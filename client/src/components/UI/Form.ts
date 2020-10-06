@@ -3,17 +3,23 @@ import { Colors } from "../../constants/colors";
 import { MediumButton } from "./Buttons";
 import { breakpoints } from "../../constants/breakpoints";
 
+interface Props {
+  background?: string;
+  color?: string;
+}
+
 export const FormContainer = styled.div`
   width: 600px;
   padding: 2rem 1.5rem;
   padding-bottom: 3.5rem;
-  background-color: ${(props: { isRegistration?: boolean }) =>
-    props.isRegistration ? Colors.LIGHTEST_GREY : Colors.YELLOW};
-  color: ${Colors.BLACK};
+  background-color: ${(props: Props) =>
+    props.background ? props.background : Colors.YELLOW};
+  color: ${(props: Props) => (props.color ? props.color : Colors.BLACK)};
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  /* color: ${Colors.DARK_BLUE}; */
 
   @media (max-width: ${breakpoints.smallScreens}) {
     width: 100vw;
@@ -21,7 +27,6 @@ export const FormContainer = styled.div`
 `;
 
 export const FormTitle = styled.h4`
-  color: ${Colors.DARK_BLUE};
   text-transform: uppercase;
   margin-top: 0;
 `;

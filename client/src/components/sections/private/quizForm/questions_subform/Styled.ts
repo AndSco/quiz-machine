@@ -43,12 +43,15 @@ export const StyledAnswer = styled.div`
   font-size: 0.8rem;
   text-align: left;
   margin: 0.6rem 0;
+  color: ${Colors.BLACK};
 `;
 
 export const UploadedQuestionPreview = styled.h3`
   font-size: 1rem;
-  border-bottom: 2px solid ${Colors.ORANGE};
+  border-bottom: 2px solid ${Colors.DIRT_WHITE};
   padding-bottom: 0.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
+  font-style: italic;
   color: ${Colors.BLACK};
 `;

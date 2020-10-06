@@ -18,7 +18,7 @@ export const BaseButton = styled.button`
 `;
 
 export const MediumButton = styled(BaseButton)`
-  background-color: ${Colors.DARK_BLUE};
+  background-color: ${Colors.LAVENDER};
   margin: 0.5rem 0;
   width: 250px;
 
@@ -94,4 +94,21 @@ export const SmallButton = styled(MediumButton as "div")`
 export const ResetButton = styled(SmallButton)`
   align-self: center;
   color: ${Colors.LIGHTEST_GREY};
+`;
+
+export const IntermediateButton = styled.h4`
+  color: ${Colors.STEEL_PINK_2};
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 40px;
+  margin: 2.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  visibility: ${(props: { isShowing: boolean }) =>
+    props.isShowing ? "" : "hidden"};
+
+  :hover {
+    color: white;
+    background-color: ${Colors.STEEL_PINK_2};
+  }
 `;

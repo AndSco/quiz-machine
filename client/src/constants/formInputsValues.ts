@@ -8,8 +8,12 @@ export type AuthInputConfig = {
 };
 
 export const LoginFormInputsValues: AuthInputConfig[] = [
-  { name: "username" as AuthInputName },
-  { name: "password" as AuthInputName, inputType: "password" }
+  { name: "username" as AuthInputName, label: "USERNAME" },
+  {
+    name: "password" as AuthInputName,
+    inputType: "password",
+    label: "PASSWORD"
+  }
 ];
 
 export const RegistrationFormInputsValues: AuthInputConfig[] = [

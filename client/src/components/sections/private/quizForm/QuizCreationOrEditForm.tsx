@@ -1,4 +1,5 @@
 import React, { useReducer, useState, useContext } from "react";
+import styled from "styled-components";
 import {
   QuizCreationReducer,
   QuizCreationStartingValues,
@@ -23,13 +24,15 @@ import { ApiResponse } from "../../../../models/ApiResponse";
 import { SavedQuestionCard } from "./SavedQuestionCard";
 import { Icon } from "../../../UI/Icon";
 import { capitaliseInput, getPropertyName } from "../../../../utils/functions";
-import {
-  AddQuestionButton,
-  RadioButtonsContainer,
-  RadioContainer,
-  FormButton
-} from "./Styled";
+import { RadioButtonsContainer, RadioContainer, FormButton } from "./Styled";
 import { BackgroundImagePreview } from "./BackgroundImagePreview";
+import { Colors } from "../../../../constants/colors";
+import { IntermediateButton } from "../../../UI/Buttons";
+
+export const CustomFormTitle = styled(FormTitle)`
+  background-color: ${Colors.DARK_BLUE};
+  padding: 0.5rem;
+`;
 
 export type PossibleUsage = "creation" | "editing";
 
@@ -104,7 +107,7 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
   const closeQuestionForm = () => setIsAddingQuestions(false);
 
   return (
-    <FormContainer>
+    <FormContainer background={Colors.LAVENDER} color="white">
       {isAddingQuestions ? (
         <QuestionSubForm
           saveQuestionInState={saveQuestionInState}
@@ -114,9 +117,9 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
         <h2>{uploadMessage}</h2>
       ) : (
         <>
-          <FormTitle>
+          <CustomFormTitle>
             {usage === "creation" ? "Create" : "Edit"} your quiz
-          </FormTitle>
+          </CustomFormTitle>
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
@@ -188,14 +191,14 @@ export const QuizCreationOrEditForm: React.FC<Props> = ({
                 />
               ))}
 
-            <AddQuestionButton
-              canAddQuestions={inputValues.title.length > 0}
+            <IntermediateButton
+              isShowing={inputValues.title.length > 0}
               onClick={() => setIsAddingQuestions(true)}
             >
               <Icon icon={"plus-circle"} />
               Add {inputValues.questions.length === 0 ? "a" : "another"}{" "}
               question
-            </AddQuestionButton>
+            </IntermediateButton>
 
             {inputValues.questions.length > 0 &&
               inputValues.title.length > 0 && (

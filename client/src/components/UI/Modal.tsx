@@ -20,7 +20,7 @@ export const StyledModal = styled.div`
   overflow: scroll;
 
   @media (max-width: ${breakpoints.smallestScreens}) {
-    background-color: ${Colors.YELLOW};
+    background-color: ${Colors.LAVENDER};
   }
 `;
 

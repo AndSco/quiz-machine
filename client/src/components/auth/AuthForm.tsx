@@ -13,6 +13,7 @@ import { ApiResponse } from "../../models/ApiResponse";
 import { AuthContext } from "../../contexts/auth/Auth";
 import { FormContainer, FormTitle, SubmitButton } from "../UI/Form";
 import { AuthInputConfig } from "../../constants/formInputsValues";
+import { Colors } from "../../constants/colors";
 
 const ErrorMessage = styled.p`
   font-size: 0.8rem;
@@ -72,7 +73,10 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
   const resetError = () => setError("");
 
   return (
-    <FormContainer isRegistration={scope === "register"}>
+    <FormContainer
+      background={scope === "register" ? Colors.BLACK : Colors.YELLOW}
+      color={scope === "register" ? "#e4e0e0" : Colors.BLACK}
+    >
       <FormTitle>{title}</FormTitle>
       <form
         onSubmit={e => {

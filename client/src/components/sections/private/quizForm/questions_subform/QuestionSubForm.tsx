@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PrivateQuizQuestion } from "../../../../../models/PrivateQuiz";
-import { FormContainer, FormTitle } from "../../../../UI/Form";
-import { ResetButton, MediumButton } from "../../../../UI/Buttons";
+import { FormContainer } from "../../../../UI/Form";
+import { ResetButton, IntermediateButton } from "../../../../UI/Buttons";
 import {
   shuffleArray,
   capitaliseInput,
@@ -18,6 +18,7 @@ import { UploadedAnswers, Answer } from "./UploadedAnswers";
 import { CustomInput } from "./CustomInput";
 import { Icon } from "../../../../UI/Icon";
 import { Colors } from "../../../../../constants/colors";
+import { CustomFormTitle } from "../QuizCreationOrEditForm";
 
 interface Props {
   saveQuestionInState: (question: PrivateQuizQuestion) => void;
@@ -56,12 +57,12 @@ export const QuestionSubForm: React.FC<Props> = ({
     setAllReplies(updatedReplies);
 
   return (
-    <FormContainer>
-      <FormTitle>
+    <FormContainer background={Colors.LAVENDER} color="white">
+      <CustomFormTitle>
         {!hasEnteredQuestion
           ? "Add a question to your quiz"
           : "enter the answers to the question"}
-      </FormTitle>
+      </CustomFormTitle>
       <form
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
@@ -69,7 +70,8 @@ export const QuestionSubForm: React.FC<Props> = ({
       >
         {hasEnteredQuestion ? (
           <UploadedQuestionPreview>
-            <Icon icon="question-circle" color={Colors.ORANGE} /> {question}
+            <Icon icon="question-circle" color={Colors.LIGHTER_GREY} />{" "}
+            {question}
           </UploadedQuestionPreview>
         ) : (
           <ComplexInputContainer>
@@ -99,21 +101,21 @@ export const QuestionSubForm: React.FC<Props> = ({
                 isTextArea={true}
               />
             )}
-            {question.length > 0 && (
-              <MediumButton
-                onClick={() => {
-                  if (!checkMinimumInputLength(question, 4)) {
-                    alert("Enter a valid question");
-                    return;
-                  }
-                  setQuestion(prev => capitaliseInput(prev));
-                  setHasEnteredQuestion(true);
-                }}
-              >
-                <Icon icon="plus-circle" color={Colors.LIGHTEST_GREY} />
-                Add answers
-              </MediumButton>
-            )}
+
+            <IntermediateButton
+              isShowing={question.length > 0}
+              onClick={() => {
+                if (!checkMinimumInputLength(question, 4)) {
+                  alert("Enter a valid question");
+                  return;
+                }
+                setQuestion(prev => capitaliseInput(prev));
+                setHasEnteredQuestion(true);
+              }}
+            >
+              Next
+              <Icon icon="chevron-right" color={Colors.LIGHTEST_GREY} />
+            </IntermediateButton>
           </ComplexInputContainer>
         )}
 
@@ -187,7 +189,7 @@ export const QuestionSubForm: React.FC<Props> = ({
             SAVE QUESTION
           </PinkSubmitButton>
         )}
-        <ResetButton onClick={closeItself}>Cancel</ResetButton>
+        <ResetButton onClick={closeItself}>Back</ResetButton>
       </form>
     </FormContainer>
   );
