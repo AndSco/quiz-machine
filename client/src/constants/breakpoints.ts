@@ -1,5 +1,5 @@
 export const breakpoints = {
-  hugeScreens: "1400px",
+  hugeScreens: "1500px",
   bigScreens: "1040px",
   mediumScreens: "1100px",
   smallScreens: "700px",
