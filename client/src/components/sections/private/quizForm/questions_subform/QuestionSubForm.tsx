@@ -133,7 +133,7 @@ export const QuestionSubForm: React.FC<Props> = ({
                   alert("Enter a valid answer");
                   return;
                 }
-                setRightReply(prev => capitaliseInput(prev));
+                setRightReply(prev => prev);
                 setHasEnteredRightReply(true);
               }}
             />
@@ -174,10 +174,7 @@ export const QuestionSubForm: React.FC<Props> = ({
                   alert("Enter a valid reply");
                   return;
                 }
-                setAllReplies(prevReplies => [
-                  ...prevReplies,
-                  capitaliseInput(currentReply)
-                ]);
+                setAllReplies(prevReplies => [...prevReplies, currentReply]);
                 setCurrentReply("");
               }}
             />

@@ -78,7 +78,10 @@ export const SavedQuestionCard: React.FC<Props> = ({
           <h4>Delete this question and all its anwers?</h4>
           <DeleteConfirmationBtn
             text="Yes"
-            onClickFunction={() => removeQuestion(question.question)}
+            onClickFunction={async () => {
+              removeQuestion(question.question);
+              setWantsToRemoveQuestion(false);
+            }}
           />
           <DeleteConfirmationBtn
             text="No"
