@@ -28,7 +28,7 @@ export const IconForInput: React.FC<Props> = ({
       <FontAwesomeIcon
         icon={icon}
         onClick={onCLickFunction}
-        color={Colors.BLACK}
+        color={Colors.LIGHTER_GREY}
       />
     </IconContainer>
   );
