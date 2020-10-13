@@ -106,6 +106,9 @@ export const getSubjectBackgroundPic = (subject: any) =>
 
 export const capitaliseInput = (input: string) => {
   const initial = input[0];
+  if (initial.match(/[A-Z]/)) {
+    return input;
+  }
   return initial.toUpperCase() + input.slice(1);
 };
 

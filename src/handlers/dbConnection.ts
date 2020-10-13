@@ -10,28 +10,23 @@ const DB_NAME =
 // const connectionString = mongoConnection;
 const connectionString = `${mongoURI}${DB_NAME}?retryWrites=true&w=majority`;
 
-let db: any = null;
-
-export const connectToDatabase = () => {
-  console.log("connecting to db", DB_NAME);
-  db = mongoose.connect(
-    connectionString as string,
-    {
+export const connectToDatabase = async () => {
+  try {
+    console.log("connecting to db", DB_NAME);
+    const db = await mongoose.connect(connectionString as string, {
       keepAlive: true,
       useNewUrlParser: true,
       useUnifiedTopology: true
-    },
-    err => {
-      if (err) {
-        console.error(err);
-        throw new Error(err.message);
-      } else {
-        console.log("Database connected!");
-      }
-    }
-  );
+    });
+
+    console.log("Database connected!");
+    return db;
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message);
+  }
 };
 
-export const disconnectFromDatabase = async () => {
+export const disconnectFromDatabase = async (db: typeof mongoose) => {
   await db.disconnect();
 };
