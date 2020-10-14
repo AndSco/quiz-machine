@@ -1,17 +1,17 @@
-// import {
-//   connectToDatabase,
-//   removeAllCollections,
-//   closeConnection
-// } from "./handlers/dbConnection";
+import {
+  connectToDatabase,
+  removeAllCollections,
+  closeConnection
+} from "./handlers/dbConnection";
 
-// export const setupDb = (dbName: string) => {
-//   beforeAll(async () => await connectToDatabase(dbName));
+export const setupDb = (connectionString: string) => {
+  beforeAll(async () => await connectToDatabase(connectionString));
 
-//   afterEach(async () => {
-//     await removeAllCollections();
-//   });
+  afterEach(async () => {
+    await removeAllCollections();
+  });
 
-//   afterAll(async () => {
-//     await closeConnection();
-//   });
-// };
+  afterAll(async () => {
+    await closeConnection();
+  });
+};

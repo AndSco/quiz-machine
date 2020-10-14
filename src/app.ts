@@ -11,7 +11,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import { sessionSecret } from "./config";
 import { initialisePassport } from "./passport-config";
-import { productionDbName } from "./config";
+import { productionDbName, mongoConnection } from "./config";
 const app = express();
 
 //Body-parser
@@ -50,7 +50,7 @@ app.use("/api/auth", authRoutes);
 
 // connect to DB
 if (process.env.NODE_ENV !== "test") {
-  connectToDatabase(productionDbName as string);
+  connectToDatabase(mongoConnection as string);
 }
 
 // To serve both frontend and backend - catch ALL. Serve static assets only if in production.

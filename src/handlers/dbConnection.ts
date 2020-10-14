@@ -5,10 +5,10 @@ mongoose.set("debug", true);
 mongoose.set("useFindAndModify", false);
 mongoose.Promise = Promise;
 
-export const connectToDatabase = async (dbName: string) => {
+export const connectToDatabase = async (connectionString: string) => {
   try {
-    const connectionString = `${mongoURI}${dbName}?retryWrites=true&w=majority`;
-    console.log("connecting to db", dbName);
+    // const connectionString = `${mongoURI}${dbName}?retryWrites=true&w=majority`;
+    // console.log("connecting to db", dbName);
     await mongoose.connect(connectionString as string, {
       keepAlive: true,
       useNewUrlParser: true,
