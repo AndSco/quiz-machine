@@ -11,6 +11,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import { sessionSecret } from "./config";
 import { initialisePassport } from "./passport-config";
+import { productionDbName } from "./config";
 const app = express();
 
 //Body-parser
@@ -48,7 +49,9 @@ app.use("/api/quiz", quizRoutes);
 app.use("/api/auth", authRoutes);
 
 // connect to DB
-connectToDatabase();
+if (process.env.NODE_ENV !== "test") {
+  connectToDatabase(productionDbName as string);
+}
 
 // To serve both frontend and backend - catch ALL. Serve static assets only if in production.
 if (process.env.NODE_ENV === "production") {
@@ -64,5 +67,7 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-const PORT = process.env.PORT || 8081;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+export { app };
+
+// const PORT = process.env.PORT || 8081;
+// app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

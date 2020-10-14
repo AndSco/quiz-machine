@@ -1,32 +1,55 @@
 import mongoose from "mongoose";
-import { mongoURI, productionDbName, testingDbName } from "../config";
+import { mongoURI } from "../config";
 
 mongoose.set("debug", true);
 mongoose.set("useFindAndModify", false);
-mongoose.Promise = Promise; // allows us to do without CALLBACKS!
+mongoose.Promise = Promise;
 
-const DB_NAME =
-  process.env.NODE_ENV === "test" ? testingDbName : productionDbName;
-// const connectionString = mongoConnection;
-const connectionString = `${mongoURI}${DB_NAME}?retryWrites=true&w=majority`;
-
-export const connectToDatabase = async () => {
+export const connectToDatabase = async (dbName: string) => {
   try {
-    console.log("connecting to db", DB_NAME);
-    const db = await mongoose.connect(connectionString as string, {
+    const connectionString = `${mongoURI}${dbName}?retryWrites=true&w=majority`;
+    console.log("connecting to db", dbName);
+    await mongoose.connect(connectionString as string, {
       keepAlive: true,
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
 
     console.log("Database connected!");
-    return db;
   } catch (err) {
     console.error(err);
     throw new Error(err.message);
   }
 };
 
-export const disconnectFromDatabase = async (db: typeof mongoose) => {
-  await db.disconnect();
+export const removeAllCollections = async () => {
+  console.log("removing all collections");
+  const collections = Object.keys(mongoose.connection.collections);
+  for (const collectionName of collections) {
+    const collection = mongoose.connection.collections[collectionName];
+    await collection.deleteMany({});
+  }
+};
+
+// this is used to drop all collection, which in turn deletes the whole db
+const dropAllCollections = async () => {
+  console.log("dropping collections");
+  const collections = Object.keys(mongoose.connection.collections);
+  for (const collectionName of collections) {
+    const collection = mongoose.connection.collections[collectionName];
+    try {
+      await collection.drop();
+    } catch (error) {
+      if (error.message === "ns not found") return;
+      if (error.message.includes("a background operation is currently running"))
+        return;
+
+      console.log(error.message);
+    }
+  }
+};
+
+export const closeConnection = async () => {
+  await dropAllCollections();
+  await mongoose.connection.close();
 };

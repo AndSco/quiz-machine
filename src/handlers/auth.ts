@@ -4,7 +4,7 @@ import { User } from "../models/user";
 import passport from "passport";
 import { ApiResponse } from "../models/apiResponses";
 
-export const loginUser: RequestHandler = (req, res, next) => {
+export const loginUser: RequestHandler = async (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) {
