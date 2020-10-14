@@ -45,6 +45,7 @@ export const Thumbnail: React.FC<Props> = ({
 }) => {
   const { configQuiz, goToNextQuizConfiguration } = useContext(QuizzesContext);
 
+  console.log("custom quiz", customQuiz);
   const apiQuizOnClickHandler = () => {
     configQuiz("subject", value);
     goToNextQuizConfiguration();

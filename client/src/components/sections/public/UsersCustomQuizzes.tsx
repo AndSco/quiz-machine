@@ -56,10 +56,10 @@ export const UsersCustomQuizzes: React.FC = () => {
                 }
                 return 0;
               })
-              .map(quiz => (
+              .map((quiz, index) => (
                 <Thumbnail
                   purpose="userQuizzes"
-                  key={quiz.title}
+                  key={index}
                   title={quiz.title}
                   customQuiz={quiz}
                 />
