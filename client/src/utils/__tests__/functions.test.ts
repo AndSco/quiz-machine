@@ -30,36 +30,51 @@ describe("function to capitalise a word", () => {
   test("return the input unaltered if word is already uppercase", () => {
     expect(functions.capitaliseInput("Franco")).toMatch("Franco");
   });
+});
+test("function to check a minimum input length", () => {
+  expect(functions.checkMinimumInputLength("test", 2)).toBe(true);
+  expect(functions.checkMinimumInputLength("one", 6)).toBe(false);
+  expect(functions.checkMinimumInputLength("one", 3)).toBe(true);
+});
 
-  test("function to check a minimum input length", () => {
-    expect(functions.checkMinimumInputLength("test", 2)).toBe(true);
-    expect(functions.checkMinimumInputLength("one", 6)).toBe(false);
-    expect(functions.checkMinimumInputLength("one", 3)).toBe(true);
-  });
+test("cropInput function", () => {
+  expect(functions.cropInput("password", 3)).toMatch("pas");
+  expect(functions.cropInput("veryLongWord withSpaces", 12)).toMatch(
+    "veryLongWord"
+  );
+});
 
-  test("cropInput function", () => {
-    expect(functions.cropInput("password", 3)).toMatch("pas");
-    expect(functions.cropInput("veryLongWord withSpaces", 12)).toMatch(
-      "veryLongWord"
-    );
-  });
+test("removeEntryFromArray function", () => {
+  const stringArr = ["one", "two", "three"];
+  const result = functions.removeEntryFromArray(stringArr, "one");
+  expect(result.length).toBe(2);
+  expect(result[0]).toMatch(/two/);
+  expect(result).toEqual(["two", "three"]);
 
-  test("removeEntryFromArray function", () => {
-    const stringArr = ["one", "two", "three"];
-    const result = functions.removeEntryFromArray(stringArr, "one");
-    expect(result.length).toBe(2);
-    expect(result[0]).toMatch(/two/);
-    expect(result).toEqual(["two", "three"]);
+  const numArr = [1, 2, 3];
+  const result2 = functions.removeEntryFromArray(numArr, 1);
+  expect(result2.length).toBe(2);
+  expect(result2[0]).toBe(2);
+  expect(result2).toEqual([2, 3]);
+});
 
-    const numArr = [1, 2, 3];
-    const result2 = functions.removeEntryFromArray(numArr, 1);
-    expect(result2.length).toBe(2);
-    expect(result2[0]).toBe(2);
-    expect(result2).toEqual([2, 3]);
-  });
-
-  test("createScoreComment function", () => {
-    const result = functions.createScoreComment(5, 10);
-    expect(result).toMatch(/😭 You can do better!/);
-  });
+test("createScoreComment function", () => {
+  const result = functions.createScoreComment(5, 10);
+  const result1 = functions.createScoreComment(1, 15);
+  const result2 = functions.createScoreComment(1, 10);
+  const result3 = functions.createScoreComment(12, 20);
+  const result4 = functions.createScoreComment(15, 20);
+  const result5 = functions.createScoreComment(13, 20);
+  const result6 = functions.createScoreComment(16, 20);
+  const result7 = functions.createScoreComment(17, 20);
+  const result8 = functions.createScoreComment(19, 20);
+  expect(result).toMatch(/😭 You can do better!/);
+  expect(result1).toMatch(/😭 You can do better!/);
+  expect(result2).toMatch(/😭 You can do better!/);
+  expect(result3).toMatch(/🥺 Not too bad/);
+  expect(result4).toMatch(/😀 Good!/);
+  expect(result5).toMatch(/🥺 Not too bad/);
+  expect(result6).toMatch(/😀 Good!/);
+  expect(result7).toMatch(/😍 Great!/);
+  expect(result8).toMatch(/🥳 Perfect!!/);
 });
