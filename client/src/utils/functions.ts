@@ -135,15 +135,15 @@ export const createScoreComment = (
   score: number,
   questionsNumber: number
 ): string => {
-  const percentage = (score / questionsNumber) * 10;
-  if (percentage < 5) {
+  const percentage = Math.round(score / questionsNumber) * 10;
+  if (percentage <= 5) {
     return "😭 You can do better!";
   } else if (percentage === 6) {
     return "🥺 Barely sufficient";
   } else if (percentage === 7) {
-    return "😀 Quite good!";
-  } else if (percentage < 10) {
-    return "😍 Excellent!";
+    return "😀 Good!";
+  } else if (percentage > 7 && percentage < 10) {
+    return "😍 Very good!";
   } else {
     return "🥳 Perfect!!";
   }
