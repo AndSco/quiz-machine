@@ -1,8 +1,8 @@
+// DB REGISTRATION AND LOGIN
 import "regenerator-runtime/runtime";
 import { User, iUser } from "../../models/user";
 import { app } from "../../app";
 import supertest from "supertest";
-import { mongoTestConnection } from "../../config";
 import { setupDb } from "../../db-tests-setup";
 const request = supertest(app);
 
@@ -18,7 +18,7 @@ const authenticateUser = async (
   return response;
 };
 
-setupDb(mongoTestConnection as string);
+setupDb("auth-tests");
 
 describe("registration endpoint", () => {
   test("it register a valid user and hashes pword", async () => {
@@ -93,5 +93,26 @@ describe("login endpoint", () => {
     expect(response.body.message).toBeNull();
     expect(response.body.payload).toBeTruthy();
     expect(response.body.payload).toHaveProperty("username", USERNAME);
+  });
+
+  test("sends message for wrong username", async () => {
+    const response = await authenticateUser("gino", "password", "login");
+    expect(response.status).toBe(200);
+    expect(response.body.message).toMatch(
+      /Wrong username or password. Try again!/
+    );
+  });
+
+  test("sends message for wrong password", async () => {
+    await authenticateUser("gino", "password", "registration");
+    const response = await await authenticateUser(
+      "gino",
+      "wrongPassword",
+      "login"
+    );
+    expect(response.status).toBe(200);
+    expect(response.body.message).toMatch(
+      /Wrong username or password. Try again!/
+    );
   });
 });

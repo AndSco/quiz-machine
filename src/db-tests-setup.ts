@@ -1,11 +1,18 @@
 import {
-  connectToDatabase,
+  connectToTestDatabase,
   removeAllCollections,
-  closeConnection
+  closeConnection,
+  seedDb
 } from "./handlers/dbConnection";
+import { mongoTestConnection } from "./config";
 
-export const setupDb = (connectionString: string) => {
-  beforeAll(async () => await connectToDatabase(connectionString));
+export const setupDb = (dbName: string, needsSeeding: boolean = false) => {
+  beforeAll(
+    async () =>
+      await connectToTestDatabase(mongoTestConnection as string, dbName)
+  );
+
+  needsSeeding && beforeEach(async () => await seedDb());
 
   afterEach(async () => {
     await removeAllCollections();

@@ -1,24 +1,45 @@
 import mongoose from "mongoose";
-import { mongoURI } from "../config";
+import { User } from "../models/user";
+import { mongoConnection as mongoProdConnection } from "../config";
 
 mongoose.set("debug", true);
 mongoose.set("useFindAndModify", false);
 mongoose.Promise = Promise;
 
-export const connectToDatabase = async (connectionString: string) => {
+const connectMongoose = async (connectionString: string) => {
   try {
-    // const connectionString = `${mongoURI}${dbName}?retryWrites=true&w=majority`;
-    // console.log("connecting to db", dbName);
-    await mongoose.connect(connectionString as string, {
+    await mongoose.connect(connectionString, {
+      keepAlive: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("Database connected to " + connectionString);
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message);
+  }
+};
+
+export const connectToProductionDatabase = async () => {
+  try {
+    await connectMongoose(mongoProdConnection as string);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const connectToTestDatabase = async (uri: string, dbName: string) => {
+  try {
+    const connectionString = `${uri}${dbName}?retryWrites=true&w=majority`;
+    await mongoose.connect(connectionString, {
       keepAlive: true,
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
 
-    console.log("Database connected!");
+    console.log("Connected to test database " + dbName);
   } catch (err) {
     console.error(err);
-    throw new Error(err.message);
   }
 };
 
@@ -52,4 +73,11 @@ const dropAllCollections = async () => {
 export const closeConnection = async () => {
   await dropAllCollections();
   await mongoose.connection.close();
+};
+
+export const SEEDED_USERNAME = "testUser";
+
+export const seedDb = async () => {
+  console.log("seeding");
+  await User.create({ username: SEEDED_USERNAME, password: "password" });
 };

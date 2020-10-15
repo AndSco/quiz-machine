@@ -9,21 +9,21 @@ export const createQuiz: RequestHandler = async (req, res, next) => {
     const { quiz, createdBy } = req.body;
     const newQuiz = await Quiz.create({ ...quiz, createdBy });
     const quizCreator = await User.findById(createdBy);
-    if (!quizCreator || !newQuiz) {
-      response = {
-        message: "Something went wrong",
-        payload: null,
-        error: "Something went wrong"
-      };
-    } else {
-      (quizCreator as iUser).quizzes!.push(newQuiz);
-      quizCreator!.save();
-      response = {
-        message: "Quiz created",
-        payload: newQuiz,
-        error: null
-      };
-    }
+    // if (!quizCreator || !newQuiz) {
+    //   response = {
+    //     message: "Something went wrong",
+    //     payload: null,
+    //     error: "Something went wrong"
+    //   };
+    // } else {
+    (quizCreator as iUser).quizzes!.push(newQuiz);
+    quizCreator!.save();
+    response = {
+      message: "Quiz created",
+      payload: newQuiz,
+      error: null
+      // };
+    };
 
     res.status(200).json(response);
   } catch (err) {
