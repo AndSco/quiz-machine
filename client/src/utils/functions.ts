@@ -135,7 +135,8 @@ export const createScoreComment = (
   score: number,
   questionsNumber: number
 ): string => {
-  const percentage = Math.round(score / questionsNumber) * 10;
+  const percentage = Math.round((score / questionsNumber) * 10);
+  console.log("percentage", percentage);
   if (percentage <= 5) {
     return "😭 You can do better!";
   } else if (percentage === 6) {
