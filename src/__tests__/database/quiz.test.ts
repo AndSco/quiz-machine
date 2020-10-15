@@ -5,13 +5,13 @@ import { User, iUser } from "../../models/user";
 import { iQuiz, Quiz } from "../../models/quiz";
 import { app } from "../../app";
 import supertest from "supertest";
-import { response } from "express";
+import { getSeededUserId } from "./user.test";
 
 const request = supertest(app);
 
 setupDb("quiz-tests", true);
 
-const fakeQuiz: Partial<iQuiz> = {
+export const fakeQuiz: Partial<iQuiz> = {
   title: "fakeQuiz",
   isPrivate: false,
   questions: [
@@ -29,12 +29,12 @@ const updatedFakeQuiz = {
   title: "Updated Quiz"
 };
 
-const createQuiz = async () => {
+export const createQuiz = async (quizToCreate: Partial<iQuiz>) => {
   const seededDbUser: any = await User.findOne({ username: SEEDED_USERNAME });
   const { _id: seededUserId } = seededDbUser as iUser;
 
   await request.post("/api/quiz").send({
-    quiz: fakeQuiz,
+    quiz: quizToCreate,
     createdBy: seededUserId
   });
 
@@ -74,7 +74,7 @@ describe("quiz endpoints", () => {
   });
 
   test("it fetches all public quizzes saved by users", async () => {
-    await createQuiz();
+    await createQuiz(fakeQuiz);
     const response = await request.get("/api/quiz");
 
     expect(response.status).toBe(200);
@@ -83,7 +83,7 @@ describe("quiz endpoints", () => {
   });
 
   test("it returns a single quiz when searched by id", async () => {
-    const quizId = await createQuiz();
+    const quizId = await createQuiz(fakeQuiz);
     const response = await request.get(`/api/quiz/${quizId}`);
 
     expect(response.status).toBe(200);
@@ -94,7 +94,7 @@ describe("quiz endpoints", () => {
   });
 
   test("it deletes a quiz by id", async () => {
-    const quizId = await createQuiz();
+    const quizId = await createQuiz(fakeQuiz);
     const response = await request.delete(`/api/quiz/${quizId}`);
 
     expect(response.status).toBe(200);
@@ -105,7 +105,7 @@ describe("quiz endpoints", () => {
   });
 
   test("it updates a quiz correctly", async () => {
-    const quizId = await createQuiz();
+    const quizId = await createQuiz(fakeQuiz);
     const response = await request
       .patch(`/api/quiz/${quizId}`)
       .send({ updatedQuiz: updatedFakeQuiz });
