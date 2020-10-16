@@ -116,3 +116,12 @@ describe("login endpoint", () => {
     );
   });
 });
+
+describe("logout endpoint", () => {
+  test.only("it logs out user", async () => {
+    await authenticateUser("andrea", "password", "login");
+    const response = await request.post("/api/auth/logout");
+    expect(response.status).toBe(200);
+    expect(response.text).toMatch(/Logged you out!/);
+  });
+});

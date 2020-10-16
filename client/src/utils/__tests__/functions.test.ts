@@ -1,3 +1,4 @@
+jest.mock("../triviaAPI");
 import * as functions from "../functions";
 import { picsUrls } from "../../constants/picsUrls";
 
@@ -77,4 +78,10 @@ test("createScoreComment function", () => {
   expect(result6).toMatch(/😀 Good!/);
   expect(result7).toMatch(/😍 Great!/);
   expect(result8).toMatch(/🥳 Perfect!!/);
+});
+
+test("extractNumberFromBreakpoint function", () => {
+  expect(functions.extractNumberFromBreakpoint("300px")).toBe(300);
+  expect(functions.extractNumberFromBreakpoint("3px")).toBe(3);
+  expect(functions.extractNumberFromBreakpoint("12px")).toBe(12);
 });

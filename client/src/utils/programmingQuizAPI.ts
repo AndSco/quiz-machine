@@ -2,6 +2,11 @@ import { ProgrammingQuizCategory } from "../models/ProgrammingQuizApi";
 import { Difficulty } from "../models/TriviaApi";
 import { ProgrammingQuizBaseUrl } from "../constants/urls";
 
+export const getQuestions = async (endpoint: string) => {
+  const questions = await (await fetch(endpoint)).json();
+  return questions;
+};
+
 export const getProgrammingQuizApiQuestions = async (
   questionsAmount: number = 5,
   category?: ProgrammingQuizCategory,
@@ -10,8 +15,7 @@ export const getProgrammingQuizApiQuestions = async (
   const endpoint = `${ProgrammingQuizBaseUrl}${
     category ? "&category=" + category : ""
   }${difficulty ? "&difficulty=" + difficulty : ""}&limit=${questionsAmount}`;
-
-  const questions = await (await fetch(endpoint)).json();
+  const questions = await getQuestions(endpoint);
 
   return questions;
 };

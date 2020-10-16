@@ -22,7 +22,6 @@ export const createQuiz: RequestHandler = async (req, res, next) => {
       message: "Quiz created",
       payload: newQuiz,
       error: null
-      // };
     };
 
     res.status(200).json(response);
