@@ -5,6 +5,7 @@ import {
   TriviaApiResponse
 } from "../models/TriviaApi";
 import { TriviaBaseUrl } from "../constants/urls";
+import ApiRequest from "./ApiRequest";
 
 export const getTriviaApiQuestions = async (
   questionsAmount: number = 5,
@@ -15,7 +16,7 @@ export const getTriviaApiQuestions = async (
     category ? "&category=" + getCategoryId(category) : ""
   }${difficulty ? "&difficulty=" + difficulty : ""}&type=multiple`;
 
-  const { results: questions } = await (await fetch(endpoint)).json();
+  const questions = await ApiRequest(endpoint, "trivia");
   // if it fails, returns results: []
 
   return questions;
