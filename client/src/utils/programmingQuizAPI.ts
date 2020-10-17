@@ -11,7 +11,6 @@ export const getProgrammingQuizApiQuestions = async (
   const endpoint = `${ProgrammingQuizBaseUrl}${
     category ? "&category=" + category : ""
   }${difficulty ? "&difficulty=" + difficulty : ""}&limit=${questionsAmount}`;
-  console.log("calling", endpoint);
   const questions = await ApiRequest(endpoint, "programming");
 
   return questions;
