@@ -4,6 +4,7 @@ import { RegistrationFormInputsValues } from "../../constants/formInputsValues";
 import { SectionTitle, Paragraph, AuthContainer } from "./Styled";
 import { AccessSwitch } from "./AccessSwitch";
 import { AuthContext } from "../../contexts/auth/Auth";
+import { handleSubmit } from "./SubmitFunction";
 
 export const Register: React.FC = () => {
   const { goToPrivateSection } = useContext(AuthContext);
@@ -22,6 +23,7 @@ export const Register: React.FC = () => {
         scope="register"
         title="register"
         inputs={RegistrationFormInputsValues}
+        onSubmit={handleSubmit}
       />
       <AccessSwitch scope="register" />
     </AuthContainer>

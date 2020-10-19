@@ -4,11 +4,16 @@ import { User } from "../models/user";
 import passport from "passport";
 import { ApiResponse } from "../models/apiResponses";
 
+interface AuthResponse extends ApiResponse {
+  status: "success" | "failure";
+}
+
 export const loginUser: RequestHandler = async (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) {
-      const response: ApiResponse = {
+      const response: AuthResponse = {
+        status: "failure",
         message: "Wrong username or password. Try again!",
         payload: null,
         error: null
@@ -17,7 +22,8 @@ export const loginUser: RequestHandler = async (req, res, next) => {
     } else {
       req.logIn(user, err => {
         if (err) throw err;
-        const response: ApiResponse = {
+        const response: AuthResponse = {
+          status: "success",
           message: null,
           payload: req.user, // req.user contains the whole user object
           error: null
@@ -32,10 +38,11 @@ export const registerUser: RequestHandler = async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const userAlreadyExists = await User.findOne({ username: username });
-    let response: ApiResponse;
+    let response: AuthResponse;
 
     if (username.length < 4) {
       response = {
+        status: "failure",
         message: "Please use a username longer than 3 characters",
         error: null,
         payload: null
@@ -45,6 +52,7 @@ export const registerUser: RequestHandler = async (req, res, next) => {
 
     if (password.length < 7) {
       response = {
+        status: "failure",
         message: "Please use a password at least 7 characters long",
         error: null,
         payload: null
@@ -54,6 +62,7 @@ export const registerUser: RequestHandler = async (req, res, next) => {
 
     if (userAlreadyExists) {
       response = {
+        status: "failure",
         message: "Username already taken! Please pick another one!",
         payload: null,
         error: null
@@ -63,6 +72,7 @@ export const registerUser: RequestHandler = async (req, res, next) => {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await User.create({ username, password: hashedPassword });
       response = {
+        status: "success",
         message: null,
         payload: newUser,
         error: null

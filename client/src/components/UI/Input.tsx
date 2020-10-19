@@ -68,6 +68,7 @@ export const Input: React.FC<InputProps> = ({
             onChangeFunction(e.target.value, inputName)
           }
           onBlur={onBlurFunction}
+          id={inputName}
         />
 
         {inputType === "password" && value.length > 0 && (

@@ -31,6 +31,7 @@ describe("registration endpoint", () => {
     );
 
     expect(response.status).toBe(200);
+    expect(response.body.status).toMatch(/success/);
     expect(response.body.message).toBeNull();
     expect(response.body.error).toBeNull();
     expect(response.body.payload).toHaveProperty("username", USERNAME);
@@ -52,6 +53,7 @@ describe("registration endpoint", () => {
     expect(response.body.message).toMatch(
       /Please use a username longer than 3 characters/
     );
+    expect(response.body.status).toMatch(/failure/);
     expect(response.body.payload).toBeNull();
     expect(response.body.error).toBeNull();
   });
@@ -62,6 +64,7 @@ describe("registration endpoint", () => {
     expect(response.body.message).toMatch(
       /Please use a password at least 7 characters long/
     );
+    expect(response.body.status).toMatch(/failure/);
     expect(response.body.payload).toBeNull();
     expect(response.body.error).toBeNull();
   });
@@ -76,6 +79,7 @@ describe("registration endpoint", () => {
       "registration"
     );
     expect(response.body.message).toMatch(/Username already taken!/);
+    expect(response.body.status).toMatch(/failure/);
     expect(response.body.payload).toBeNull();
     expect(response.body.error).toBeNull();
   });
@@ -89,6 +93,7 @@ describe("login endpoint", () => {
     const response = await authenticateUser(USERNAME, PASSWORD, "login");
 
     expect(response.status).toBe(200);
+    expect(response.body.status).toMatch(/success/);
     expect(response.body.error).toBeNull();
     expect(response.body.message).toBeNull();
     expect(response.body.payload).toBeTruthy();
@@ -98,6 +103,7 @@ describe("login endpoint", () => {
   test("sends message for wrong username", async () => {
     const response = await authenticateUser("gino", "password", "login");
     expect(response.status).toBe(200);
+    expect(response.body.status).toMatch(/failure/);
     expect(response.body.message).toMatch(
       /Wrong username or password. Try again!/
     );
@@ -111,6 +117,7 @@ describe("login endpoint", () => {
       "login"
     );
     expect(response.status).toBe(200);
+    expect(response.body.status).toMatch(/failure/);
     expect(response.body.message).toMatch(
       /Wrong username or password. Try again!/
     );
@@ -118,7 +125,7 @@ describe("login endpoint", () => {
 });
 
 describe("logout endpoint", () => {
-  test.only("it logs out user", async () => {
+  test("it logs out user", async () => {
     await authenticateUser("andrea", "password", "login");
     const response = await request.post("/api/auth/logout");
     expect(response.status).toBe(200);
