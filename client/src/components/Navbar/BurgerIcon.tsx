@@ -59,7 +59,7 @@ export const BurgerIcon: React.FC<Props> = ({
   closeMenu
 }) => {
   return (
-    <Clickable>
+    <Clickable data-testid="burger-icon">
       <StyledBurgerIcon
         isMenuOpen={isMenuOpen}
         onClick={() => {

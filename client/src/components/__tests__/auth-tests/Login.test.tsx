@@ -1,5 +1,5 @@
 import React from "react";
-import { render, wait } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Login } from "../../auth/Login";
 import { BrowserRouter as Router } from "react-router-dom";
 
