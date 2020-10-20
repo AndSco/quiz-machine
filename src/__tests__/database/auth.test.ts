@@ -6,7 +6,7 @@ import supertest from "supertest";
 import { setupDb } from "../../db-tests-setup";
 const request = supertest(app);
 
-const authenticateUser = async (
+export const authenticateUser = async (
   username: string,
   password: string,
   scope: "login" | "registration"
