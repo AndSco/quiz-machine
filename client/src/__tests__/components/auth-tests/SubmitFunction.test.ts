@@ -1,5 +1,5 @@
 jest.mock("../../../utils/dbFunctions.ts");
-import { handleSubmit } from "../../auth/SubmitFunction";
+import { handleSubmit } from "../../../components/auth/SubmitFunction";
 import { loginUser, registerUser } from "../../../utils/dbFunctions";
 
 beforeEach(() => jest.clearAllMocks());

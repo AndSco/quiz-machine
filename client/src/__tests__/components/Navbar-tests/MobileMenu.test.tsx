@@ -1,5 +1,5 @@
 import React from "react";
-import { MobileMenu } from "../../Navbar/MobileMenu";
+import { MobileMenu } from "../../../components/Navbar/MobileMenu";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
-import { QuestionCard } from "../../ActualQuizComponents/QuestionCard";
+import { QuestionCard } from "../../../components/ActualQuizComponents/QuestionCard";
 import { render } from "@testing-library/react";
 import { PrivateQuizQuestion } from "../../../models/PrivateQuiz";
 import { Colors } from "../../../constants/colors";

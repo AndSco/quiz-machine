@@ -1,5 +1,5 @@
 import React from "react";
-import { Ending } from "../../ActualQuizComponents/Ending";
+import { Ending } from "../../../components/ActualQuizComponents/Ending";
 import { render } from "@testing-library/react";
 import { createScoreComment } from "../../../utils/functions";
 

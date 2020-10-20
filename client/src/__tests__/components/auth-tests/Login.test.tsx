@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { Login } from "../../auth/Login";
+import { Login } from "../../../components/auth/Login";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const renderComponent = () => {

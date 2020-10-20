@@ -1,9 +1,12 @@
-jest.mock("../../auth/SubmitFunction.ts");
+jest.mock("../../../components/auth/SubmitFunction.ts");
 import React from "react";
 import { render, wait, screen } from "@testing-library/react";
-import { Form } from "../../auth/AuthForm";
+import { Form } from "../../../components/auth/AuthForm";
 import userEvent from "@testing-library/user-event";
-import { handleSubmit, AuthResponse } from "../../auth/SubmitFunction";
+import {
+  handleSubmit,
+  AuthResponse
+} from "../../../components/auth/SubmitFunction";
 import { AuthScope } from "../../../models/AuthScope";
 import { AuthInputConfig } from "../../../constants/formInputsValues";
 

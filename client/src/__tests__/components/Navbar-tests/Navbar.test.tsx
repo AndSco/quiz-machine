@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar } from "../../Navbar/Navbar";
+import { Navbar } from "../../../components/Navbar/Navbar";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";

@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { QuizBackground } from "../../ActualQuizComponents/QuizBackground";
+import { QuizBackground } from "../../../components/ActualQuizComponents/QuizBackground";
 import "@testing-library/jest-dom/extend-expect";
 
 const imageUrl =
