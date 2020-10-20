@@ -165,3 +165,11 @@ export const getUserFromSessionStorage = () => {
 export const removeUserFromSessionStorage = () => {
   sessionStorage.removeItem("currentUser");
 };
+
+export const modifyObjectProperty = <T, U extends keyof T>(
+  startingValue: T
+) => (propertyToChange: U) => (newValue: any) => {
+  const copy = { ...startingValue };
+  copy[propertyToChange] = newValue;
+  return copy;
+};

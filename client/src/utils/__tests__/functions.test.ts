@@ -85,3 +85,11 @@ test("extractNumberFromBreakpoint function", () => {
   expect(functions.extractNumberFromBreakpoint("3px")).toBe(3);
   expect(functions.extractNumberFromBreakpoint("12px")).toBe(12);
 });
+
+test("modifyObjectProperty function", () => {
+  const user = { name: "andrea", age: 30, address: "unknown" };
+  const result1 = functions.modifyObjectProperty(user)("age")(38);
+  expect(result1).toEqual({ ...user, age: 38 });
+  const result2 = functions.modifyObjectProperty(user)("address")("Brno");
+  expect(result2).toEqual({ ...user, address: "Brno" });
+});
