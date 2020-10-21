@@ -1,53 +1,12 @@
 import React from "react";
 import "./App.css";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faBookOpen,
-  faTachometerAlt,
-  faChevronRight,
-  faQuestionCircle,
-  faPlusCircle,
-  faEye,
-  faArrowCircleLeft,
-  faCheckCircle,
-  faTimesCircle,
-  faTrashAlt,
-  faPuzzlePiece,
-  faLink,
-  faEdit,
-  faBrain,
-  faThumbsUp,
-  faThumbsDown,
-  faEyeSlash,
-  faCode,
-  faPlusSquare
-} from "@fortawesome/free-solid-svg-icons";
 import { AuthContextProvider } from "./contexts/auth/Auth";
 import { QuizzesContextProvider } from "./contexts/quizzes/Quizzes";
 import { LoadingContextProvider } from "./contexts/loading/Loading";
 import { Main } from "./Main";
+import { registerIcons } from "./utils/registerFontawesomeIcons";
 
-library.add(
-  faBookOpen,
-  faTachometerAlt,
-  faChevronRight,
-  faQuestionCircle,
-  faPlusCircle,
-  faEye,
-  faArrowCircleLeft,
-  faCheckCircle,
-  faTimesCircle,
-  faTrashAlt,
-  faPuzzlePiece,
-  faLink,
-  faEdit,
-  faBrain,
-  faThumbsUp,
-  faThumbsDown,
-  faEyeSlash,
-  faCode,
-  faPlusSquare
-);
+registerIcons();
 
 const App: React.FC = () => {
   return (

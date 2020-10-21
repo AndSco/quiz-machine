@@ -3,6 +3,9 @@ import { Navbar } from "../../../components/Navbar/Navbar";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
+import { registerIcons } from "../../../utils/registerFontawesomeIcons";
+
+registerIcons();
 
 const renderComponent = () => {
   render(
