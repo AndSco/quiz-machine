@@ -80,6 +80,7 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
 
   const reset = () => {
     setStartedQuiz(false);
+    setQuizFetchError(null);
     setQuizConfigurationStep(1);
     setNumberOfQuestions(5);
     setQuizType(QuizType.TRIVIA);
