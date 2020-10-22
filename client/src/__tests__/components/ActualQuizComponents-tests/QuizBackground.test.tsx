@@ -2,6 +2,9 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { QuizBackground } from "../../../components/ActualQuizComponents/QuizBackground";
 import "@testing-library/jest-dom/extend-expect";
+import { registerIcons } from "../../../utils/registerFontawesomeIcons";
+
+registerIcons();
 
 const imageUrl =
   "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60";

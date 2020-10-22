@@ -1,6 +1,6 @@
 import React from "react";
 import { PublicQuizzes } from "../../components/sections/public/PublicQuizzes";
 
-describe("all public section", () => {
+describe("public section", () => {
   test("it renders correctly", () => {});
 });

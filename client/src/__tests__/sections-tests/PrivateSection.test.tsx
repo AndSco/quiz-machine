@@ -7,7 +7,7 @@ import { copyQuizUrlToCipboard } from "../../utils/functions";
 import { deleteQuiz } from "../../utils/dbFunctions";
 import React from "react";
 import { PrivateSection } from "../../components/sections/private/PrivateSection";
-import { render, screen, getByText, wait } from "@testing-library/react";
+import { render, screen, wait } from "@testing-library/react";
 import { TestProvider, iAuthContext } from "../../contexts/auth/Auth";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthScope } from "../../models/AuthScope";

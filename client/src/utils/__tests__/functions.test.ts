@@ -93,3 +93,12 @@ test("modifyObjectProperty function", () => {
   const result2 = functions.modifyObjectProperty(user)("address")("Brno");
   expect(result2).toEqual({ ...user, address: "Brno" });
 });
+
+test("getValueWhichIsNot function", () => {
+  const result1 = functions.getValueWhichIsNot(["A", "B", "C"], "B");
+  const result2 = functions.getValueWhichIsNot(["A", "B", "C"], "A");
+  const result3 = functions.getValueWhichIsNot(["A", "B", "C"], "C");
+  expect(result1).toBe("A");
+  expect(result2).toBe("B");
+  expect(result3).toBe("A");
+});

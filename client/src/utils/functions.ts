@@ -173,3 +173,7 @@ export const modifyObjectProperty = <T, U extends keyof T>(
   copy[propertyToChange] = newValue;
   return copy;
 };
+
+export const getValueWhichIsNot = <T>(arr: T[], valueToExclude: T) => {
+  return arr.find(entry => entry !== valueToExclude);
+};
