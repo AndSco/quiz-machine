@@ -76,6 +76,15 @@ export const Reply: React.FC<ReplyProps> = ({
     }
   }, [hasReplied]);
 
+  const handleClick = () => {
+    if (hasReplied) return;
+    setWasSelected(true);
+    replyQuestion();
+    if (isRight) {
+      givePoint();
+    }
+  };
+
   return (
     <ReplyContainer>
       <ReplyNumber>{replyNumber + 1}</ReplyNumber>
@@ -84,14 +93,7 @@ export const Reply: React.FC<ReplyProps> = ({
           hasReplied={hasReplied}
           isRight={isRight}
           wasSelected={wasSelected}
-          onClick={() => {
-            if (hasReplied) return;
-            setWasSelected(true);
-            replyQuestion();
-            if (isRight) {
-              givePoint();
-            }
-          }}
+          onClick={handleClick}
           dangerouslySetInnerHTML={{ __html: replyText }}
         />
       ) : (
@@ -99,14 +101,7 @@ export const Reply: React.FC<ReplyProps> = ({
           hasReplied={hasReplied}
           isRight={isRight}
           wasSelected={wasSelected}
-          onClick={() => {
-            if (hasReplied) return;
-            setWasSelected(true);
-            replyQuestion();
-            if (isRight) {
-              givePoint();
-            }
-          }}
+          onClick={handleClick}
         >
           {replyText}
         </StyledReply>

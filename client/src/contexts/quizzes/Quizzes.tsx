@@ -39,6 +39,7 @@ const startingValue: iQuizzesContext = {
 };
 
 export const QuizzesContext = createContext(startingValue);
+export const TestProvider = QuizzesContext.Provider;
 
 export const QuizzesContextProvider: React.FC = ({ children }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -88,18 +89,26 @@ export const QuizzesContextProvider: React.FC = ({ children }) => {
   };
 
   const configQuiz = (option: ConfigOption, inputValue: any) => {
-    if (option === "quizType") {
-      reset();
-      setQuizType(inputValue);
-    }
-    if (option === "difficulty") {
-      setDifficultyLevel(inputValue);
-    }
-    if (option === "numberOfQuestions") {
-      setNumberOfQuestions(inputValue);
-    }
-    if (option === "subject") {
-      setCurrentSubject(inputValue);
+    switch (option) {
+      case "quizType":
+        reset();
+        setQuizType(inputValue);
+        break;
+
+      case "difficulty":
+        setDifficultyLevel(inputValue);
+        break;
+
+      case "numberOfQuestions":
+        setNumberOfQuestions(inputValue);
+        break;
+
+      case "subject":
+        setCurrentSubject(inputValue);
+        break;
+
+      default:
+        break;
     }
   };
 

@@ -5,6 +5,7 @@ import {
 } from "../reducers/AuthReducers";
 import { apiEndPoints } from "../constants/apiEndpoints";
 import { PrivateQuiz } from "../models/PrivateQuiz";
+import { ApiResponse } from "../models/ApiResponse";
 
 // Auth
 export const loginUser = async (inputValues: LoginFormInputs) => {
@@ -40,6 +41,10 @@ export const logoutUser = async () => {
     console.error(err);
   }
 };
+
+export interface AuthResponse extends ApiResponse {
+  status: "success" | "failure";
+}
 
 // Quizzes
 export const createQuiz = async (quiz: PrivateQuiz, userId: string) => {

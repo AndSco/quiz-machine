@@ -106,6 +106,9 @@ export const getSubjectBackgroundPic = (subject: any) =>
 
 export const capitaliseInput = (input: string) => {
   const initial = input[0];
+  if (initial.match(/[A-Z]/)) {
+    return input;
+  }
   return initial.toUpperCase() + input.slice(1);
 };
 
@@ -161,4 +164,16 @@ export const getUserFromSessionStorage = () => {
 
 export const removeUserFromSessionStorage = () => {
   sessionStorage.removeItem("currentUser");
+};
+
+export const modifyObjectProperty = <T, U extends keyof T>(
+  startingValue: T
+) => (propertyToChange: U) => (newValue: any) => {
+  const copy = { ...startingValue };
+  copy[propertyToChange] = newValue;
+  return copy;
+};
+
+export const getValueWhichIsNot = <T>(arr: T[], valueToExclude: T) => {
+  return arr.find(entry => entry !== valueToExclude);
 };

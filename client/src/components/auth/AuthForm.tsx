@@ -1,19 +1,18 @@
 import React, { useReducer, useState, useContext } from "react";
 import styled from "styled-components";
 import { Input } from "../UI/Input";
-import {
-  AuthReducers,
-  InputName,
-  RegistrationFormInputs
-} from "../../reducers/AuthReducers";
-import { loginUser, registerUser } from "../../utils/dbFunctions";
+import { AuthReducers, InputName } from "../../reducers/AuthReducers";
 import { getPropertyName } from "../../utils/functions";
 import { AuthScope } from "../../models/AuthScope";
-import { ApiResponse } from "../../models/ApiResponse";
 import { AuthContext } from "../../contexts/auth/Auth";
 import { FormContainer, FormTitle, SubmitButton } from "../UI/Form";
 import { AuthInputConfig } from "../../constants/formInputsValues";
 import { Colors } from "../../constants/colors";
+import {
+  RegistrationFormInputs,
+  LoginFormInputs
+} from "../../reducers/AuthReducers";
+import { AuthResponse } from "./SubmitFunction";
 
 const ErrorMessage = styled.p`
   font-size: 0.8rem;
@@ -25,9 +24,13 @@ type Props = {
   title: string;
   inputs: AuthInputConfig[];
   scope: AuthScope;
+  onSubmit: (
+    scope: AuthScope,
+    inputValues: LoginFormInputs | RegistrationFormInputs
+  ) => Promise<AuthResponse>;
 };
 
-export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
+export const Form: React.FC<Props> = ({ title, inputs, scope, onSubmit }) => {
   const [error, setError] = useState("");
   const { loadCurrentUser } = useContext(AuthContext);
 
@@ -49,27 +52,6 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
   const handleChange = (input: string, inputName: InputName) =>
     dispatch({ type: inputName, payload: input });
 
-  const handleSubmit = async () => {
-    let response: ApiResponse;
-    if (scope === "login") {
-      response = await loginUser(inputValues);
-      loadCurrentUser(response.payload);
-    } else {
-      if (
-        inputValues.password !==
-        (inputValues as RegistrationFormInputs).passwordConfirmation
-      ) {
-        setError("Passwords don't match!");
-        return;
-      }
-      response = await registerUser(inputValues as RegistrationFormInputs);
-      loadCurrentUser(response.payload);
-    }
-    if (response.message) {
-      setError(response.message);
-    }
-  };
-
   const resetError = () => setError("");
 
   return (
@@ -79,9 +61,14 @@ export const Form: React.FC<Props> = ({ title, inputs, scope }) => {
     >
       <FormTitle>{title}</FormTitle>
       <form
-        onSubmit={e => {
+        onSubmit={async e => {
           e.preventDefault();
-          handleSubmit();
+          const response = await onSubmit(scope, inputValues);
+          if (response.status === "success") loadCurrentUser(response.payload);
+          if (response.status === "failure") {
+            const error = response.error || response.message;
+            setError(error);
+          }
         }}
       >
         {inputs.map(input => (

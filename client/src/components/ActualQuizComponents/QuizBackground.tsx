@@ -56,7 +56,7 @@ export const QuizBackground: React.FC<Props> = ({
   stopPlaying
 }) => {
   return (
-    <StyledQuizBackground imageUrl={imageUrl}>
+    <StyledQuizBackground imageUrl={imageUrl} data-testid="quiz-background">
       <StopQuizButton onClick={stopPlaying}>
         <Icon icon="times-circle" size="2x" color={Colors.BLACK} />
       </StopQuizButton>

@@ -13,6 +13,9 @@ import {
   StyledQuestion,
   CodeContainer
 } from "./StyledComponents";
+import { registerIcons } from "../../utils/registerFontawesomeIcons";
+
+registerIcons();
 
 interface QuestionCardProps {
   question: PublicQuizQuestion | PrivateQuizQuestion;
@@ -43,7 +46,10 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
   return (
     <StyledCard>
-      <StyledQuestion dangerouslySetInnerHTML={{ __html: question.question }} />
+      <StyledQuestion
+        dangerouslySetInnerHTML={{ __html: question.question }}
+        data-testid="quiz-question"
+      />
       {(question as PrivateQuizQuestion).code && (
         <CodeContainer>
           <pre>

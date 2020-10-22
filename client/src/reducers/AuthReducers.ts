@@ -1,6 +1,6 @@
 import React from "react";
 
-export type InputName = "login" | "password" | "confirm password";
+export type InputName = "username" | "password" | "confirm password";
 
 export interface AuthAction {
   type: InputName;

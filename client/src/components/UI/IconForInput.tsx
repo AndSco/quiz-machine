@@ -29,6 +29,7 @@ export const IconForInput: React.FC<Props> = ({
         icon={icon}
         onClick={onCLickFunction}
         color={Colors.LIGHTER_GREY}
+        data-testid="input-icon"
       />
     </IconContainer>
   );

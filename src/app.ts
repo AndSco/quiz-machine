@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser, { json } from "body-parser";
 import path from "path";
-import { connectToDatabase } from "./handlers/dbConnection";
+import { connectToProductionDatabase } from "./handlers/dbConnection";
 import userRoutes from "./routes/user";
 import quizRoutes from "./routes/quiz";
 import authRoutes from "./routes/auth";
@@ -48,7 +48,9 @@ app.use("/api/quiz", quizRoutes);
 app.use("/api/auth", authRoutes);
 
 // connect to DB
-connectToDatabase();
+if (process.env.NODE_ENV !== "test") {
+  connectToProductionDatabase();
+}
 
 // To serve both frontend and backend - catch ALL. Serve static assets only if in production.
 if (process.env.NODE_ENV === "production") {
@@ -64,5 +66,4 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-const PORT = process.env.PORT || 8081;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+export { app };

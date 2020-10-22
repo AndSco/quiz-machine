@@ -23,18 +23,20 @@ export const CustomInput: React.FC<{
 }) => {
   return (
     <InputContainer>
-      <StyledLabel>{label}</StyledLabel>
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
       {!isTextArea ? (
         <StyledInput
           type="text"
           onChange={handleChangeFunction}
           value={value}
+          id={label}
         />
       ) : (
         <StyledInput
           as={"textarea"}
           value={value}
           onChange={handleChangeFunction}
+          id={label}
         />
       )}
       {needsProgress && value.length > 0 && (

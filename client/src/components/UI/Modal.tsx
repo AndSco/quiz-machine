@@ -50,7 +50,7 @@ interface Props {
 export const Modal: React.FC<Props> = ({ children, handleClose }) => {
   return (
     <StyledModal>
-      <BackIconContainer onClick={handleClose}>
+      <BackIconContainer onClick={handleClose} data-testid="close-modal-icon">
         <Icon icon={"times-circle"} color={Colors.STEEL_PINK_2} size="2x" />
       </BackIconContainer>
       {children}
