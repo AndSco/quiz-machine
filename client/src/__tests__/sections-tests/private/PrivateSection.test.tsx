@@ -1,19 +1,19 @@
-jest.mock("../../utils/functions.ts", () => ({
-  ...jest.requireActual("../../utils/functions.ts"),
+jest.mock("../../../utils/functions.ts", () => ({
+  ...jest.requireActual("../../../utils/functions.ts"),
   copyQuizUrlToCipboard: jest.fn(() => {})
 }));
-jest.mock("../../utils/dbFunctions.ts");
-import { copyQuizUrlToCipboard } from "../../utils/functions";
-import { deleteQuiz } from "../../utils/dbFunctions";
+jest.mock("../../../utils/dbFunctions.ts");
+import { copyQuizUrlToCipboard } from "../../../utils/functions";
+import { deleteQuiz, createQuiz, editQuiz } from "../../../utils/dbFunctions";
 import React from "react";
-import { PrivateSection } from "../../components/sections/private/PrivateSection";
+import { PrivateSection } from "../../../components/sections/private/PrivateSection";
 import { render, screen, wait } from "@testing-library/react";
-import { TestProvider, iAuthContext } from "../../contexts/auth/Auth";
+import { TestProvider, iAuthContext } from "../../../contexts/auth/Auth";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AuthScope } from "../../models/AuthScope";
-import { modifyObjectProperty } from "../../utils/functions";
-import { registerIcons } from "../../utils/registerFontawesomeIcons";
-import { click, enterText } from "../../utils/test-utils";
+import { AuthScope } from "../../../models/AuthScope";
+import { modifyObjectProperty } from "../../../utils/functions";
+import { registerIcons } from "../../../utils/registerFontawesomeIcons";
+import { click, enterText } from "../../../utils/test-utils";
 import "@testing-library/jest-dom/extend-expect";
 
 registerIcons();
@@ -130,12 +130,19 @@ describe("private section with a current user in context", () => {
 
 describe("quiz creation form workflow works correctly", () => {
   test("the click changes the view", async () => {
+    (createQuiz as jest.Mock).mockResolvedValueOnce({});
     startCreatingQuiz();
 
+    expect(screen.getByRole("heading")).toHaveTextContent("Create your quiz");
     screen.getByLabelText("QUIZ TITLE");
     screen.getByText("WHAT DO YOU WANT TO DO WITH THIS QUIZ?");
     const quizTitleInput = screen.getByLabelText("QUIZ TITLE");
     enterText(quizTitleInput, "quiz one");
+
+    const changeImageOption = screen.getByRole("img");
+    click(changeImageOption);
+    screen.getByLabelText(/image background url/i);
+
     const addQuestionButton = screen.getByText("Add a question");
     click(addQuestionButton);
     const questionInput = screen.getByLabelText("ENTER THE QUESTION");
@@ -151,10 +158,26 @@ describe("quiz creation form workflow works correctly", () => {
     const addWrongReplyIcon = screen.getByTestId("input-icon");
     click(addWrongReplyIcon);
     screen.getByLabelText("ADD ANOTHER (WRONG) ANSWER");
+
     const saveQuestionButton = screen.getByText("SAVE QUESTION");
     click(saveQuestionButton);
     screen.getByText("Add another question");
-    screen.getByText("SAVE QUIZ");
+
+    const saveQuizButton = screen.getByText("SAVE QUIZ");
+    click(saveQuizButton);
+
+    await wait(() => expect(createQuiz).toHaveBeenCalledTimes(1));
+    const functionArgs = (createQuiz as jest.Mock).mock.calls[0];
+
+    expect(functionArgs[0]).toHaveProperty("title", "Quiz one");
+    expect(functionArgs[0]).toHaveProperty(
+      "backgroundImageUrl",
+      "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+    );
+    expect(functionArgs[0]).toHaveProperty("isPrivate", true);
+    expect(functionArgs[0].questions.length).toBe(1);
+    expect(functionArgs[0].questions[0].question).toBe("Who?");
+    expect(functionArgs[1]).toBe("fakeId");
   });
 
   test("it closes the quiz creation modal", () => {
@@ -174,13 +197,22 @@ describe("user's management of his own quiz", () => {
     expect(copyQuizUrlToCipboard).toHaveBeenCalledTimes(1);
   });
 
-  test("user can edit his quiz", () => {
+  test("user can edit his quiz", async () => {
+    (editQuiz as jest.Mock).mockResolvedValueOnce({});
     renderWithUser();
     const editButton = screen.getAllByText(/edit/i)[0];
     click(editButton);
     expect(screen.getByLabelText(/quiz title/i)).toHaveValue("My first quiz");
     screen.getByText(/add another question/i);
-    expect(screen.getByRole("button")).toHaveTextContent(/edit quiz/i);
+    const quizTitleInput = screen.getByLabelText(/quiz title/i);
+    enterText(quizTitleInput, "edited quiz");
+    const saveEditsButton = screen.getByRole("button");
+    expect(saveEditsButton).toHaveTextContent(/edit quiz/i);
+    click(saveEditsButton);
+
+    await wait(() => expect(editQuiz).toHaveBeenCalledTimes(1));
+    const functionArgs = (editQuiz as jest.Mock).mock.calls[0];
+    expect(functionArgs[1]).toHaveProperty("title", "Edited quiz");
   });
 
   test("user can delete his quiz", async () => {
