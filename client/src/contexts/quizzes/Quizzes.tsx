@@ -39,7 +39,6 @@ const startingValue: iQuizzesContext = {
 };
 
 export const QuizzesContext = createContext(startingValue);
-export const TestProvider = QuizzesContext.Provider;
 
 export const QuizzesContextProvider: React.FC = ({ children }) => {
   const [questions, setQuestions] = useState<Question[]>([]);

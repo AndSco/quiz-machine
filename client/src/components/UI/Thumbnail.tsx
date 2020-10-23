@@ -55,6 +55,7 @@ export const Thumbnail: React.FC<Props> = ({
       <GridCard
         onClick={apiQuizOnClickHandler}
         style={{ backgroundImage: `url("${getSubjectBackgroundPic(value)})"` }}
+        data-testid="api-quiz-card"
       >
         <Title>{title}</Title>
       </GridCard>
