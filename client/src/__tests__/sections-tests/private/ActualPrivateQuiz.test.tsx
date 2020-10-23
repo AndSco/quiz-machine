@@ -1,13 +1,13 @@
-jest.mock("../../utils/dbFunctions.ts");
-import { getSingleQuiz } from "../../utils/dbFunctions";
+jest.mock("../../../utils/dbFunctions.ts");
+import { getSingleQuiz } from "../../../utils/dbFunctions";
 import React from "react";
-import { ActualPrivateQuiz } from "../../components/sections/private/ActualPrivateQuiz";
-import { render, screen, wait, cleanup } from "@testing-library/react";
+import { ActualPrivateQuiz } from "../../../components/sections/private/ActualPrivateQuiz";
+import { render, screen, wait } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { PrivateQuiz } from "../../models/PrivateQuiz";
-import { registerIcons } from "../../utils/registerFontawesomeIcons";
-import { click } from "../../utils/test-utils";
-import { getValueWhichIsNot } from "../../utils/functions";
+import { PrivateQuiz } from "../../../models/PrivateQuiz";
+import { registerIcons } from "../../../utils/registerFontawesomeIcons";
+import { click } from "../../../utils/test-utils";
+import { getValueWhichIsNot } from "../../../utils/functions";
 
 registerIcons();
 
