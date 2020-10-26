@@ -9,9 +9,6 @@ export const createQuiz: RequestHandler = async (req, res, next) => {
     const { quiz, createdBy } = req.body;
     const newQuiz = await Quiz.create({ ...quiz, createdBy });
     const quizCreator = await User.findById(createdBy);
-
-    // const updatedQuizzes = [...(quizCreator as iUser).quizzes!, newQuiz];
-    // console.log("NEW QUIZZES", updatedQuizzes);
     (quizCreator as iUser).quizzes!.push(newQuiz);
     quizCreator!.save();
     response = {

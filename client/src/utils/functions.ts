@@ -20,40 +20,36 @@ import { User } from "../models/User";
 
 type PossibleQuestionFormat = TriviaResultType | ProgrammingQuizResultType;
 
-export const getQuestions = async (configs: APISendable) => {
-  let questions;
-  if (configs.quizType === QuizType.TRIVIA) {
-    questions = await getTriviaApiQuestions(
-      configs.numOfQuestions,
-      configs.subject as TriviaCategory,
-      configs.difficulty
-    );
-  } else {
-    questions = await getProgrammingQuizApiQuestions(
-      configs.numOfQuestions,
-      configs.subject as ProgrammingQuizCategory,
-      configs.difficulty
-    );
-  }
+export const getQuestions = async (configs: APISendable) =>
+  configs.quizType === QuizType.TRIVIA
+    ? normalizeTrivia(
+        await getTriviaApiQuestions(
+          configs.numOfQuestions,
+          configs.subject as TriviaCategory,
+          configs.difficulty
+        )
+      )
+    : normalizeProgramming(
+        await getProgrammingQuizApiQuestions(
+          configs.numOfQuestions,
+          configs.subject as ProgrammingQuizCategory,
+          configs.difficulty
+        )
+      );
 
-  const formattedQuestions = normalizeQuestions(configs.quizType, questions);
-  return formattedQuestions;
-};
-
-export const normalizeQuestions = (
-  quizType: QuizType,
+export const normalizeQuestions = (quizType: QuizType) => (
   arrayOfQuestions: any[]
-) => {
-  return arrayOfQuestions.map((question: PossibleQuestionFormat) => {
-    if (quizType === "trivia") {
-      return formatTrivia(question as TriviaResultType);
-    } else {
-      return formatProgrammingQuestion(question as ProgrammingQuizResultType);
-    }
-  });
-};
+) =>
+  arrayOfQuestions.map((question: PossibleQuestionFormat) =>
+    quizType === "trivia"
+      ? formatTrivia(question as TriviaResultType)
+      : formatProgrammingQuestion(question as ProgrammingQuizResultType)
+  );
 
-const formatTrivia = (q: TriviaResultType) => {
+const normalizeTrivia = normalizeQuestions(QuizType.TRIVIA);
+const normalizeProgramming = normalizeQuestions(QuizType.PROGRAMMING);
+
+export const formatTrivia = (q: TriviaResultType) => {
   return new Question(
     q.question,
     q.difficulty.toLowerCase() as Difficulty,
@@ -63,11 +59,8 @@ const formatTrivia = (q: TriviaResultType) => {
   );
 };
 
-const formatProgrammingQuestion = (q: ProgrammingQuizResultType) => {
-  let allAnswers: string[] = [];
-  for (const val of Object.values(q.answers)) {
-    allAnswers.push(val as string);
-  }
+export const formatProgrammingQuestion = (q: ProgrammingQuizResultType) => {
+  const allAnswers = customReduce(Object.values(q.answers));
   let rightAnswer: string;
   for (const [key, val] of Object.entries(q.correct_answers)) {
     if (val === "true") {
@@ -177,3 +170,6 @@ export const modifyObjectProperty = <T, U extends keyof T>(
 export const getValueWhichIsNot = <T>(arr: T[], valueToExclude: T) => {
   return arr.find(entry => entry !== valueToExclude);
 };
+
+const customReduce = (mappable: any) =>
+  mappable.reduce(<T>(acc: T[], curr: T) => [...acc, curr], []);
