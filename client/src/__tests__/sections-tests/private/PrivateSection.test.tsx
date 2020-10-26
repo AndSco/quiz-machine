@@ -228,7 +228,7 @@ describe("user's management of his own quiz", () => {
     click(goAheadAndDelete);
     await wait(() => {
       expect(deleteQuiz).toHaveBeenCalledTimes(1);
-      expect(deleteQuiz).toHaveBeenCalledWith("idNumber");
+      expect(deleteQuiz).toHaveBeenCalledWith("fakeId", "idNumber");
     });
   });
 });

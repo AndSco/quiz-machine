@@ -37,10 +37,10 @@ export const WarningMessage: React.FC<Props> = ({
   cancelDeletionProcess,
   quizId
 }) => {
-  const { refreshUserQuizzes } = useContext(AuthContext);
+  const { refreshUserQuizzes, currentUser } = useContext(AuthContext);
 
   const handleQuizDeletion = async () => {
-    await deleteQuiz(quizId);
+    await deleteQuiz(currentUser!._id, quizId);
     refreshUserQuizzes();
     cancelDeletionProcess();
   };

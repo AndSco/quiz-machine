@@ -12,7 +12,7 @@ const router = Router();
 router.get("/", getAllPublicQuizzes);
 router.post("/", createQuiz);
 router.get("/:quizId", getSingleQuiz);
-router.delete("/:quizId", deleteQuiz);
+router.delete("/:userId/:quizId", deleteQuiz);
 router.patch("/:quizId", editQuiz);
 
 export default router;

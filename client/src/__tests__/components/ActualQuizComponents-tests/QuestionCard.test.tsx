@@ -2,10 +2,11 @@ import React from "react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import { QuestionCard } from "../../../components/ActualQuizComponents/QuestionCard";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { PrivateQuizQuestion } from "../../../models/PrivateQuiz";
 import { Colors } from "../../../constants/colors";
 import { Question } from "../../../models/PublicQuizQuestion";
+import { NextButton } from "../../../components/ActualQuizComponents/StyledComponents";
 
 const testPrivateQuestion: PrivateQuizQuestion = {
   question: "What is the capital of Italy?",
@@ -106,5 +107,19 @@ describe("QuestionCard component with public API question", () => {
     getByText("Geography");
     getByText("HARD");
     getByText("2/7");
+  });
+});
+
+describe("next button", () => {
+  test("button is grey & w/out pointer if user has not replied", () => {
+    render(<NextButton hasReplied={false} />);
+    expect(screen.getByRole("button")).toHaveStyle("background-color: #b9b5b5");
+    expect(screen.getByRole("button")).toHaveStyle("cursor: auto");
+  });
+
+  test("button is violet & has pointer if user has replied", () => {
+    render(<NextButton hasReplied={true} />);
+    expect(screen.getByRole("button")).toHaveStyle("background-color: #8900f2");
+    expect(screen.getByRole("button")).toHaveStyle("cursor: pointer");
   });
 });

@@ -77,9 +77,9 @@ export const getCustomUsersQuizzes = async () => {
   }
 };
 
-export const deleteQuiz = async (quizId: string) => {
+export const deleteQuiz = async (userId: string, quizId: string) => {
   try {
-    await axios.delete(`${apiEndPoints.QUIZ}/${quizId}`);
+    await axios.delete(`${apiEndPoints.QUIZ}/${userId}/${quizId}`);
   } catch (err) {
     console.error(err);
   }

@@ -9,13 +9,9 @@ export const createQuiz: RequestHandler = async (req, res, next) => {
     const { quiz, createdBy } = req.body;
     const newQuiz = await Quiz.create({ ...quiz, createdBy });
     const quizCreator = await User.findById(createdBy);
-    // if (!quizCreator || !newQuiz) {
-    //   response = {
-    //     message: "Something went wrong",
-    //     payload: null,
-    //     error: "Something went wrong"
-    //   };
-    // } else {
+
+    // const updatedQuizzes = [...(quizCreator as iUser).quizzes!, newQuiz];
+    // console.log("NEW QUIZZES", updatedQuizzes);
     (quizCreator as iUser).quizzes!.push(newQuiz);
     quizCreator!.save();
     response = {
@@ -63,14 +59,17 @@ export const getSingleQuiz: RequestHandler<{ quizId: string }> = async (
   }
 };
 
-export const deleteQuiz: RequestHandler<{ quizId: string }> = async (
-  req,
-  res,
-  next
-) => {
+export const deleteQuiz: RequestHandler<{
+  userId: string;
+  quizId: string;
+}> = async (req, res, next) => {
   try {
-    const { quizId } = req.params;
+    const { userId, quizId } = req.params;
     await Quiz.findByIdAndDelete(quizId);
+    const user = await User.findById(userId);
+    const filtered = user!.quizzes!.filter(q => q._id.toString() !== quizId);
+    user!.quizzes = filtered;
+    await user!.save();
     return res.status(200).json("QUIZ DELETED");
   } catch (err) {
     return next(err);

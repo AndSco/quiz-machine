@@ -126,9 +126,11 @@ describe("quiz functions", () => {
 
   test("deleteQuiz function", async () => {
     (axios.delete as jest.Mock).mockResolvedValueOnce({ data: "QUIZ DELETED" });
-    const response = await dbFunctions.deleteQuiz("fakeQuizId");
+    const response = await dbFunctions.deleteQuiz("fakeUserId", "fakeQuizId");
     expect(axios.delete).toHaveBeenCalledTimes(1);
-    expect(axios.delete).toHaveBeenCalledWith("/api/quiz/fakeQuizId");
+    expect(axios.delete).toHaveBeenCalledWith(
+      "/api/quiz/fakeUserId/fakeQuizId"
+    );
   });
 
   test("editQuiz function", async () => {

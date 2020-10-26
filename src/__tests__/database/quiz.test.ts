@@ -95,13 +95,20 @@ describe("quiz endpoints", () => {
 
   test("it deletes a quiz by id", async () => {
     const quizId = await createQuiz(fakeQuiz);
-    const response = await request.delete(`/api/quiz/${quizId}`);
+    const seededDbUser: any = await User.findOne({ username: SEEDED_USERNAME });
+    const { _id: seededUserId } = seededDbUser as iUser;
+    expect(seededDbUser.quizzes.length).toBe(1);
+    const response = await request.delete(
+      `/api/quiz/${seededUserId}/${quizId}`
+    );
 
     expect(response.status).toBe(200);
     expect(response.text).toMatch(/QUIZ DELETED/);
     const publicQuizzesLeftResponse = await request.get("/api/quiz");
     expect(publicQuizzesLeftResponse.status).toBe(200);
     expect(publicQuizzesLeftResponse.body.payload.length).toBe(0);
+    const updatedUser: any = await User.findOne({ username: SEEDED_USERNAME });
+    expect(updatedUser.quizzes.length).toBe(0);
   });
 
   test("it updates a quiz correctly", async () => {
