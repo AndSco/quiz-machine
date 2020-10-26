@@ -15,7 +15,6 @@ export const StyledCard = styled.div`
 `;
 
 export const NextButton = styled(BaseButton)`
-  background-color: ${Colors.VIOLET};
   background-color: ${(props: { hasReplied: boolean }) =>
     props.hasReplied ? Colors.VIOLET : Colors.LIGHTER_GREY};
   cursor: ${(props: { hasReplied: boolean }) =>
