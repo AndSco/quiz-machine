@@ -140,6 +140,93 @@ describe("API questions getting", () => {
     };
     await functions.getQuestions(configs as APISendable);
     expect(getTriviaApiQuestions).toHaveBeenCalledTimes(1);
+    expect(getTriviaApiQuestions).toHaveBeenCalledWith(6, "Art", "medium");
+  });
+
+  test("it triggers right function for programming", async () => {
+    (getProgrammingQuizApiQuestions as jest.Mock).mockResolvedValueOnce([
+      {
+        id: 9,
+        question: "#!/bin/bash is commonly called as",
+        description: null,
+        answers: {
+          answer_a: "shebang",
+          answer_b: "hashbang",
+          answer_c: "Script Initialiser",
+          answer_d: "None of the Above",
+          answer_e: null,
+          answer_f: null
+        },
+        multiple_correct_answers: "false",
+        correct_answers: {
+          answer_a_correct: "true",
+          answer_b_correct: "false",
+          answer_c_correct: "false",
+          answer_d_correct: "false",
+          answer_e_correct: "false",
+          answer_f_correct: "false"
+        },
+        correct_answer: "answer_a",
+        explanation: null,
+        tip: null,
+        tags: [
+          {
+            name: "Linux"
+          },
+          {
+            name: "BASH"
+          }
+        ],
+        category: "bash",
+        difficulty: "Easy"
+      },
+      {
+        id: 644,
+        question:
+          "How can you set the default rwx permission to all users on every file which is created in the current shell?",
+        description: null,
+        answers: {
+          answer_a: "umask  0777",
+          answer_b: "chmod  777",
+          answer_c: "chown  777",
+          answer_d: "umask  0666",
+          answer_e: null,
+          answer_f: null
+        },
+        multiple_correct_answers: "false",
+        correct_answers: {
+          answer_a_correct: "true",
+          answer_b_correct: "false",
+          answer_c_correct: "false",
+          answer_d_correct: "false",
+          answer_e_correct: "false",
+          answer_f_correct: "false"
+        },
+        correct_answer: "answer_a",
+        explanation: null,
+        tip: null,
+        tags: [
+          {
+            name: "BASH"
+          }
+        ],
+        category: "bash",
+        difficulty: "Easy"
+      }
+    ]);
+    const configs = {
+      difficulty: "any",
+      numOfQuestions: 2,
+      quizType: QuizType.PROGRAMMING,
+      subject: "bash"
+    };
+    await functions.getQuestions(configs as APISendable);
+    expect(getProgrammingQuizApiQuestions).toHaveBeenCalledTimes(1);
+    expect(getProgrammingQuizApiQuestions).toHaveBeenCalledWith(
+      2,
+      "bash",
+      "any"
+    );
   });
 });
 

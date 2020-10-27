@@ -13,5 +13,5 @@ export const getProgrammingQuizApiQuestions = async (
   }${difficulty ? "&difficulty=" + difficulty : ""}&limit=${questionsAmount}`;
   const questions = await ApiRequest(endpoint, "programming");
 
-  return questions;
+  return questions.error ? [] : questions;
 };

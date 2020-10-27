@@ -18,36 +18,22 @@ import { getProgrammingQuizApiQuestions } from "./programmingQuizAPI";
 import { picsUrls } from "../constants/picsUrls";
 import { User } from "../models/User";
 
-type PossibleQuestionFormat = TriviaResultType | ProgrammingQuizResultType;
-
 export const getQuestions = async (configs: APISendable) =>
   configs.quizType === QuizType.TRIVIA
-    ? normalizeTrivia(
+    ? (
         await getTriviaApiQuestions(
           configs.numOfQuestions,
           configs.subject as TriviaCategory,
           configs.difficulty
         )
-      )
-    : normalizeProgramming(
+      ).map(formatTrivia)
+    : (
         await getProgrammingQuizApiQuestions(
           configs.numOfQuestions,
           configs.subject as ProgrammingQuizCategory,
           configs.difficulty
         )
-      );
-
-export const normalizeQuestions = (quizType: QuizType) => (
-  arrayOfQuestions: any[]
-) =>
-  arrayOfQuestions.map((question: PossibleQuestionFormat) =>
-    quizType === "trivia"
-      ? formatTrivia(question as TriviaResultType)
-      : formatProgrammingQuestion(question as ProgrammingQuizResultType)
-  );
-
-const normalizeTrivia = normalizeQuestions(QuizType.TRIVIA);
-const normalizeProgramming = normalizeQuestions(QuizType.PROGRAMMING);
+      ).map(formatProgrammingQuestion);
 
 export const formatTrivia = (q: TriviaResultType) => {
   return new Question(
@@ -60,7 +46,7 @@ export const formatTrivia = (q: TriviaResultType) => {
 };
 
 export const formatProgrammingQuestion = (q: ProgrammingQuizResultType) => {
-  const allAnswers = customReduce(Object.values(q.answers));
+  const allAnswers = Object.values(q.answers) as string[];
   let rightAnswer: string;
   for (const [key, val] of Object.entries(q.correct_answers)) {
     if (val === "true") {
@@ -170,6 +156,3 @@ export const modifyObjectProperty = <T, U extends keyof T>(
 export const getValueWhichIsNot = <T>(arr: T[], valueToExclude: T) => {
   return arr.find(entry => entry !== valueToExclude);
 };
-
-const customReduce = (mappable: any) =>
-  mappable.reduce(<T>(acc: T[], curr: T) => [...acc, curr], []);
