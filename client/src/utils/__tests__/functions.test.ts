@@ -231,44 +231,43 @@ describe("API questions getting", () => {
 });
 
 describe("API questions formatting functions", () => {
-  const rawProgrammingQuestions = [
-    {
-      id: 264,
-      question: "Is it a good practice to edit the WordPress core files?",
-      description: null,
-      answers: {
-        answer_a:
-          "No, because your changes will be lost during the next WordPress update",
-        answer_b:
-          "Yes, you can change the core files without any further compilations",
-        answer_c: null,
-        answer_d: null,
-        answer_e: null,
-        answer_f: null
-      },
-      multiple_correct_answers: "false",
-      correct_answers: {
-        answer_a_correct: "true",
-        answer_b_correct: "false",
-        answer_c_correct: "false",
-        answer_d_correct: "false",
-        answer_e_correct: "false",
-        answer_f_correct: "false"
-      },
-      correct_answer: "answer_a",
-      explanation: null,
-      tip: null,
-      tags: [
-        {
-          name: "WordPress"
-        }
-      ],
-      category: "CMS",
-      difficulty: "Medium"
-    }
-  ];
-
   test("formatProgrammingQuestion fuction", () => {
+    const rawProgrammingQuestions = [
+      {
+        id: 264,
+        question: "Is it a good practice to edit the WordPress core files?",
+        description: null,
+        answers: {
+          answer_a:
+            "No, because your changes will be lost during the next WordPress update",
+          answer_b:
+            "Yes, you can change the core files without any further compilations",
+          answer_c: null,
+          answer_d: null,
+          answer_e: null,
+          answer_f: null
+        },
+        multiple_correct_answers: "false",
+        correct_answers: {
+          answer_a_correct: "true",
+          answer_b_correct: "false",
+          answer_c_correct: "false",
+          answer_d_correct: "false",
+          answer_e_correct: "false",
+          answer_f_correct: "false"
+        },
+        correct_answer: "answer_a",
+        explanation: null,
+        tip: null,
+        tags: [
+          {
+            name: "WordPress"
+          }
+        ],
+        category: "CMS",
+        difficulty: "Medium"
+      }
+    ];
     const formatted = functions.formatProgrammingQuestion(
       rawProgrammingQuestions[0] as any
     );
@@ -292,7 +291,7 @@ describe("API questions formatting functions", () => {
     expect(formatted).toEqual(expected);
   });
 
-  test("formatTrivia question", () => {
+  test("formatTrivia function", () => {
     const formatted = functions.formatTrivia({
       category: "Animals",
       type: "multiple",
