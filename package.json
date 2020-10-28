@@ -16,7 +16,8 @@
     "heroku-postbuild": "cd client && npm install && npm run build",
     "test": "NODE_ENV=test jest -- src/__tests__",
     "test:watch-server": "NODE_ENV=test jest --watchAll -- src/__tests__",
-    "test:database": "NODE_ENV=test jest --watchAll -- src/__tests__/database"
+    "test:database": "NODE_ENV=test jest --watchAll -- src/__tests__/database",
+    "test:end2end": "npx cypress open"
   },
   "author": "",
   "license": "ISC",
@@ -50,6 +51,7 @@
     "@babel/register": "^7.11.5",
     "@types/jest": "^26.0.14",
     "@types/supertest": "^2.0.10",
+    "cypress": "^5.5.0",
     "jest": "^24.9",
     "nodemon": "^2.0.4",
     "regenerator-runtime": "^0.13.7",

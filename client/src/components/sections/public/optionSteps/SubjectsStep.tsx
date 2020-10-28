@@ -22,7 +22,7 @@ export const SubjectsStep: React.FC<Props> = ({ quizType }) => {
     quizType === QuizType.TRIVIA ? TriviaCategories : ProgrammingCategories;
   return (
     <>
-      <BigTitle>{quizType.toUpperCase()} QUIZ</BigTitle>
+      <BigTitle data-cy="quiz-title">{quizType.toUpperCase()} QUIZ</BigTitle>
       <SubTitle>
         Choose a topic <FingerDown />
       </SubTitle>

@@ -38,7 +38,11 @@ export const MobileMenu: React.FC<Props> = ({ isVisible, closeMenu }) => {
   }, [isVisible, handleTouch]);
 
   return (
-    <StyledMobileMenu isVisible={isVisible} ref={componentRef}>
+    <StyledMobileMenu
+      isVisible={isVisible}
+      ref={componentRef}
+      data-cy="mobile-menu"
+    >
       <NavbarLinks closeMenu={closeMenu} />
     </StyledMobileMenu>
   );

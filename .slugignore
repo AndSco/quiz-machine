@@ -1,3 +1,6 @@
 .src/__tests__
 .client/src/components/__tests__
 .client/src/utils/__tests__
+.cypress/
+.cypress.json
+.jsconfig.json
